@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
   res.send("This is the backend of the Edable Donors system !!!");
 });
 
+// get all orgs
 app.get("/all", (req, res) => {
   db.firestore()
     .collection("Organisations")
@@ -27,6 +28,7 @@ app.get("/all", (req, res) => {
       res.send(allOrgs);
     });
 });
+
 // server start
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
