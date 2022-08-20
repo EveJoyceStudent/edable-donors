@@ -28,6 +28,40 @@ app.get("/all", (req, res) => {
       res.send(allOrgs);
     });
 });
+//post org
+app.post("/add", async (req, res) => {
+  const { name, summary, activeStatus, ABN, phone, website, img, description } =
+    req.body;
+  const orgRef = db.firestore().collection("Organisations");
+  try {
+    const newOrg = await orgRef.add({
+      name,
+      summary,
+      activeStatus,
+      ABN,
+      phone,
+      website,
+      img,
+      description,
+    });
+    res.send(newOrg);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//delete org
+app.post('/delete-org', async(req, res) => {
+  const {name} = req.body;
+  await firebase.firestore()
+  .collection('Organisations')
+  .where('name', "==", name)
+  .delete()
+  .then((ref) => {
+      res.json(ref.data());
+  });
+});
+
 
 // server start
 app.listen(process.env.PORT, () => {
