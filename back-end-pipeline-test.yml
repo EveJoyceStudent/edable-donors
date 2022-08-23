@@ -31,6 +31,10 @@ steps:
   inputs:
     secureFile: 'serviceAccount.json'
 
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: '.env'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: $(working-dir)
