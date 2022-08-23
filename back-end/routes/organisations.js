@@ -54,9 +54,7 @@ router.post("/", async (req, res) => {
     newOrg["ABN"] == undefined ||
     newOrg["phone"] == undefined ||
     newOrg["website"] == undefined ||
-    newOrg["img"] == undefined ||
-    newOrg["totalDonationItems"] == undefined ||
-    newOrg["totalDonations"] == undefined
+    newOrg["img"] == undefined
   ) {
     res.send("Organisation needs One or More values");
   } else {
@@ -94,9 +92,7 @@ router.put("/:id", async (req, res) => {
     newOrg["ABN"] == undefined ||
     newOrg["phone"] == undefined ||
     newOrg["website"] == undefined ||
-    newOrg["img"] == undefined ||
-    newOrg["totalDonationItems"] == undefined ||
-    newOrg["totalDonations"] == undefined
+    newOrg["img"] == undefined
   ) {
     res.send("Organisation needs One or More values");
   } else {
