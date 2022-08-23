@@ -31,9 +31,18 @@ steps:
   inputs:
     secureFile: 'serviceAccount.json'
 
+- task: CopyFiles@2
+  inputs:
+    Contents: 'serviceAccount.json'
+    TargetFolder: '$(working-dir)/config'
 - task: DownloadSecureFile@1
   inputs:
     secureFile: '.env'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '.env'
+    TargetFolder: '$(working-dir)'
 
 - task: PublishBuildArtifacts@1
   inputs:
