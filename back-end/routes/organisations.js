@@ -2,6 +2,7 @@ const router = require("express").Router();
 const db = require("../config/db");
 
 const orgRef = db.firestore().collection("Organisations");
+
 // get all orgs
 router.get("/dashboard", (req, res) => {
   orgRef.get().then((snapshot) => {
@@ -32,44 +33,81 @@ router.get("/:id", (req, res) => {
 
 //post org
 router.post("/", async (req, res) => {
-  const { name, summary, activeStatus, ABN, phone, website, img, description } =
-    req.body;
-  try {
-    const newOrg = await orgRef.add({
-      name,
-      summary,
-      activeStatus,
-      ABN,
-      phone,
-      website,
-      img,
-      description,
-    });
-    res.send(newOrg);
-  } catch (error) {
-    res.send(error);
+  const newOrg = ({
+    name,
+    summary,
+    description,
+    activeStatus,
+    ABN,
+    phone,
+    website,
+    img,
+    totalDonationItems,
+    totalDonations,
+  } = req.body);
+
+  if (
+    newOrg["name"] == undefined ||
+    newOrg["summary"] == undefined ||
+    newOrg["description"] == undefined ||
+    newOrg["activeStatus"] == undefined ||
+    newOrg["ABN"] == undefined ||
+    newOrg["phone"] == undefined ||
+    newOrg["website"] == undefined ||
+    newOrg["img"] == undefined ||
+    newOrg["totalDonationItems"] == undefined ||
+    newOrg["totalDonations"] == undefined
+  ) {
+    res.send("Organisation needs One or More values");
+  } else {
+    try {
+      const newwOrg = await orgRef.add({
+        newOrg,
+      });
+      res.send(newwOrg);
+    } catch (error) {
+      res.send(error);
+    }
   }
 });
 
 //update org
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, summary, activeStatus, ABN, phone, website, img, description } =
-    req.body;
-  try {
-    const updatedOrg = await orgRef.doc(id).update({
-      name,
-      summary,
-      activeStatus,
-      ABN,
-      phone,
-      website,
-      img,
-      description,
-    });
-    res.send(updatedOrg);
-  } catch (error) {
-    res.send(error);
+  const newOrg = ({
+    name,
+    summary,
+    description,
+    activeStatus,
+    ABN,
+    phone,
+    website,
+    img,
+    totalDonationItems,
+    totalDonations,
+  } = req.body);
+  if (
+    newOrg["name"] == undefined ||
+    newOrg["summary"] == undefined ||
+    newOrg["description"] == undefined ||
+    newOrg["activeStatus"] == undefined ||
+    newOrg["ABN"] == undefined ||
+    newOrg["phone"] == undefined ||
+    newOrg["website"] == undefined ||
+    newOrg["img"] == undefined ||
+    newOrg["totalDonationItems"] == undefined ||
+    newOrg["totalDonations"] == undefined
+  ) {
+    res.send("Organisation needs One or More values");
+  } else {
+    try {
+      const updatedOrg = await orgRef.doc(id).update({
+        newOrg,
+      });
+      res.send(updatedOrg);
+    } catch (error) {
+      res.send(error);
+    }
   }
 });
 
