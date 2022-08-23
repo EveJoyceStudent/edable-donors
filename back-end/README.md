@@ -1,6 +1,6 @@
 # EdAble Donor System
 
-This React application represents the front-end interface to Dream Team's implementation of EdAble's Donor system. 
+This express application represents the API to Dream Team's implementation of EdAble's Donor system. 
 
 ## Getting Started with Create React App
 

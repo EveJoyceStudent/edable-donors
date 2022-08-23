@@ -1,0 +1,49 @@
+name: Azure Front-End PipeLine
+
+variables:
+  - name: workingdir
+    value: 'front-end'
+
+pr: none
+trigger:
+  #batch: true
+  branches:
+    include:
+    - development 
+  paths:
+    include: 
+      - $(workingdir)/*
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    CI=false
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+  workingDirectory: $(workingdir)
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: $(workingdir)/build
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+
+# - script: |
+#     CI=false
+#     npm install
+#     npm run build:staging
+#   displayName: 'npm install and build'
+#   workingDirectory: ./front-end
+
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: './front-end/build'
+#     ArtifactName: 'staging'
+#     publishLocation: 'Container'
