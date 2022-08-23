@@ -34,7 +34,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(serviceAccount.secureFilePath)'
+    SourceFolder: $(Agent.TempDirectory)
     Contents: 'serviceAccount.json'
     TargetFolder: '$(working-dir)/config'
 
@@ -45,9 +45,9 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(env.secureFilePath)'
+    SourceFolder: $(Agent.TempDirectory)
     Contents: '.env'
-    TargetFolder: '$(working-dir)'
+    TargetFolder: $(working-dir)
 
 - task: PublishBuildArtifacts@1
   inputs:
