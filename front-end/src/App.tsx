@@ -1,5 +1,10 @@
 import React from 'react';
 import './App.css';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 import Base from './components/Base';
 import Landing from './components/Landing';
 import General from './components/General';
