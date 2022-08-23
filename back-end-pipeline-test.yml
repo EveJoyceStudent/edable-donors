@@ -28,19 +28,24 @@ steps:
   workingDirectory: $(working-dir)
 
 - task: DownloadSecureFile@1
+  name: serviceAccount
   inputs:
     secureFile: 'serviceAccount.json'
 
 - task: CopyFiles@2
   inputs:
+    SourceFolder: '$(serviceAccount.secureFilePath)'
     Contents: 'serviceAccount.json'
     TargetFolder: '$(working-dir)/config'
+
 - task: DownloadSecureFile@1
+  name: env
   inputs:
     secureFile: '.env'
 
 - task: CopyFiles@2
   inputs:
+    SourceFolder: '$(env.secureFilePath)'
     Contents: '.env'
     TargetFolder: '$(working-dir)'
 
