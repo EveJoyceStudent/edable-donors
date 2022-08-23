@@ -28,6 +28,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: $(working-dir)/test
+    PathtoPublish: $(working-dir)
     ArtifactName: 'drop'
     publishLocation: 'Container'
