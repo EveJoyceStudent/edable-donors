@@ -1,27 +1,26 @@
 const router = require("express").Router();
 const db = require("../config/db");
 
+const orgRef = db.firestore().collection("Organisations");
 // get all orgs
 router.get("/dashboard", (req, res) => {
-  db.firestore()
-    .collection("Organisations")
-    .get()
-    .then((snapshot) => {
-      const allOrgs = snapshot.docs.map((doc) => doc);
-      res.json(allOrgs);
-    });
+  orgRef.get().then((snapshot) => {
+    const allOrgs = snapshot.docs.map(
+      (doc) => (doc = { id: doc.id, orgs: doc.data() })
+    );
+    res.json(allOrgs);
+  });
 });
 // get by id
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  const orgRef = db.firestore().collection("Organisations");
   try {
     orgRef
       .doc(id)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          res.json(doc);
+          res.json((doc = { id: doc.id, orgs: doc.data() }));
         } else {
           res.status(404).send("Organisation does not exist!");
         }
@@ -35,7 +34,6 @@ router.get("/:id", (req, res) => {
 router.post("/", async (req, res) => {
   const { name, summary, activeStatus, ABN, phone, website, img, description } =
     req.body;
-  const orgRef = db.firestore().collection("Organisations");
   try {
     const newOrg = await orgRef.add({
       name,
@@ -58,7 +56,6 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { name, summary, activeStatus, ABN, phone, website, img, description } =
     req.body;
-  const orgRef = db.firestore().collection("Organisations");
   try {
     const updatedOrg = await orgRef.doc(id).update({
       name,
@@ -79,7 +76,6 @@ router.put("/:id", async (req, res) => {
 //delete org
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const orgRef = db.firestore().collection("Organisations");
   try {
     const org = await orgRef.doc(id).delete();
     res.send(org);
