@@ -4,7 +4,7 @@ This React application represents the front-end interface to dream-team's implem
 
 ## Getting Started with Create React App
 
-Following is the create-react-readme:
+Following is the create-react-app readme:
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
