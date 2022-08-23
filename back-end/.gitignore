@@ -117,4 +117,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .DS_Store
-serviceAccount.json
+config/serviceAccount.json
