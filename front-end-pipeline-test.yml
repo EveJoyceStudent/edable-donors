@@ -2,7 +2,7 @@ name: Azure Front-End PipeLine
 
 variables:
   - name: working-dir
-    value: './front-end'
+    value: 'front-end'
 
 pr: none
 trigger:
