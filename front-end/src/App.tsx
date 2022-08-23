@@ -1,24 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 import './App.css';
+import Base from './components/Base';
+import Landing from './components/Landing';
+import General from './components/General';
+import Default from './components/Default';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Base />}>
+          <Route path="/" element={<Landing />} />
+          <Route path="general" element={<General />}>
+          </Route>
+          {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+              routes for. */}
+          <Route path="*" element={<Default />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
