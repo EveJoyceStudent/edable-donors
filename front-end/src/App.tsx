@@ -1,9 +1,4 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
 import './App.css';
 import Base from './components/Base';
 import Landing from './components/Landing';
