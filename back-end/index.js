@@ -9,11 +9,13 @@ dotenv.config();
 
 // imports
 const orgs = require("./routes/organisations");
+const donors = require("./routes/donor");
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 app.use("/organisation", orgs);
+app.use("/donor", donors);
 
 app.get("/", (req, res) => {
   res.send("This is the backend of the Edable Donors system !!!");
