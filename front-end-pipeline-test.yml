@@ -1,7 +1,7 @@
 name: Azure Front-End PipeLine
 
 variables:
-  - name: working-dir
+  - name: workingdir
     value: 'front-end'
 
 pr: none
@@ -12,7 +12,7 @@ trigger:
     - development 
   paths:
     include: 
-      - $(working-dir)/*
+      - $(workingdir)/*
 
 steps:
 - task: NodeTool@0
@@ -25,11 +25,11 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
-  workingDirectory: $(working-dir)
+  workingDirectory: $(workingdir)
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: $(working-dir)/build
+    PathtoPublish: $(workingdir)/build
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
