@@ -43,9 +43,10 @@ steps:
   inputs:
     secureFile: '.env.test'
 
-- task: CmdLine@2
+- task: PowerShell@2
   inputs:
-    script: 'ren .env.test .env'
+    targetType: 'inline'
+    script: 'Rename-Item -Path ".env.test" -NewName ".env"'
     workingDirectory: '$(Agent.TempDirectory)'
 
 - task: CopyFiles@2
