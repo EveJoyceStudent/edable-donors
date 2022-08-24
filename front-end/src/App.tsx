@@ -1,12 +1,25 @@
 import React from 'react';
-import LandingPage from './LandingPage';
 import './App.css';
+import Base from './components/Base';
+import Landing from './components/Landing';
+import General from './components/General';
+import Default from './components/Default';
 
 function App() {
   return (
-    <div>
-      <LandingPage />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Base />}>
+          <Route path="/" element={<Landing />} />
+          <Route path="general" element={<General />}>
+          </Route>
+          {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+              routes for. */}
+          <Route path="*" element={<Default />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
