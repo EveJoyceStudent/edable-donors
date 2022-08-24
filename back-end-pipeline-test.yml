@@ -41,7 +41,11 @@ steps:
 - task: DownloadSecureFile@1
   name: env
   inputs:
-    secureFile: '.env'
+    secureFile: '.env.test'
+
+- task: CmdLine@2
+  inputs:
+    script: cd $(Agent.TempDirectory) ren .env.test .env
 
 - task: CopyFiles@2
   inputs:
