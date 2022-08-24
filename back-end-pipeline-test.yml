@@ -45,7 +45,8 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: cd $(Agent.TempDirectory) ren .env.test .env
+    script: 'ren .env.test .env'
+    workingDirectory: '$(Agent.TempDirectory)'
 
 - task: CopyFiles@2
   inputs:
