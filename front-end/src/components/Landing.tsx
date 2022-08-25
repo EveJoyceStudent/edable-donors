@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import FirebaseExample from "./FirebaseExample";
 
 function Landing() {
     return (
@@ -7,6 +8,7 @@ function Landing() {
             <h1>
                 Landing Page
             </h1>
+            {/* <FirebaseExample/> */}
             <div>
                 <Link to="general">General Donation</Link>
             </div>
