@@ -32,6 +32,12 @@ steps:
   inputs:
     secureFile: 'serviceAccount.json'
 
+- task: PowerShell@2
+inputs:
+  targetType: 'inline'
+  script: 'Rename-Item -Path "serviceAccount.json.test" -NewName "serviceAccount.json"'
+  workingDirectory: '$(Agent.TempDirectory)'
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: $(Agent.TempDirectory)
@@ -41,7 +47,13 @@ steps:
 - task: DownloadSecureFile@1
   name: env
   inputs:
-    secureFile: '.env'
+    secureFile: '.env.test'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Rename-Item -Path ".env.test" -NewName ".env"'
+    workingDirectory: '$(Agent.TempDirectory)'
 
 - task: CopyFiles@2
   inputs:
