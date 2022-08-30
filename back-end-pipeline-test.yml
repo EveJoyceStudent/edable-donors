@@ -1,0 +1,68 @@
+name: Azure Back-End PipeLine
+
+
+variables:
+  - name: working-dir
+    value: './back-end'
+
+pr: none
+trigger:
+  #batch: true
+  branches:
+    include:
+    - development 
+  paths:
+    include: 
+      - $(working-dir)/*
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    CI=false
+    npm install
+  displayName: 'npm install and build'
+  workingDirectory: $(working-dir)
+
+- task: DownloadSecureFile@1
+  name: serviceAccount
+  inputs:
+    secureFile: 'serviceAccount.json'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Rename-Item -Path "serviceAccount.json.test" -NewName "serviceAccount.json"'
+    workingDirectory: '$(Agent.TempDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: $(Agent.TempDirectory)
+    Contents: 'serviceAccount.json'
+    TargetFolder: '$(working-dir)/config'
+
+- task: DownloadSecureFile@1
+  name: env
+  inputs:
+    secureFile: '.env.test'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Rename-Item -Path ".env.test" -NewName ".env"'
+    workingDirectory: '$(Agent.TempDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: $(Agent.TempDirectory)
+    Contents: '.env'
+    TargetFolder: $(working-dir)
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: $(working-dir)
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

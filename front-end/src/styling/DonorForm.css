@@ -1,0 +1,52 @@
+#donorInfoContainer {
+  border-radius: 30px;
+  border: 1px solid rgb(215, 215, 215);
+  padding: 30px;
+  max-width: 60%;
+}
+
+label {
+  font-size: x-small;
+  color: rgb(104, 104, 104);
+}
+
+input {
+  display: block;
+  box-sizing: border-box;
+  width: 90%;
+  border-radius: 4px;
+  border: 1px solid rgb(215, 215, 215);
+  padding: 10px 15px;
+  margin-bottom: 1px;
+  font-size: 12px;
+}
+
+span {
+  font-size: large;
+  color: red;
+}
+
+button {
+  border-radius: 4px;
+  border: 1px solid rgb(215, 215, 215);
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+button[type='submit'],
+input[type='submit'] {
+  background: #ec598f;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  margin-top: 40px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 10px;
+}
+
+button[type='submit']:hover,
+input[type='submit']:hover {
+  background: #bf1650;
+}
