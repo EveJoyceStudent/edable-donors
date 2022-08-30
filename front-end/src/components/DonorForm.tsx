@@ -1,4 +1,7 @@
 import { useForm } from 'react-hook-form'
+import { doc, getDoc, addDoc, collection } from "firebase/firestore"
+import { db } from '../config/firebase';
+
 
 function DonorForm() {
   const {
@@ -7,9 +10,24 @@ function DonorForm() {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = handleSubmit((data) => {
-    alert(JSON.stringify(data))
-  })
+  const currentLoc = window.location.pathname;
+  const splitOrg = currentLoc.slice(14)
+
+  console.log(splitOrg);
+
+  const onSubmit = handleSubmit(async (data) => {
+      try{
+        const orgRef = await addDoc(collection(db, `Organisations/${splitOrg}/GeneralDonations/`),
+        {
+          data,
+        }
+        );
+        console.log("it works", data)
+      } catch(e){
+        console.log('error')
+        
+    }
+  });
 
   return (
     //   these lines set up the format of the page
@@ -26,7 +44,7 @@ function DonorForm() {
           <div>
             <input
               placeholder="Enter an amount"
-              {...register('exampleRequired', { required: true })}
+              {...register('paidAMT', { required: true })}
             />
             {errors.exampleRequired && <span>This field is required</span>}
           </div>
@@ -34,7 +52,7 @@ function DonorForm() {
           <div>
             <input
               placeholder="Name"
-              {...register('exampleRequired', { required: true })}
+              {...register('name', { required: true })}
             />
             {errors.exampleRequired && <span>This field is required</span>}
           </div>
@@ -42,7 +60,7 @@ function DonorForm() {
           <div>
             <input
               placeholder="Phone number"
-              {...register('exampleRequired', { required: true })}
+              {...register('phone', { required: true })}
             />
             {errors.exampleRequired && <span>This field is required</span>}
           </div>
@@ -50,7 +68,7 @@ function DonorForm() {
           <div>
             <input
               placeholder="Email address"
-              {...register('exampleRequired', { required: true })}
+              {...register('email', { required: true })}
             />
             {errors.exampleRequired && <span>This field is required</span>}
           </div>
@@ -60,7 +78,7 @@ function DonorForm() {
             <input
               type="checkbox"
               value="yes"
-              {...register('donateAnon')}
+              {...register('IsAnon')}
             />
           </div>
 
@@ -78,6 +96,6 @@ function DonorForm() {
       </form>
     </div>
   )
-}
+  }
 
 export default DonorForm
