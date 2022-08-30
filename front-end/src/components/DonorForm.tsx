@@ -3,10 +3,13 @@ import { doc, getDoc, addDoc, collection } from "firebase/firestore"
 import { db } from '../config/firebase';
 
 
+import '../styling/DonorForm.css'
+
 function DonorForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm()
 
@@ -31,65 +34,100 @@ function DonorForm() {
 
   return (
     //   these lines set up the format of the page
-    <div>
-      Your tax deductible contribution:
+    <div id="donorInfoContainer">
+      <p>Your tax deductible contribution:</p>
       <br />
-      <button>$5</button>
-      <button>$10</button>
-      <button>$20</button>
+      <div id="presetButtons">
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              setValue('amount', '5')
+            }}
+          >
+            $5
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setValue('amount', '10')
+            }}
+          >
+            $10
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setValue('amount', '20')
+            }}
+          >
+            $20
+          </button>
+        </div>
+      </div>
       <br />
       OR
       <form onSubmit={onSubmit}>
         <div>
           <div>
+          {errors.amount && <span>*</span>}<label>Enter an amount</label>
             <input
               placeholder="Enter an amount"
               {...register('paidAMT', { required: true })}
             />
-            {errors.exampleRequired && <span>This field is required</span>}
+
           </div>
 
           <div>
+            <label htmlFor="monthlyPayment">
+              Let's make this a monthly payment!
+            </label>
+            <input type="checkbox" value="yes" {...register('monthly')} />
+          </div>
+
+          <br />
+
+          <div>
+          {errors.name && <span>*</span>}<label>Name</label>
             <input
               placeholder="Name"
               {...register('name', { required: true })}
             />
-            {errors.exampleRequired && <span>This field is required</span>}
           </div>
 
           <div>
+          {errors.phone && <span>*</span>}<label>Phone</label>
             <input
-              placeholder="Phone number"
-              {...register('phone', { required: true })}
+              type="tel"
+              placeholder="04XX XXX XXX"
+              {...register('phone', {
+                required: true,
+                maxLength: 10,
+                minLength: 10,
+                pattern: /^[0-9]$/,
+              })}
             />
-            {errors.exampleRequired && <span>This field is required</span>}
           </div>
 
           <div>
+          {errors.email && <span>*</span>}<label>Email</label>
             <input
+              type="email"
               placeholder="Email address"
               {...register('email', { required: true })}
             />
-            {errors.exampleRequired && <span>This field is required</span>}
           </div>
 
           <div>
             <label htmlFor="donateAnon">Donate anonymously?</label>
-            <input
-              type="checkbox"
-              value="yes"
-              {...register('IsAnon')}
-            />
+            <input type="checkbox" value="yes" {...register('IsAnon')} />
           </div>
 
           <div>
             <label htmlFor="mailingList">Join our mailing list?</label>
-            <input
-              type="checkbox"
-              value="yes"
-              {...register('mailingList')}
-            />
+            <input type="checkbox" value="yes" {...register('mailingList')} />
           </div>
+
           <input type="submit" />
           
         </div>
@@ -99,3 +137,6 @@ function DonorForm() {
   }
 
 export default DonorForm
+
+// submit button to direct to THANK U page
+// validation for ENTER AMOUNT & PHONE (int)
