@@ -1,9 +1,8 @@
-import { useForm } from 'react-hook-form'
-import { doc, getDoc, addDoc, collection } from "firebase/firestore"
-import { db } from '../config/firebase';
+import { useForm } from "react-hook-form";
+import { doc, getDoc, addDoc, collection } from "firebase/firestore";
+import { db } from "../config/firebase";
 
-
-import '../styling/DonorForm.css'
+import "../styling/DonorForm.css";
 
 function DonorForm() {
   const {
@@ -11,7 +10,7 @@ function DonorForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
   const currentLoc = window.location.pathname;
   const splitOrg = currentLoc.slice(14)
@@ -27,7 +26,7 @@ function DonorForm() {
         window.alert("Thank you for your contribution!");
       } catch(e){
         console.log('error');
-        
+       
     }
   });
 
@@ -41,7 +40,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue('paidAMT', '5')
+              setValue("paidAMT", "5");
             }}
           >
             $5
@@ -49,7 +48,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue('paidAMT', '10')
+              setValue("paidAMT", "10");
             }}
           >
             $10
@@ -57,7 +56,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue('paidAMT', '20')
+              setValue("paidAMT", "20");
             }}
           >
             $20
@@ -72,34 +71,35 @@ function DonorForm() {
           {errors.paidAMT && <span>*</span>}<label>Enter an amount</label>
             <input
               placeholder="Enter an amount"
-              {...register('paidAMT', { required: true })}
+              {...register("paidAMT", { required: true })}
             />
-
           </div>
 
           <div>
             <label htmlFor="monthlyPayment">
               Let's make this a monthly payment!
             </label>
-            <input type="checkbox" value="yes" {...register('monthly')} />
+            <input type="checkbox" value="yes" {...register("monthly")} />
           </div>
 
           <br />
 
           <div>
-          {errors.name && <span>*</span>}<label>Name</label>
+            {errors.name && <span>*</span>}
+            <label>Name</label>
             <input
               placeholder="Name"
-              {...register('name', { required: true })}
+              {...register("name", { required: true })}
             />
           </div>
 
           <div>
-          {errors.phone && <span>*</span>}<label>Phone</label>
+            {errors.phone && <span>*</span>}
+            <label>Phone</label>
             <input
               type="tel"
               placeholder="04XX XXX XXX"
-              {...register('phone', {
+              {...register("phone", {
                 required: true,
                 maxLength: 10,
                 minLength: 10,
@@ -109,35 +109,33 @@ function DonorForm() {
           </div>
 
           <div>
-          {errors.email && <span>*</span>}<label>Email</label>
+            {errors.email && <span>*</span>}
+            <label>Email</label>
             <input
               type="email"
               placeholder="Email address"
-              {...register('email', { required: true })}
+              {...register("email", { required: true })}
             />
           </div>
 
           <div>
             <label htmlFor="donateAnon">Donate anonymously?</label>
-            <input type="checkbox" value="yes" {...register('IsAnon')} />
+            <input type="checkbox" value="yes" {...register("IsAnon")} />
           </div>
 
           <div>
             <label htmlFor="mailingList">Join our mailing list?</label>
-            <input type="checkbox" value="yes" {...register('mailingList')} />
+            <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
           <input type="submit" />
-
-
-          
         </div>
       </form>
     </div>
-  )
-  }
+  );
+}
 
-export default DonorForm
+export default DonorForm;
 
 // submit button to direct to THANK U page
 // validation for ENTER AMOUNT & PHONE (int)
