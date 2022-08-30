@@ -16,16 +16,17 @@ function DonorForm() {
   const currentLoc = window.location.pathname;
   const splitOrg = currentLoc.slice(14)
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (donor) => {
       try{
         const orgRef = await addDoc(collection(db, `Organisations/${splitOrg}/GeneralDonations/Summary/Donations`),
         {
-          data,
+          donor,
         }
         );
-        console.log("it works", data)
+        console.log("it works", donor);
+        window.alert("Thank you for your contribution!");
       } catch(e){
-        console.log('error')
+        console.log('error');
         
     }
   });
@@ -127,6 +128,8 @@ function DonorForm() {
           </div>
 
           <input type="submit" />
+
+
           
         </div>
       </form>
