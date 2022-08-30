@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { db } from '../config/firebase';
 import { doc, getDoc } from "firebase/firestore"
+import DonorForm from "./DonorForm";
 
 function Organisation() {
   let params = useParams();
@@ -24,11 +25,12 @@ function Organisation() {
       <h1>
         {org.name} Donation Page
       </h1>
-      <div>
+      <DonorForm />
+      {/* <div>
         <img src={org.img} alt={`${org.name}`} />
         <div>{org.name}</div>
         <Link to="/">Home</Link>
-      </div>
+      </div> */}
     </div>
   );
 }
