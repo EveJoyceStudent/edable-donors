@@ -13,22 +13,20 @@ function DonorForm() {
   } = useForm();
 
   const currentLoc = window.location.pathname;
-  const splitOrg = currentLoc.slice(14);
+  const splitOrg = currentLoc.slice(14)
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      const orgRef = await addDoc(
-        collection(
-          db,
-          `Organisations/${splitOrg}/GeneralDonations/Summary/Donations`
-        ),
+  const onSubmit = handleSubmit(async (donor) => {
+      try{
+        const orgRef = await addDoc(collection(db, `Organisations/${splitOrg}/GeneralDonations/Summary/Donations`),
         {
-          data,
+          donor,
         }
-      );
-      console.log("it works", data);
-    } catch (e) {
-      console.log("error");
+        );
+        console.log("it works", donor);
+        window.alert("Thank you for your contribution!");
+      } catch(e){
+        console.log('error');
+       
     }
   });
 
@@ -70,8 +68,7 @@ function DonorForm() {
       <form onSubmit={onSubmit}>
         <div>
           <div>
-            {errors.paidAMT && <span>*</span>}
-            <label>Enter an amount</label>
+          {errors.paidAMT && <span>*</span>}<label>Enter an amount</label>
             <input
               placeholder="Enter an amount"
               {...register("paidAMT", { required: true })}
