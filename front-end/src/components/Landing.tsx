@@ -96,7 +96,6 @@ function Landing() {
             ))}
           </Carousel>
         </div>
-        <h1>wow this sucks ass</h1>
       </div>
       {/* items */}
       <h1>ITEMS GO HERE BRRRRRRRR 🔫 </h1>
