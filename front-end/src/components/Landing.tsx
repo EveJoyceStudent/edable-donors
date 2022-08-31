@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './Landing.css';
 import { Link } from "react-router-dom";
 import { db } from "../config/firebase";
 import { collection, query, onSnapshot } from "firebase/firestore";
@@ -44,13 +45,14 @@ function Landing() {
             <Carousel
               touch={true}
               interval={null}
-              indicators={false}
+              indicators={true}
               variant="dark"
+              style={{margin: "0px"}}
             >
               {orgList.map((org: any) => (
                 <Carousel.Item
                   key={org.id.toString()}
-                  style={{ textAlign: "center" }}
+                  style={{ textAlign: "center", padding: "0px 10vw 50px", }}
                 >
                   <h2 style={{ textAlign: "center" }}>{org.data.name}</h2>
                   <img
