@@ -37,8 +37,8 @@ function Landing() {
         <div id="headingText">
         <Container fluid>
           <Row>
-            <Col md="auto">
-              <LandingPageStar style={{ height: 250, width: 400}} />
+            <Col xs={0} md="auto">
+              <LandingPageStar style={{ height: 250, width: 400, display: 'block', margin: 'auto'}} />
             </Col>
             <Col>
             <h1>EdAble</h1>
