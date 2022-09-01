@@ -68,7 +68,9 @@ function DonorForm() {
       <form onSubmit={onSubmit}>
         <div>
           <div>
-          {errors.paidAMT && <span>*</span>}<label>Enter an amount</label>
+          {errors.paidAMT && <span>*</span>}
+          <label>Enter an amount</label>
+          {errors.paidAMT && <span style={{ margin: '20px', fontSize: 'x-small' }}>please donate more than $0</span>}
             <input
               placeholder="Enter an amount"
               {...register("paidAMT", { required: true })}
@@ -87,6 +89,7 @@ function DonorForm() {
           <div>
             {errors.name && <span>*</span>}
             <label>Name</label>
+            {errors.name && <span style={{ margin: '20px', fontSize: 'x-small' }}>must contain something???</span>}
             <input
               placeholder="Name"
               {...register("name", { required: true })}
@@ -96,6 +99,7 @@ function DonorForm() {
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
+            {errors.phone && <span style={{ margin: '20px', fontSize: 'x-small' }}>phone number must be 10 digits long or something idk how phone numbers work</span>}
             <input
               type="tel"
               placeholder="04XX XXX XXX"
@@ -111,6 +115,7 @@ function DonorForm() {
           <div>
             {errors.email && <span>*</span>}
             <label>Email</label>
+            {errors.email && <span style={{ margin: '20px', fontSize: 'x-small' }}>email must be an email</span>}
             <input
               type="email"
               placeholder="Email address"
