@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 function ItemsCollection() {
   const [itemList, setItemList] = useState<any>([]);
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     const items = query(collectionGroup(db, "Items"));
@@ -20,12 +21,23 @@ function ItemsCollection() {
       );
     });
   }, []);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+  const filteredItems = itemList.filter((item: any) =>
+    item.data.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
-      <div>Serach BAr here</div>
+      <input
+        className="item-input"
+        type="text"
+        onChange={handleChange}
+        placeholder="Search"
+      />
       <div style={{ display: "flex", margin: "15px" }}>
-        {itemList.map((item: any) => (
+        {filteredItems.map((item: any) => (
           <Link
             style={{
               textDecoration: "none",
