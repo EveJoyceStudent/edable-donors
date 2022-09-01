@@ -25,7 +25,7 @@ function Organisation() {
       <h3 style={{ textAlign: "left", margin: "10px" }}>
         {org.name} Donation Page
       </h3>
-      <DonorForm />
+      <DonorForm org={params.orgId} />
       {/* <div>
         <img src={org.img} alt={`${org.name}`} />
         <div>{org.name}</div>

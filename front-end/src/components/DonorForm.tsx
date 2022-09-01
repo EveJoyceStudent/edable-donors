@@ -1,32 +1,84 @@
+// @ts-ignore
 import { useForm } from "react-hook-form";
-import { doc, getDoc, addDoc, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 import "../styling/DonorForm.css";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function DonorForm() {
+type DonorFormType = {
+  paidAMT: number,
+  monthly: boolean,
+  name: string,
+  phone: string,
+  email: string,
+  IsAnon: boolean,
+  mailingList: boolean
+}
+
+function DonorForm(props:any) {
+  let navigate = useNavigate();
+
   const {
+    watch,
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid },
+  } = useForm<DonorFormType>({
+    mode: "onChange"
+  });
 
-  const currentLoc = window.location.pathname;
-  const splitOrg = currentLoc.slice(14)
+  const watchAllFields = watch();
 
-  const onSubmit = handleSubmit(async (donor) => {
-      try{
-        const orgRef = await addDoc(collection(db, `Organisations/${splitOrg}/GeneralDonations/Summary/Donations`),
+  const [formData, setFormData] = useState<DonorFormType>({
+    "paidAMT": 0,
+    "monthly": false,
+    "name": "",
+    "phone": "",
+    "email": "",
+    "IsAnon": false,
+    "mailingList": false
+  });
+
+  const [purchaseData, setPurchaseData] = useState({
+    purchase_units: [
+      {
+        amount: {
+          value: "1",
+        },
+      },
+    ],
+  });
+
+  useEffect(() => {
+    console.log(isValid);
+  }, [isValid]);
+
+  const watchPaidAMT = watch("paidAMT", 0);
+
+  useEffect(() => {
+    setPurchaseData({
+      purchase_units: [
         {
-          donor,
-        }
-        );
-        console.log("it works", donor);
-        window.alert("Thank you for your contribution!");
-      } catch(e){
-        console.log('error');
-       
+          amount: {
+            value: (watchPaidAMT).toString(),
+          },
+        },
+      ],
+    })
+  }, [watchPaidAMT]);
+
+  const splitOrg = props.org;
+
+  const onSubmit = handleSubmit((donor: DonorFormType) => {
+    try {
+      setFormData(donor);
+      console.log('set values');
+    } catch (e) {
+      console.log('error');
     }
   });
 
@@ -40,7 +92,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "5");
+              setValue("paidAMT", 5);
             }}
           >
             $5
@@ -48,7 +100,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "10");
+              setValue("paidAMT", 10);
             }}
           >
             $10
@@ -56,7 +108,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "20");
+              setValue("paidAMT", 20);
             }}
           >
             $20
@@ -68,7 +120,7 @@ function DonorForm() {
       <form onSubmit={onSubmit}>
         <div>
           <div>
-          {errors.paidAMT && <span>*</span>}<label>Enter an amount</label>
+            {errors.paidAMT && <span>*</span>}<label>Enter an amount</label>
             <input
               placeholder="Enter an amount"
               {...register("paidAMT", { required: true })}
@@ -76,7 +128,7 @@ function DonorForm() {
           </div>
 
           <div>
-            <label htmlFor="monthlyPayment">
+            <label htmlFor="monthly">
               Let's make this a monthly payment!
             </label>
             <input type="checkbox" value="yes" {...register("monthly")} />
@@ -119,18 +171,51 @@ function DonorForm() {
           </div>
 
           <div>
-            <label htmlFor="donateAnon">Donate anonymously?</label>
+            <label htmlFor="IsAnon">Donate anonymously?</label>
             <input type="checkbox" value="yes" {...register("IsAnon")} />
           </div>
+
 
           <div>
             <label htmlFor="mailingList">Join our mailing list?</label>
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
-          <input type="submit" />
+          {/* <input type="submit" /> */}
+          <PayPalButtons
+            disabled={!isValid}
+            forceReRender={[purchaseData]}
+            // onInit={ (data, actions) => {
+            //   return this.disabled=true;
+            // }}
+            onClick={(data, actions) => {
+            }}
+            createOrder={(data, actions) => {
+              return actions.order.create(purchaseData);
+            }
+            }
+            onApprove={async (data, actions) => {
+              return actions.order!.capture().then(async (details) => {
+                try {
+                  const orgRef = await addDoc(collection(db, `Organisations/${splitOrg}/GeneralDonations/Summary/Donations`),
+                    {
+                      formData,
+                    }
+                  );
+                  console.log("it works", orgRef);
+                  const name = details.payer.name!.given_name;
+                  alert(`Transaction completed by ${name}`);
+                  navigate("../../success", { replace: true });
+                  
+                } catch (e) {
+                  console.log('error');
+                }
+              });
+            }}
+          />
         </div>
       </form>
+
     </div>
   );
 }
