@@ -12,6 +12,7 @@ import Default from './components/Default';
 import Organisation from './components/Organisation';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import Success from './components/Success';
+import Cancel from './components/Cancel';
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
             <Route
               path="organisation/:orgId"
               element={<Organisation />}
+            />
+            <Route
+              path="cancel/:orgId"
+              element={<Cancel />}
             />
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit

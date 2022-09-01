@@ -21,6 +21,8 @@ type DonorFormType = {
 function DonorForm(props:any) {
   let navigate = useNavigate();
 
+  const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
+
   const {
     watch,
     register,
@@ -30,8 +32,6 @@ function DonorForm(props:any) {
   } = useForm<DonorFormType>({
     mode: "onChange"
   });
-
-  const watchAllFields = watch();
 
   const [formData, setFormData] = useState<DonorFormType>({
     "paidAMT": 0,
@@ -181,6 +181,8 @@ function DonorForm(props:any) {
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
+          {(!isValid&&formAttemptedIncomplete)&&<div>oh no fill in da form plz</div>}
+
           {/* <input type="submit" /> */}
           <PayPalButtons
             disabled={!isValid}
@@ -189,11 +191,20 @@ function DonorForm(props:any) {
             //   return this.disabled=true;
             // }}
             onClick={(data, actions) => {
+              if(!isValid){
+                setFormAttemptedIncomplete(true);
+              }
             }}
             createOrder={(data, actions) => {
               return actions.order.create(purchaseData);
-            }
-            }
+            }}
+            onCancel={(data, actions) => {
+              return navigate(`../../cancel/${splitOrg}`);
+            }}
+            onError={(err) => {
+              return navigate(`../../cancel${splitOrg}`);
+            }}
+            
             onApprove={async (data, actions) => {
               return actions.order!.capture().then(async (details) => {
                 try {
@@ -204,8 +215,8 @@ function DonorForm(props:any) {
                   );
                   console.log("it works", orgRef);
                   const name = details.payer.name!.given_name;
-                  alert(`Transaction completed by ${name}`);
-                  navigate("../../success", { replace: true });
+                  // alert(`Transaction completed by ${name}`);
+                  navigate("../../success");
                   
                 } catch (e) {
                   console.log('error');
