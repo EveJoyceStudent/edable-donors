@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import './Landing.css';
+import "./Landing.css";
 import { Link } from "react-router-dom";
 import { db } from "../config/firebase";
 import { collection, query, onSnapshot } from "firebase/firestore";
@@ -7,6 +7,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 
 import "../styling/Landing.css";
+import ItemsCollection from "./ItemsCollection";
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -47,12 +48,12 @@ function Landing() {
               interval={null}
               indicators={true}
               variant="dark"
-              style={{margin: "0px"}}
+              style={{ margin: "0px" }}
             >
               {orgList.map((org: any) => (
                 <Carousel.Item
                   key={org.id.toString()}
-                  style={{ textAlign: "center", padding: "0px 10vw 50px", }}
+                  style={{ textAlign: "center", padding: "0px 10vw 50px" }}
                 >
                   <h2 style={{ textAlign: "center" }}>{org.data.name}</h2>
                   <img
@@ -87,7 +88,7 @@ function Landing() {
         </div>
       </div>
       {/* items */}
-      <h5>item cards here</h5>
+      <ItemsCollection />
     </>
   );
 }
