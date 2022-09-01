@@ -5,6 +5,11 @@ import { db } from "../config/firebase";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
+import {ReactComponent as LandingPageStar} from '../star.svg';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import "../styling/Landing.css";
 import ItemsCollection from "./ItemsCollection";
@@ -31,12 +36,20 @@ function Landing() {
     <>
       <div id="header">
         <div id="headingText">
-          <h1>EdAble</h1>
-
-          <h3>
-            <i>Supporting the growth of social-enterprises</i>
-          </h3>
-          <br />
+        <Container fluid>
+          <Row>
+            <Col xs={0} md="auto">
+              <LandingPageStar style={{ height: 250, width: 400, display: 'block', margin: 'auto'}} />
+            </Col>
+            <Col>
+            <h1>EdAble</h1>
+            <h3>
+              <i>Supporting the growth of social-enterprises</i>
+            </h3>
+            </Col>
+          </Row>
+        </Container>
+        <br />
           <h4>
             By making a tax deductable doantion to EdAble, you will contribute
             to...
