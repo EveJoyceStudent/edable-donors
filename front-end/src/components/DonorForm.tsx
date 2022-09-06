@@ -1,46 +1,45 @@
+// @ts-ignore
 import { useForm } from "react-hook-form";
-import { doc, getDoc, addDoc, collection } from "firebase/firestore";
-import { db } from "../config/firebase";
-
 import "../styling/DonorForm.css";
+import Paypal from "./Paypal";
 
-function DonorForm() {
+type DonorFormType = {
+  paidAMT: number,
+  monthly: boolean,
+  name: string,
+  phone: string,
+  email: string,
+  IsAnon: boolean,
+  mailingList: boolean
+}
+
+function DonorForm(props:any) {
+
   const {
+    watch,
     register,
-    handleSubmit,
     setValue,
-    formState: { errors },
-  } = useForm();
-
-  const currentLoc = window.location.pathname;
-  const splitOrg = currentLoc.slice(14)
-
-  const onSubmit = handleSubmit(async (donor) => {
-      try{
-        const orgRef = await addDoc(collection(db, `Organisations/${splitOrg}/GeneralDonations/Summary/Donations`),
-        {
-          donor,
-        }
-        );
-        console.log("it works", donor);
-        window.alert("Thank you for your contribution!");
-      } catch(e){
-        console.log('error');
-       
-    }
+    formState: { errors, isValid },
+  } = useForm<DonorFormType>({
+    mode: "onChange"
   });
 
+  const watchPaidAMT = watch("paidAMT", 0);
+
+  const watchData=watch(); 
+
+  const splitOrg = props.org;
+
   return (
-    //   these lines set up the format of the page
-    <div id="donorInfoContainer">
+    <div className="donorInfoContainer">
       <p>Your tax deductible contribution:</p>
       <br />
-      <div id="presetButtons">
+      <div className="presetButtons">
         <div>
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "5");
+              setValue("paidAMT", 5);
             }}
           >
             $5
@@ -48,7 +47,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "10");
+              setValue("paidAMT", 10);
             }}
           >
             $10
@@ -56,7 +55,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "20");
+              setValue("paidAMT", 20);
             }}
           >
             $20
@@ -65,10 +64,12 @@ function DonorForm() {
       </div>
       <br />
       OR
-      <form onSubmit={onSubmit}>
+      <form>
         <div>
           <div>
-          {errors.paidAMT && <span>*</span>}<label>Enter an amount</label>
+            {errors.paidAMT && <span>*</span>}
+            <label>Enter an amount</label>
+            {errors.paidAMT && <span style={{ margin: "20px", fontSize: "x-small" }}>please donate more than $0</span>}
             <input
               placeholder="Enter an amount"
               {...register("paidAMT", { required: true })}
@@ -76,7 +77,7 @@ function DonorForm() {
           </div>
 
           <div>
-            <label htmlFor="monthlyPayment">
+            <label htmlFor="monthly">
               Let's make this a monthly payment!
             </label>
             <input type="checkbox" value="yes" {...register("monthly")} />
@@ -87,6 +88,7 @@ function DonorForm() {
           <div>
             {errors.name && <span>*</span>}
             <label>Name</label>
+            {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>must contain something???</span>}
             <input
               placeholder="Name"
               {...register("name", { required: true })}
@@ -96,6 +98,7 @@ function DonorForm() {
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
+            {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>phone number must be 10 digits long or something idk how phone numbers work</span>}
             <input
               type="tel"
               placeholder="04XX XXX XXX"
@@ -111,6 +114,7 @@ function DonorForm() {
           <div>
             {errors.email && <span>*</span>}
             <label>Email</label>
+            {errors.email && <span style={{ margin: "20px", fontSize: "x-small" }}>email must be an email</span>}
             <input
               type="email"
               placeholder="Email address"
@@ -119,7 +123,7 @@ function DonorForm() {
           </div>
 
           <div>
-            <label htmlFor="donateAnon">Donate anonymously?</label>
+            <label htmlFor="IsAnon">Donate anonymously?</label>
             <input type="checkbox" value="yes" {...register("IsAnon")} />
           </div>
 
@@ -128,7 +132,13 @@ function DonorForm() {
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
-          <input type="submit" />
+          {/* <input type="submit" /> */}
+          <Paypal
+            formData={watchData}
+            watchPaidAMT={watchPaidAMT}
+            org={splitOrg}
+            disabled={!isValid}
+          />
         </div>
       </form>
     </div>
@@ -137,5 +147,3 @@ function DonorForm() {
 
 export default DonorForm;
 
-// submit button to direct to THANK U page
-// validation for ENTER AMOUNT & PHONE (int)
