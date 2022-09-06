@@ -47,7 +47,7 @@ function Landing() {
             <Col>
               <h1>EdAble</h1>
               <h3>
-                <i>Supporting the growth of social-enterprises</i>
+                <i>increasing employment opportunities for people with Autism Spectrum Disorder and other Disabilities</i>
               </h3>
             </Col>
           </Row>
@@ -99,7 +99,7 @@ function Landing() {
                             }}
                             to={`organisation/${org.id}`}
                           >
-                            <i>I WANT TO MAKE A CONTRIBUTION</i>
+                            <i>COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE A CONTRIBUTION!</i>
                           </Link>
                         </Button>
                       </Carousel.Item>
@@ -109,6 +109,7 @@ function Landing() {
               </Col>
             </Row>
           </Container>
+
         </div>
       </div>
       <ItemsCollection />
