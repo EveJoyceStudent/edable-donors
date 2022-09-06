@@ -4,13 +4,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import Base from "./components/Base";
-import Landing from "./components/Landing";
-import General from "./components/General";
+import Landing from "./components/Landing/Landing";
 import Default from "./components/Default";
-import Organisation from "./components/Organisation";
-import ItemPage from "./components/ItemPage";
-import Success from './components/Success';
-import Cancel from './components/Cancel';
+import Organisation from "./components/Organisation/Organisation";
+import ItemPage from "./components/Item/ItemPage";
+import Success from './components/DonorForm/Success';
+import Cancel from './components/DonorForm/Cancel';
 
 function App() {
   return (
@@ -24,7 +23,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Base />}>
             <Route path="/" element={<Landing />} />
-            <Route path="general" element={<General />} />
             <Route path="success" element={<Success />} />
             <Route
               path="organisation/:orgId"

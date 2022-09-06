@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
 
 function ItemPage() {

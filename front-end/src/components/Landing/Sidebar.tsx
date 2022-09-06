@@ -1,7 +1,6 @@
-import "./Sidebar.css";
 import { useState, useEffect } from "react";
 import { collectionGroup, query, onSnapshot } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";

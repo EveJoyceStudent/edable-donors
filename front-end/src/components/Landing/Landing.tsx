@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import "./Landing.css";
 import { Link } from "react-router-dom";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
-import { ReactComponent as LandingPageStar } from "../star.svg";
+import { ReactComponent as LandingPageStar } from "./star.svg";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import "../styling/Landing.css";
 import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
 

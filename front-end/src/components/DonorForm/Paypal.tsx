@@ -1,6 +1,6 @@
 // @ts-ignore
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useEffect, useState } from "react";
