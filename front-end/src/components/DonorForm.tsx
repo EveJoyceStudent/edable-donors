@@ -31,11 +31,10 @@ function DonorForm(props:any) {
   const splitOrg = props.org;
 
   return (
-    //   these lines set up the format of the page
-    <div id="donorInfoContainer">
+    <div className="donorInfoContainer">
       <p>Your tax deductible contribution:</p>
       <br />
-      <div id="presetButtons">
+      <div className="presetButtons">
         <div>
           <button
             type="button"
@@ -68,9 +67,9 @@ function DonorForm(props:any) {
       <form>
         <div>
           <div>
-          {errors.paidAMT && <span>*</span>}
-          <label>Enter an amount</label>
-          {errors.paidAMT && <span style={{ margin: '20px', fontSize: 'x-small' }}>please donate more than $0</span>}
+            {errors.paidAMT && <span>*</span>}
+            <label>Enter an amount</label>
+            {errors.paidAMT && <span style={{ margin: "20px", fontSize: "x-small" }}>please donate more than $0</span>}
             <input
               placeholder="Enter an amount"
               {...register("paidAMT", { required: true })}
@@ -89,7 +88,7 @@ function DonorForm(props:any) {
           <div>
             {errors.name && <span>*</span>}
             <label>Name</label>
-            {errors.name && <span style={{ margin: '20px', fontSize: 'x-small' }}>must contain something???</span>}
+            {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>must contain something???</span>}
             <input
               placeholder="Name"
               {...register("name", { required: true })}
@@ -99,7 +98,7 @@ function DonorForm(props:any) {
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
-            {errors.phone && <span style={{ margin: '20px', fontSize: 'x-small' }}>phone number must be 10 digits long or something idk how phone numbers work</span>}
+            {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>phone number must be 10 digits long or something idk how phone numbers work</span>}
             <input
               type="tel"
               placeholder="04XX XXX XXX"
@@ -115,7 +114,7 @@ function DonorForm(props:any) {
           <div>
             {errors.email && <span>*</span>}
             <label>Email</label>
-            {errors.email && <span style={{ margin: '20px', fontSize: 'x-small' }}>email must be an email</span>}
+            {errors.email && <span style={{ margin: "20px", fontSize: "x-small" }}>email must be an email</span>}
             <input
               type="email"
               placeholder="Email address"
