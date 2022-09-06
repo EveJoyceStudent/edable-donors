@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { collectionGroup, query, onSnapshot } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { Link } from "react-router-dom";
-import styles from "../styling/ItemsCollection.module.css";
+import styles from "./ItemsCollection.module.css";
 
 function ItemsCollection() {
   const [itemList, setItemList] = useState<any>([]);

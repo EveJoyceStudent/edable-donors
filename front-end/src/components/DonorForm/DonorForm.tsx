@@ -1,6 +1,6 @@
 // @ts-ignore
 import { useForm } from "react-hook-form";
-import "../styling/DonorForm.css";
+import "./DonorForm.css";
 import Paypal from "./Paypal";
 
 type DonorFormType = {
