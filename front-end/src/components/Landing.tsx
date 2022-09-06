@@ -5,8 +5,8 @@ import { db } from "../config/firebase";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
-
 import "../styling/Landing.css";
+import  Sidebar from "./Sidebar";
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -28,6 +28,7 @@ function Landing() {
   return (
     //   these lines set up the format of the page
     <>
+    
       <div id="header">
         <div id="headingText">
           <h1>EdAble</h1>
@@ -40,7 +41,13 @@ function Landing() {
             By making a tax deductable doantion to EdAble, you will contribute
             to...
           </h4>
+          
+          {/* Burger menu */}
+          <div className="App" id="outer-container">
+          <Sidebar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
 
+          {/* Carousel */}
+          </div>
           <div id="carousel">
             <Carousel
               touch={true}
@@ -84,12 +91,20 @@ function Landing() {
               ))}
             </Carousel>
           </div>
+          
         </div>
+        
       </div>
       {/* items */}
       <h5>item cards here</h5>
+    
     </>
+    
+    
   );
+  
+ 
 }
+
 
 export default Landing;
