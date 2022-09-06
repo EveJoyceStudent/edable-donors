@@ -54,48 +54,52 @@ function Landing() {
           to...
         </h4>
       </div>
-      {/* Carousel */}
-      <div className="carousel">
-        <Carousel
-          touch={true}
-          interval={null}
-          indicators={true}
-          variant="dark"
-          style={{ margin: "0px" }}
-        >
-          {orgList.map((org: any) => (
-            <Carousel.Item
-              key={org.id.toString()}
-              style={{ textAlign: "center", padding: "0px 10vw 50px" }}
-            >
-              <h2 style={{ textAlign: "center" }}>{org.data.name}</h2>
-              <img
-                style={{
-                  height: "200px",
-                  width: "200px",
-                  paddingBottom: "20px",
-                }}
-                src={org.data.img}
-                alt="Org logo"
-              />
-              <p style={{ textAlign: "center", fontSize: "20px" }}>
-                {org.data.description}
-              </p>
-              <Button variant="warning">
-                <Link
+      {/* Burger menu */}
+      <div className="App" id="outer-container">
+        <Sidebar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+        {/* Carousel */}
+        <div className="carousel">
+          <Carousel
+            touch={true}
+            interval={null}
+            indicators={true}
+            variant="dark"
+            style={{ margin: "0px" }}
+          >
+            {orgList.map((org: any) => (
+              <Carousel.Item
+                key={org.id.toString()}
+                style={{ textAlign: "center", padding: "0px 10vw 50px" }}
+              >
+                <h2 style={{ textAlign: "center" }}>{org.data.name}</h2>
+                <img
                   style={{
-                    textDecoration: "none",
-                    color: "black",
-                    fontSize: "30px",
+                    height: "200px",
+                    width: "200px",
+                    paddingBottom: "20px",
                   }}
-                  to={`organisation/${org.id}`}
-                >
-                  <i>I WANT TO MAKE A CONTRIBUTION</i>
-                </Link>
-              </Button>
-            </Carousel.Item>
-          ))}
-        </Carousel>
+                  src={org.data.img}
+                  alt="Org logo"
+                />
+                <p style={{ textAlign: "center", fontSize: "20px" }}>
+                  {org.data.description}
+                </p>
+                <Button variant="warning">
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                      fontSize: "30px",
+                    }}
+                    to={`organisation/${org.id}`}
+                  >
+                    <i>I WANT TO MAKE A CONTRIBUTION</i>
+                  </Link>
+                </Button>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
       </div>
       <ItemsCollection />
 
