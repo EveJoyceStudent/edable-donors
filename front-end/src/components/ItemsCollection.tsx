@@ -4,6 +4,7 @@ import { db } from "../config/firebase";
 import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { Link } from "react-router-dom";
+import styles from "../styling/ItemsCollection.module.css";
 
 function ItemsCollection() {
   const [itemList, setItemList] = useState<any>([]);
@@ -27,64 +28,70 @@ function ItemsCollection() {
   const filteredItems = itemList.filter((item: any) =>
     item.data.name.toLowerCase().includes(search.toLowerCase())
   );
+  console.log(itemList);
 
   return (
     <>
-      <input
-        className="item-input"
-        type="text"
-        onChange={handleChange}
-        placeholder="Search"
-      />
-      <div style={{ display: "flex", margin: "15px" }}>
-        {filteredItems.map((item: any) => (
-          <Link
-            style={{
-              textDecoration: "none",
-              color: "black",
-            }}
-            to={`item/${item.parentDoc}/${item.id}`}
-          >
-            <div>{item.parentDoc.id}</div>
+      <div className={styles.containerDiv}>
+        <p style={{ paddingTop: "15px", fontSize: "30px" }}>
+          Or Checkout our other campaigns!
+        </p>
+        <br></br>
+        <input
+          className={styles.input}
+          type="text"
+          onChange={handleChange}
+          placeholder="Search"
+        />
+
+        <div className={styles.cardParentDiv}>
+          {filteredItems.map((item: any) => (
             <Card
               border="warning"
-              bg="info"
-              style={{ width: "20rem", marginLeft: "20px" }}
               key={item.id.toString()}
+              className={styles.cards}
             >
-              <div style={{ textAlign: "center" }}>
-                <Card.Img
-                  variant="top"
-                  src={item.data.img}
-                  style={{
-                    height: "200px",
-                    width: "200px",
-                  }}
-                />
-              </div>
-              <Card.Body>
-                <Card.Title>{item.data.name}</Card.Title>
-                <div style={{ display: "flex" }}>
-                  <label style={{ paddingRight: "100px" }}>
-                    ${item.data.totalDonation}
-                  </label>
-                  <label style={{ textAlign: "right" }}>
-                    ${item.data.initialPrice}
-                  </label>
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+                to={`item/${item.parentDoc}/${item.id}`}
+              >
+                <div style={{ textAlign: "center" }}>
+                  <Card.Img
+                    variant="top"
+                    src={item.data.img}
+                    style={{
+                      height: "200px",
+                      width: "200px",
+                    }}
+                  />
                 </div>
-                <ProgressBar
-                  striped
-                  variant="danger"
-                  now={(item.data.totalDonation / item.data.initialPrice) * 100}
-                  label={`${Math.round(
-                    (item.data.totalDonation / item.data.initialPrice) * 100
-                  )}%`}
-                />
-                <Card.Text>{item.data.summary}</Card.Text>
-              </Card.Body>
+                <Card.Body>
+                  <Card.Title>{item.data.name}</Card.Title>
+                  <div style={{ display: "flex" }}>
+                    <label style={{ fontSize: "12px" }}>
+                      ${item.data.totalDonation} Out of $
+                      {item.data.initialPrice}
+                    </label>
+                  </div>
+                  <ProgressBar
+                    striped
+                    variant="danger"
+                    now={
+                      (item.data.totalDonation / item.data.initialPrice) * 100
+                    }
+                    label={`${Math.round(
+                      (item.data.totalDonation / item.data.initialPrice) * 100
+                    )}%`}
+                  />
+                  <Card.Text>{item.data.summary}</Card.Text>
+                </Card.Body>
+              </Link>
             </Card>
-          </Link>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );
