@@ -1,8 +1,8 @@
-import { useForm } from "react-hook-form"
-import { doc, getDoc, addDoc, collection } from "firebase/firestore"
-import { db } from "../config/firebase"
+import { useForm } from "react-hook-form";
+import { doc, getDoc, addDoc, collection } from "firebase/firestore";
+import { db } from "../config/firebase";
 
-import "../styling/DonorForm.css"
+import "../styling/DonorForm.css";
 
 function DonorForm() {
   const {
@@ -12,8 +12,8 @@ function DonorForm() {
     formState: { errors },
   } = useForm();
 
-  const currentLoc = window.location.pathname
-  const splitOrg = currentLoc.slice(14)
+  const currentLoc = window.location.pathname;
+  const splitOrg = currentLoc.slice(14);
 
   const onSubmit = handleSubmit(async (donor) => {
     try {
@@ -25,13 +25,13 @@ function DonorForm() {
         {
           donor,
         },
-      )
-      console.log("it works", donor)
-      window.alert("Thank you for your contribution!")
+      );
+      console.log("it works", donor);
+      window.alert("Thank you for your contribution!");
     } catch (e) {
-      console.log("error")
+      console.log("error");
     }
-  })
+  });
 
   return (
     <div className="donorInfoContainer">
@@ -139,7 +139,7 @@ function DonorForm() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
 export default DonorForm;

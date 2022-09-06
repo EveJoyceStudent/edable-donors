@@ -19,7 +19,7 @@ function Landing() {
 
   // gets all the orgs from dbs
   useEffect(() => {
-    const q = query(collection(db, "Organisations"))
+    const q = query(collection(db, "Organisations"));
     onSnapshot(q, (querySnapshot) => {
       // setOrgList dumps all the orgs in orgList
       setOrgList(
@@ -102,7 +102,7 @@ function Landing() {
       {/* items */}
       <ItemsCollection />
     </>
-  )
+  );
 }
 
-export default Landing
+export default Landing;

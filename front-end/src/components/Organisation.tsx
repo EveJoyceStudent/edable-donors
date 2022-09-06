@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 import { db } from "../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import DonorForm from "./DonorForm";
-import "../styling/Organisation.css"
+import "../styling/Organisation.css";
 import { Button, Card } from "react-bootstrap";
 
 function Organisation() {
@@ -17,7 +17,7 @@ function Organisation() {
       const docRef = doc(db, "Organisations", orgId);
       const docSnap = await getDoc(docRef);
       setOrg(docSnap.data());
-    }
+    };
     fetchData().catch(console.error);
   }, [params.orgId]);
 
@@ -49,7 +49,7 @@ function Organisation() {
       <DonorForm />
 
     </div>
-  )
+  );
 }
 
 export default Organisation;
