@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { db } from '../../config/firebase'
+import { db } from '../config/firebase'
 import { collection, query, onSnapshot } from 'firebase/firestore'
 import Carousel from 'react-bootstrap/Carousel'
 import Button from 'react-bootstrap/Button'
 
-import './Landing.css'
+import '../styling/Landing.css'
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([])

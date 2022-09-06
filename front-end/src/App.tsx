@@ -5,11 +5,11 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Base from './components/base/Base';
-import Landing from './components/landing/Landing';
+import Base from './components/Base';
+import Landing from './components/Landing';
 import General from './components/General';
 import Default from './components/Default';
-import Organisation from './components/organisation/Organisation';
+import Organisation from './components/Organisation';
 
 function App() {
   return (

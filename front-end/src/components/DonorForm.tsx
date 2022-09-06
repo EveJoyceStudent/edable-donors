@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { doc, getDoc, addDoc, collection } from 'firebase/firestore'
-import { db } from '../../config/firebase'
+import { db } from '../config/firebase'
 
-import './DonorForm.css'
+import '../styling/DonorForm.css'
 
 function DonorForm() {
   const {

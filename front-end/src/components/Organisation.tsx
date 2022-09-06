@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import { db } from '../../config/firebase'
+import { db } from '../config/firebase'
 import { doc, getDoc } from 'firebase/firestore'
-import DonorForm from '../donor-form/DonorForm'
+import DonorForm from './DonorForm'
 
-import './Organisation.css'
+import '../styling/Organisation.css'
 import { Button, Card } from 'react-bootstrap'
 
 function Organisation() {
