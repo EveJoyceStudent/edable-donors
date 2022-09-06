@@ -44,7 +44,7 @@ function Paypal(props: any) {
   return (
     //   these lines set up the format of the page
     <>
-      {(props.disabled && formAttemptedIncomplete) && <div>oh no fill in da form plz</div>}
+      {(props.disabled && formAttemptedIncomplete) && <div>Please complete the form.</div>}
       {/* <input type="submit" /> */}
       {paypalDisplayed && 
       <PayPalButtons

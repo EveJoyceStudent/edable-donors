@@ -7,7 +7,7 @@ function Cancel() {
     //   these lines set up the format of the page
     <>
       <h3>
-        We couldn't complete your transaction, would you like to
+        We couldn't complete your transaction. Would you like to
         <div>
           <Link to={`../../organisation/${params.orgId}`}>
             <Button>

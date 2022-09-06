@@ -11,7 +11,7 @@ type SidemenuProps = {
   outerContainerId: string;
 };
 
-function Sidebar({ pageWrapId, outerContainerId }: SidemenuProps) {
+function Sidebar() {
   const [orgList, setOrganisationsList] = useState<any>([]);
   const [search, setSearch] = useState<string>("");
 
@@ -36,35 +36,36 @@ function Sidebar({ pageWrapId, outerContainerId }: SidemenuProps) {
   );
   return (
     <>
-      <Navbar bg="light" expand={false} className="mb-3">
-        <Container fluid>
+      <Navbar expand={false}>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand`}
             aria-labelledby={`offcanvasNavbarLabel-expand`}
-            placement="end"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand`}>
-                Organisations
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand`}
+              style={{
+                fontSize: "20px"
+              }}>
+                Social-enterprises supported by EdAble
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <input type="text" onChange={handleChange} placeholder="Search" />
               {filteredOrganisations.map((Organisation: any) => (
                 <Link
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                  }}
-                  to={`organisation/${Organisation.id}`}
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+                to={`organisation/${Organisation.id}`}
                 >
+                <br />
                   <div>{Organisation.data.name}</div>
                 </Link>
               ))}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
-        </Container>
       </Navbar>
     </>
   );
