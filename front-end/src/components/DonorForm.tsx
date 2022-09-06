@@ -1,12 +1,7 @@
 // @ts-ignore
 import { useForm } from "react-hook-form";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../config/firebase";
-
 import "../styling/DonorForm.css";
-import { PayPalButtons } from "@paypal/react-paypal-js";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Paypal from "./Paypal";
 
 type DonorFormType = {
   paidAMT: number,
@@ -19,68 +14,21 @@ type DonorFormType = {
 }
 
 function DonorForm(props:any) {
-  let navigate = useNavigate();
-
-  const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
 
   const {
     watch,
     register,
-    handleSubmit,
     setValue,
     formState: { errors, isValid },
   } = useForm<DonorFormType>({
     mode: "onChange"
   });
 
-  const [formData, setFormData] = useState<DonorFormType>({
-    "paidAMT": 0,
-    "monthly": false,
-    "name": "",
-    "phone": "",
-    "email": "",
-    "IsAnon": false,
-    "mailingList": false
-  });
-
-  const [purchaseData, setPurchaseData] = useState({
-    purchase_units: [
-      {
-        amount: {
-          value: "1",
-        },
-      },
-    ],
-  });
-
-  useEffect(() => {
-    console.log(isValid);
-  }, [isValid]);
-
   const watchPaidAMT = watch("paidAMT", 0);
 
-  useEffect(() => {
-    setPurchaseData({
-      purchase_units: [
-        {
-          amount: {
-            value: (watchPaidAMT).toString(),
-          },
-        },
-      ],
-    })
-  }, [watchPaidAMT]);
+  const watchData=watch(); 
 
   const splitOrg = props.org;
-
-  const onSubmit = handleSubmit((donor: DonorFormType) => {
-    try {
-      setFormData(donor);
-      console.log('set values');
-    } catch (e) {
-      console.log('error');
-    }
-  });
 
   return (
     //   these lines set up the format of the page
@@ -117,7 +65,7 @@ function DonorForm(props:any) {
       </div>
       <br />
       OR
-      <form onSubmit={onSubmit}>
+      <form>
         <div>
           <div>
             {errors.paidAMT && <span>*</span>}<label>Enter an amount</label>
@@ -175,63 +123,23 @@ function DonorForm(props:any) {
             <input type="checkbox" value="yes" {...register("IsAnon")} />
           </div>
 
-
           <div>
             <label htmlFor="mailingList">Join our mailing list?</label>
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
-          {(!isValid&&formAttemptedIncomplete)&&<div>oh no fill in da form plz</div>}
-
           {/* <input type="submit" /> */}
-          <PayPalButtons
+          <Paypal
+            formData={watchData}
+            watchPaidAMT={watchPaidAMT}
+            org={splitOrg}
             disabled={!isValid}
-            forceReRender={[purchaseData]}
-            // onInit={ (data, actions) => {
-            //   return this.disabled=true;
-            // }}
-            onClick={(data, actions) => {
-              if(!isValid){
-                setFormAttemptedIncomplete(true);
-              }
-            }}
-            createOrder={(data, actions) => {
-              return actions.order.create(purchaseData);
-            }}
-            onCancel={(data, actions) => {
-              return navigate(`../../cancel/${splitOrg}`);
-            }}
-            onError={(err) => {
-              return navigate(`../../cancel${splitOrg}`);
-            }}
-            
-            onApprove={async (data, actions) => {
-              return actions.order!.capture().then(async (details) => {
-                try {
-                  const orgRef = await addDoc(collection(db, `Organisations/${splitOrg}/GeneralDonations/Summary/Donations`),
-                    {
-                      formData,
-                    }
-                  );
-                  console.log("it works", orgRef);
-                  const name = details.payer.name!.given_name;
-                  // alert(`Transaction completed by ${name}`);
-                  navigate("../../success");
-                  
-                } catch (e) {
-                  console.log('error');
-                }
-              });
-            }}
           />
         </div>
       </form>
-
     </div>
   );
 }
 
 export default DonorForm;
 
-// submit button to direct to THANK U page
-// validation for ENTER AMOUNT & PHONE (int)
