@@ -1,37 +1,34 @@
+// @ts-ignore
 import { useForm } from "react-hook-form";
-import { doc, getDoc, addDoc, collection } from "firebase/firestore";
-import { db } from "../config/firebase";
-
 import "../styling/DonorForm.css";
+import Paypal from "./Paypal";
 
-function DonorForm() {
+type DonorFormType = {
+  paidAMT: number,
+  monthly: boolean,
+  name: string,
+  phone: string,
+  email: string,
+  IsAnon: boolean,
+  mailingList: boolean
+}
+
+function DonorForm(props:any) {
+
   const {
+    watch,
     register,
-    handleSubmit,
     setValue,
-    formState: { errors },
-  } = useForm();
-
-  const currentLoc = window.location.pathname;
-  const splitOrg = currentLoc.slice(14);
-
-  const onSubmit = handleSubmit(async (donor) => {
-    try {
-      const orgRef = await addDoc(
-        collection(
-          db,
-          `Organisations/${splitOrg}/GeneralDonations/Summary/Donations`,
-        ),
-        {
-          donor,
-        },
-      );
-      console.log("it works", donor);
-      window.alert("Thank you for your contribution!");
-    } catch (e) {
-      console.log("error");
-    }
+    formState: { errors, isValid },
+  } = useForm<DonorFormType>({
+    mode: "onChange"
   });
+
+  const watchPaidAMT = watch("paidAMT", 0);
+
+  const watchData=watch(); 
+
+  const splitOrg = props.org;
 
   return (
     <div className="donorInfoContainer">
@@ -42,7 +39,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "5");
+              setValue("paidAMT", 5);
             }}
           >
             $5
@@ -50,7 +47,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "10");
+              setValue("paidAMT", 10);
             }}
           >
             $10
@@ -58,7 +55,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "20");
+              setValue("paidAMT", 20);
             }}
           >
             $20
@@ -67,7 +64,7 @@ function DonorForm() {
       </div>
       <br />
       OR
-      <form onSubmit={onSubmit}>
+      <form>
         <div>
           <div>
             {errors.paidAMT && <span>*</span>}
@@ -80,8 +77,8 @@ function DonorForm() {
           </div>
 
           <div>
-            <label htmlFor="monthlyPayment">
-              Let"s make this a monthly payment!
+            <label htmlFor="monthly">
+              Let's make this a monthly payment!
             </label>
             <input type="checkbox" value="yes" {...register("monthly")} />
           </div>
@@ -126,7 +123,7 @@ function DonorForm() {
           </div>
 
           <div>
-            <label htmlFor="donateAnon">Donate anonymously?</label>
+            <label htmlFor="IsAnon">Donate anonymously?</label>
             <input type="checkbox" value="yes" {...register("IsAnon")} />
           </div>
 
@@ -135,7 +132,13 @@ function DonorForm() {
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
-          <input type="submit" />
+          {/* <input type="submit" /> */}
+          <Paypal
+            formData={watchData}
+            watchPaidAMT={watchPaidAMT}
+            org={splitOrg}
+            disabled={!isValid}
+          />
         </div>
       </form>
     </div>
@@ -144,5 +147,3 @@ function DonorForm() {
 
 export default DonorForm;
 
-// submit button to direct to THANK U page
-// validation for ENTER AMOUNT & PHONE (int)

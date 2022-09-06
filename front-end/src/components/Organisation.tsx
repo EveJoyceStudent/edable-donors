@@ -46,7 +46,7 @@ function Organisation() {
         </Link>
       </Card>
 
-      <DonorForm />
+      <DonorForm org={params.orgId} />
 
     </div>
   );
