@@ -12,8 +12,8 @@
 
       .cls-3 {
         fill: #231f20;
-        font-family: MyriadPro-Regular, 'Myriad Pro';
-        font-size: 60px;
+        font-family: arial;
+        font-size: 55px;
       }
 
       .cls-4 {

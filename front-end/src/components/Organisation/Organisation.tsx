@@ -27,13 +27,12 @@ function Organisation() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        paddingBottom: 20,
       }}
     >
       <Card
         className="orgInfo">
         <h6 style={{ textAlign: "left", margin: "7px" }}>
-          YOU"RE DONATING TOWARDS Edable SUPPORTING
+          <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
         </h6>
         <Card.Title>{org.name}</Card.Title>
         <Card.Img variant="top" src={org.img} alt={`${org.name}`} />

@@ -33,16 +33,22 @@ function ItemsCollection() {
   return (
     <>
       <div className={styles.containerDiv}>
-        <p style={{ paddingTop: "15px", fontSize: "30px" }}>
-          Or Checkout our other campaigns!
+        <p style={{ paddingTop: "15px", fontSize: "20px" }}>
+          Or check out our other campaigns!
         </p>
-        <br></br>
-        <input
-          className={styles.input}
-          type="text"
-          onChange={handleChange}
-          placeholder="Search"
-        />
+        <div className="searchBar"
+          style={{
+            display: "flex",
+            alignItems: "right",
+            justifyContent: "right",
+          }}>
+          <input
+            className={styles.input}
+            type="text"
+            onChange={handleChange}
+            placeholder="Search"
+          />
+        </div>
 
         <div className={styles.cardParentDiv}>
           {filteredItems.map((item: any) => (
@@ -58,21 +64,21 @@ function ItemsCollection() {
                 }}
                 to={`item/${item.parentDoc}/${item.id}`}
               >
-                <div style={{ textAlign: "center" }}>
-                  <Card.Img
-                    variant="top"
-                    src={item.data.img}
-                    style={{
-                      height: "200px",
-                      width: "200px",
-                    }}
-                  />
-                </div>
                 <Card.Body>
                   <Card.Title>{item.data.name}</Card.Title>
+                  <div style={{ textAlign: "center" }}>
+                    <Card.Img
+                      variant="top"
+                      src={item.data.img}
+                      style={{
+                        height: "200px",
+                        width: "200px",
+                      }}
+                    />
+                  </div>
                   <div style={{ display: "flex" }}>
                     <label style={{ fontSize: "12px" }}>
-                      ${item.data.totalDonation} Out of $
+                      ${item.data.totalDonation || 0} of $
                       {item.data.initialPrice}
                     </label>
                   </div>
@@ -80,7 +86,7 @@ function ItemsCollection() {
                     striped
                     variant="danger"
                     now={
-                      (item.data.totalDonation / item.data.initialPrice) * 100
+                      item.data.totalDonation ? (item.data.totalDonation / item.data.initialPrice) * 100 : 0
                     }
                     label={`${Math.round(
                       (item.data.totalDonation / item.data.initialPrice) * 100
