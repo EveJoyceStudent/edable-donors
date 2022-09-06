@@ -1,8 +1,8 @@
-import { useForm } from 'react-hook-form'
-import { doc, getDoc, addDoc, collection } from 'firebase/firestore'
-import { db } from '../config/firebase'
+import { useForm } from "react-hook-form"
+import { doc, getDoc, addDoc, collection } from "firebase/firestore"
+import { db } from "../config/firebase"
 
-import '../styling/DonorForm.css'
+import "../styling/DonorForm.css"
 
 function DonorForm() {
   const {
@@ -10,7 +10,7 @@ function DonorForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
   const currentLoc = window.location.pathname
   const splitOrg = currentLoc.slice(14)
@@ -26,10 +26,10 @@ function DonorForm() {
           donor,
         },
       )
-      console.log('it works', donor)
-      window.alert('Thank you for your contribution!')
+      console.log("it works", donor)
+      window.alert("Thank you for your contribution!")
     } catch (e) {
-      console.log('error')
+      console.log("error")
     }
   })
 
@@ -42,7 +42,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "5")
+              setValue("paidAMT", "5");
             }}
           >
             $5
@@ -50,7 +50,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "10")
+              setValue("paidAMT", "10");
             }}
           >
             $10
@@ -58,7 +58,7 @@ function DonorForm() {
           <button
             type="button"
             onClick={() => {
-              setValue("paidAMT", "20")
+              setValue("paidAMT", "20");
             }}
           >
             $20
@@ -72,18 +72,18 @@ function DonorForm() {
           <div>
             {errors.paidAMT && <span>*</span>}
             <label>Enter an amount</label>
-            {errors.paidAMT && <span style={{ margin: '20px', fontSize: 'x-small' }}>please donate more than $0</span>}
+            {errors.paidAMT && <span style={{ margin: "20px", fontSize: "x-small" }}>please donate more than $0</span>}
             <input
               placeholder="Enter an amount"
-              {...register('paidAMT', { required: true })}
+              {...register("paidAMT", { required: true })}
             />
           </div>
 
           <div>
             <label htmlFor="monthlyPayment">
-              Let's make this a monthly payment!
+              Let"s make this a monthly payment!
             </label>
-            <input type="checkbox" value="yes" {...register('monthly')} />
+            <input type="checkbox" value="yes" {...register("monthly")} />
           </div>
 
           <br />
@@ -91,7 +91,7 @@ function DonorForm() {
           <div>
             {errors.name && <span>*</span>}
             <label>Name</label>
-            {errors.name && <span style={{ margin: '20px', fontSize: 'x-small' }}>must contain something???</span>}
+            {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>must contain something???</span>}
             <input
               placeholder="Name"
               {...register("name", { required: true })}
@@ -101,7 +101,7 @@ function DonorForm() {
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
-            {errors.phone && <span style={{ margin: '20px', fontSize: 'x-small' }}>phone number must be 10 digits long or something idk how phone numbers work</span>}
+            {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>phone number must be 10 digits long or something idk how phone numbers work</span>}
             <input
               type="tel"
               placeholder="04XX XXX XXX"
@@ -117,7 +117,7 @@ function DonorForm() {
           <div>
             {errors.email && <span>*</span>}
             <label>Email</label>
-            {errors.email && <span style={{ margin: '20px', fontSize: 'x-small' }}>email must be an email</span>}
+            {errors.email && <span style={{ margin: "20px", fontSize: "x-small" }}>email must be an email</span>}
             <input
               type="email"
               placeholder="Email address"
@@ -127,12 +127,12 @@ function DonorForm() {
 
           <div>
             <label htmlFor="donateAnon">Donate anonymously?</label>
-            <input type="checkbox" value="yes" {...register('IsAnon')} />
+            <input type="checkbox" value="yes" {...register("IsAnon")} />
           </div>
 
           <div>
             <label htmlFor="mailingList">Join our mailing list?</label>
-            <input type="checkbox" value="yes" {...register('mailingList')} />
+            <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
           <input type="submit" />
@@ -142,7 +142,7 @@ function DonorForm() {
   )
 }
 
-export default DonorForm
+export default DonorForm;
 
 // submit button to direct to THANK U page
 // validation for ENTER AMOUNT & PHONE (int)

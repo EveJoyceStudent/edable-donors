@@ -15,21 +15,21 @@ import "../styling/Landing.css";
 import ItemsCollection from "./ItemsCollection";
 
 function Landing() {
-  const [orgList, setOrgList] = useState<any>([])
+  const [orgList, setOrgList] = useState<any>([]);
 
   // gets all the orgs from dbs
   useEffect(() => {
-    const q = query(collection(db, 'Organisations'))
+    const q = query(collection(db, "Organisations"))
     onSnapshot(q, (querySnapshot) => {
       // setOrgList dumps all the orgs in orgList
       setOrgList(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
-        })),
-      )
-    })
-  }, [])
+        }))
+      );
+    });
+  }, []);
 
   return (
     //   these lines set up the format of the page
