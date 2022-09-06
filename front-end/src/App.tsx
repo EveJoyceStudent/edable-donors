@@ -44,8 +44,6 @@ function App() {
       </BrowserRouter>
     </PayPalScriptProvider>
   );
-  
 }
-
 
 export default App;
