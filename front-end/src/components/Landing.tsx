@@ -1,11 +1,18 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { db } from '../config/firebase'
-import { collection, query, onSnapshot } from 'firebase/firestore'
-import Carousel from 'react-bootstrap/Carousel'
-import Button from 'react-bootstrap/Button'
+import { useEffect, useState } from "react";
+import "./Landing.css";
+import { Link } from "react-router-dom";
+import { db } from "../config/firebase";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import Carousel from "react-bootstrap/Carousel";
+import Button from "react-bootstrap/Button";
+import { ReactComponent as LandingPageStar } from '../star.svg';
 
-import '../styling/Landing.css'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import "../styling/Landing.css";
+import ItemsCollection from "./ItemsCollection";
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([])
@@ -28,11 +35,20 @@ function Landing() {
     //   these lines set up the format of the page
     <>
       <div className="header">
-        <h1>EdAble</h1>
+        <Container fluid>
+          <Row>
+            <Col xs={0} md="auto">
+              <LandingPageStar style={{ height: 250, width: 400, display: 'block', margin: 'auto' }} />
+            </Col>
+            <Col>
+              <h1>EdAble</h1>
 
-        <h3>
-          <i>Supporting the growth of social-enterprises</i>
-        </h3>
+              <h3>
+                <i>Supporting the growth of social-enterprises</i>
+              </h3>
+            </Col>
+          </Row>
+        </Container>
         <br />
         <h4>
           By making a tax deductable doantion to EdAble, you will contribute
@@ -43,34 +59,35 @@ function Landing() {
           <Carousel
             touch={true}
             interval={null}
-            indicators={false}
+            indicators={true}
             variant="dark"
+            style={{ margin: "0px" }}
           >
             {orgList.map((org: any) => (
               <Carousel.Item
                 key={org.id.toString()}
-                style={{ textAlign: 'center' }}
+                style={{ textAlign: "center", padding: "0px 10vw 50px" }}
               >
-                <h2 style={{ textAlign: 'center' }}>{org.data.name}</h2>
+                <h2 style={{ textAlign: "center" }}>{org.data.name}</h2>
                 <img
                   style={{
-                    height: '200px',
-                    width: '200px',
-                    paddingBottom: '5px',
+                    height: "200px",
+                    width: "200px",
+                    paddingBottom: "20px",
                   }}
                   src={org.data.img}
                   alt="Org logo"
                 />
 
-                <p style={{ textAlign: 'center', fontSize: '20px' }}>
+                <p style={{ textAlign: "center", fontSize: "20px" }}>
                   {org.data.description}
                 </p>
                 <Button variant="warning">
                   <Link
                     style={{
-                      textDecoration: 'none',
-                      color: 'black',
-                      fontSize: '30px',
+                      textDecoration: "none",
+                      color: "black",
+                      fontSize: "30px",
                     }}
                     to={`organisation/${org.id}`}
                   >
@@ -83,7 +100,7 @@ function Landing() {
         </div>
       </div>
       {/* items */}
-      <h5>item cards here</h5>
+      <ItemsCollection />
     </>
   )
 }
