@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 903.58 601.82">
   <defs>
@@ -21,28 +22,20 @@
       }
 
       .cls-5 {
-        letter-spacing: 0em;
-      }
-
-      .cls-6 {
         fill: #a97cb7;
         stroke: #231f20;
         stroke-miterlimit: 10;
       }
 
+      .cls-6 {
+        letter-spacing: 0em;
+      }
+
       .cls-7 {
-        letter-spacing: 0em;
-      }
-
-      .cls-8 {
-        letter-spacing: 0em;
-      }
-
-      .cls-9 {
         letter-spacing: 0em;
       }
     </style>
   </defs>
-  <polygon id="Star" class="cls-6" points="451.79 .91 547.46 146.93 769.99 88.78 682.76 237.13 901.79 300.91 682.76 364.69 769.99 513.04 547.46 454.89 451.79 600.91 356.12 454.89 133.59 513.04 220.82 364.69 1.79 300.91 220.82 237.13 133.59 88.78 356.12 146.93 451.79 .91"/>
-  <text id="Text" class="cls-3" transform="translate(253.13 337.55) rotate(-14.83)"><tspan class="cls-1" x="0" y="0">B</tspan><tspan x="32.76" y="0">e an inclusivi</tspan><tspan class="cls-5" x="352.61" y="0">t</tspan><tspan class="cls-9" x="373.01" y="0">y</tspan><tspan x="44.43" y="72">he</tspan><tspan class="cls-7" x="107.79" y="72">r</tspan><tspan x="126.81" y="72">o </tspan><tspan class="cls-2" x="172.47" y="72">t</tspan><tspan x="191.97" y="72">od</tspan><tspan class="cls-4" x="258.75" y="72">a</tspan><tspan class="cls-8" x="287.19" y="72">y!!!</tspan></text>
+  <polygon id="Star" class="cls-5" points="451.79 .91 547.46 146.93 769.99 88.78 682.76 237.13 901.79 300.91 682.76 364.69 769.99 513.04 547.46 454.89 451.79 600.91 356.12 454.89 133.59 513.04 220.82 364.69 1.79 300.91 220.82 237.13 133.59 88.78 356.12 146.93 451.79 .91"/>
+  <text id="Text" class="cls-3" transform="translate(265.36 334.28) rotate(-14.83)"><tspan class="cls-1" x="0" y="0">B</tspan><tspan x="32.76" y="0">e an inclusion</tspan><tspan x="31.77" y="72">he</tspan><tspan class="cls-6" x="95.13" y="72">r</tspan><tspan x="114.15" y="72">o </tspan><tspan class="cls-2" x="159.81" y="72">t</tspan><tspan x="179.31" y="72">od</tspan><tspan class="cls-4" x="246.09" y="72">a</tspan><tspan class="cls-7" x="274.53" y="72">y!!!</tspan></text>
 </svg>
