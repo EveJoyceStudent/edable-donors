@@ -1,26 +1,25 @@
-import React from 'react';
-import './App.css';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-import Base from './components/Base';
-import Landing from './components/Landing';
-import General from './components/General';
-import Default from './components/Default';
-import Organisation from './components/Organisation';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import Base from "./components/Base";
+import Landing from "./components/Landing";
+import General from "./components/General";
+import Default from "./components/Default";
+import Organisation from "./components/Organisation";
+import ItemPage from "./components/ItemPage";
 import Success from './components/Success';
 import Cancel from './components/Cancel';
 
 function App() {
   return (
     <PayPalScriptProvider options={
-      { "client-id": "ATT3Tn46NrmHggGqVC4mzWOZWlnbp2ID9DA0yQnhsgqPFIVPPlLhfSI_-atbZc3aN7n_k7wUVTyQJMnI",
-      "currency":"AUD",
-     }
-     }>
+      {
+        "client-id": "ATT3Tn46NrmHggGqVC4mzWOZWlnbp2ID9DA0yQnhsgqPFIVPPlLhfSI_-atbZc3aN7n_k7wUVTyQJMnI",
+        "currency": "AUD",
+      }
+    }>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Base />}>
@@ -35,6 +34,7 @@ function App() {
               path="cancel/:orgId"
               element={<Cancel />}
             />
+            <Route path="item/:orgID/:itemID" element={<ItemPage />} />
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
               routes for. */}
