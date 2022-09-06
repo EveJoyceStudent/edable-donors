@@ -10,6 +10,13 @@ import { useNavigate } from "react-router-dom";
 function Paypal(props: any) {
   let navigate = useNavigate();
 
+  const [paypalDisplayed, setPaypalDisplayed] = useState(true);
+
+  const paypalDisabledNavigate = ( link:string ) => {
+    setPaypalDisplayed(false);
+    navigate(link);
+  }
+
   const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
 
   const [purchaseData, setPurchaseData] = useState({
@@ -39,8 +46,9 @@ function Paypal(props: any) {
     <>
       {(props.disabled && formAttemptedIncomplete) && <div>oh no fill in da form plz</div>}
       {/* <input type="submit" /> */}
+      {paypalDisplayed && 
       <PayPalButtons
-        disabled={props.disabled}
+      disabled={props.disabled}
         forceReRender={[purchaseData, props.formData]}
         onClick={(data, actions) => {
           if (props.disabled) {
@@ -51,12 +59,12 @@ function Paypal(props: any) {
           return actions.order.create(purchaseData);
         }}
         onCancel={(data, actions) => {
-          return navigate(`../../cancel/${props.org}`);
+          return paypalDisabledNavigate(`../../cancel/${props.org}`);
         }}
         onError={(err) => {
-          return navigate(`../../cancel${props.org}`);
+          return paypalDisabledNavigate(`../../cancel${props.org}`);
         }}
-
+        
         onApprove={async (data, actions) => {
           return actions.order!.capture().then(async (details) => {
             try {
@@ -67,14 +75,15 @@ function Paypal(props: any) {
               console.log("it works", orgRef);
               const name = details.payer.name!.given_name;
               console.log(`Transaction completed by ${name}`);
-              navigate("../../success");
+              paypalDisabledNavigate("../../success");
 
             } catch (e) {
               console.log('error');
             }
           });
         }}
-      />
+        />
+      }
     </>
   );
 }
