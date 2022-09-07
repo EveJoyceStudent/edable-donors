@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-function General() {
+function Success() {
     return (
         //   these lines set up the format of the page
         <div>
             <h1>
-                General Page
+                Thank you for your donation.
             </h1>
             <div>
                 <Link to="/">Home</Link>
@@ -14,4 +14,4 @@ function General() {
     );
 }
 
-export default General;
+export default Success;

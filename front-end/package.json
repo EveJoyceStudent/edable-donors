@@ -3,21 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@paypal/react-paypal-js": "^7.8.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.49",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@types/react-icons": "^3.0.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.26",
+    "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "faicon": "^1.1.0",
     "firebase": "^9.9.3",
+    "flaticon": "^0.1.0",
+    "font-awesome": "^4.7.0",
+    "navbar": "^2.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
+    "react-burger-menu": "^3.0.8",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
+    "react-icons": "^4.4.0",
+    "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.5",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
   },
@@ -44,5 +56,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.14",
+    "@types/react-burger-menu": "^2.8.3"
   }
 }
