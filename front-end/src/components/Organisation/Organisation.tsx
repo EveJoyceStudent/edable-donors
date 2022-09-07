@@ -38,6 +38,7 @@ function Organisation() {
         <Card.Img variant="top" src={org.img} alt={`${org.name}`} />
         <Card.Body>
           <Card.Text>{org.description}</Card.Text>
+          <Card.Text> Check out the <a href={org.website}>{`${org.name}`} website</a></Card.Text>
         </Card.Body>
         <Link to="/">
           <Button variant="warning">Go back</Button>
