@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
-import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { Button, Card, ProgressBar } from "react-bootstrap";
+import DonorForm from "../DonorForm/DonorForm";
 
 function ItemPage() {
   let params = useParams();
@@ -17,12 +19,62 @@ function ItemPage() {
       setItem(docSnap.data());
     };
     fetchData().catch(console.error);
-  }, [params.itemID]);
+  }, [params.itemID, params.orgID]);
+
+  const [org, setOrg] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const orgId = params.orgID || "";
+      const docRef = doc(db, "Organisations", orgId);
+      const docSnap = await getDoc(docRef);
+      setOrg(docSnap.data());
+    };
+    fetchData().catch(console.error);
+  }, [params.orgID]);
 
   return (
     <>
-      <div>
-        <h1>{item.name}</h1>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Card
+          className="orgInfo">
+          <h6 style={{ textAlign: "left", margin: "7px" }}>
+            <i>YOUR PARTNERSHIP MEANS THE WORLD TO US</i>
+          </h6>
+          <Card.Title>{org.name}</Card.Title>
+          <Card.Subtitle>would love your support for<br /><em>{item.name}</em></Card.Subtitle>
+          <Card.Img variant="top" src={item.img} alt={`${item.name}`} />
+          <Card.Body className="pt-0 px-0">
+            <Card.Text className="mb-0">
+              ${item.totalDonation || 0} of $
+              {item.initialPrice}
+            </Card.Text>
+            <ProgressBar
+              className="mb-3"
+              striped
+              variant="danger"
+              now={
+                item.totalDonation ? (item.totalDonation / item.initialPrice) * 100 : 0
+              }
+              label={`${Math.round(
+                (item.totalDonation / item.initialPrice) * 100
+              )}%`}
+            />
+            <Card.Text>{item.description}</Card.Text>
+            <Card.Text> Check out the <a href={org.website}>{`${org.name}`} website</a></Card.Text>
+          </Card.Body>
+          <Link to="/">
+            <Button variant="warning">Go back</Button>
+          </Link>
+        </Card>
+
+        <DonorForm org={params.orgID} item={params.itemID} itemAmount={item.initialPrice - (item.totalDonation || 0)} />
       </div>
     </>
   );

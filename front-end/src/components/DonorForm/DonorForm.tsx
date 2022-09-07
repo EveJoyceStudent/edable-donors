@@ -15,6 +15,8 @@ type DonorFormType = {
 
 function DonorForm(props:any) {
 
+  const isItemDonation = props.item !== undefined;
+
   const {
     watch,
     register,
@@ -60,6 +62,18 @@ function DonorForm(props:any) {
           >
             $20
           </button>
+          {isItemDonation && <>
+          <br />
+          <button
+            type="button"
+            onClick={() => {
+              setValue("paidAMT", props.itemAmount);
+            }}
+          >
+            Full Amount
+          </button>
+          </>}
+
         </div>
       </div>
       <br />
@@ -76,12 +90,14 @@ function DonorForm(props:any) {
             />
           </div>
 
-          <div>
+          {!isItemDonation &&
+            <div>
             <label htmlFor="monthly">
               Let's make this a monthly payment!
             </label>
             <input type="checkbox" value="yes" {...register("monthly")} />
           </div>
+          }
 
           <br />
 
