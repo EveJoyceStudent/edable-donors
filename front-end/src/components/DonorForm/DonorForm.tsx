@@ -23,6 +23,7 @@ function DonorForm(props: any) {
     mode: "onChange",
   });
 
+  
   const watchPaidAMT = watch("paidAMT", 0);
 
   const watchData = watch();
@@ -70,16 +71,21 @@ function DonorForm(props: any) {
             <label>Enter an amount</label>
             {errors.paidAMT && (
               <span style={{ margin: "20px", fontSize: "x-small" }}>
-                Must contain a number
+                Please enter an amount
               </span>
+              
             )}
-            <input
+            
+            <input type ="number"
               placeholder="Enter an amount"
               {...register("paidAMT", { 
                 required: true,
-                pattern: /[0-9]/, })}
+                pattern: /[1-9]/, })}
+                
             />
+            
           </div>
+          
 
           <div>
             <label htmlFor="monthly">Let's make this a monthly payment!</label>
@@ -91,8 +97,8 @@ function DonorForm(props: any) {
           <div>
             {errors.name && <span>*</span>}
             <label>Name</label>
-            {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank, can only contain letters</span>}
-            <input
+            {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank</span>}
+            <input type = "text"
               placeholder="Name"
               {...register("name", { 
                 required: true,
@@ -103,14 +109,14 @@ function DonorForm(props: any) {
             {errors.phone && <span>*</span>}
             <label>Phone</label>
             {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>Please enter a valid phone number</span>}
-            <input
-              type="tel"
+            <input 
               placeholder="04XX XXX XXX"
               {...register("phone", {
                 required: true,
                 maxLength: 10,
                 minLength: 10,
-                pattern: /[0-9]/,
+                pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+                ,
               })}
             />
           </div>
@@ -119,11 +125,12 @@ function DonorForm(props: any) {
             {errors.email && <span>*</span>}
             <label>Email</label>
             {errors.email && <span style={{ margin: "20px", fontSize: "x-small" }}>Please enter a valid email</span>}
-            <input
-              type="email"
+            <input type="email"
               placeholder="Email address"
               {...register("email", { 
-                required: true })}
+                required: true,
+              pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+            })}
             />
           </div>
 
@@ -136,6 +143,7 @@ function DonorForm(props: any) {
             <label htmlFor="mailingList">Join our mailing list?</label>
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
+         
 
           {/* <input type="submit" /> */}
           <Paypal
