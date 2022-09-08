@@ -4,29 +4,28 @@ import "./DonorForm.css";
 import Paypal from "./Paypal";
 
 type DonorFormType = {
-  paidAMT: number,
-  monthly: boolean,
-  name: string,
-  phone: string,
-  email: string,
-  IsAnon: boolean,
-  mailingList: boolean
-}
+  paidAMT: number;
+  monthly: boolean;
+  name: string;
+  phone: string;
+  email: string;
+  IsAnon: boolean;
+  mailingList: boolean;
+};
 
-function DonorForm(props:any) {
-
+function DonorForm(props: any) {
   const {
     watch,
     register,
     setValue,
     formState: { errors, isValid },
   } = useForm<DonorFormType>({
-    mode: "onChange"
+    mode: "onChange",
   });
 
   const watchPaidAMT = watch("paidAMT", 0);
 
-  const watchData=watch(); 
+  const watchData = watch();
 
   const splitOrg = props.org;
 
@@ -69,7 +68,11 @@ function DonorForm(props:any) {
           <div>
             {errors.paidAMT && <span>*</span>}
             <label>Enter an amount</label>
-            {errors.paidAMT && <span style={{ margin: "20px", fontSize: "x-small" }}>Must contain a number</span>}
+            {errors.paidAMT && (
+              <span style={{ margin: "20px", fontSize: "x-small" }}>
+                Must contain a number
+              </span>
+            )}
             <input
               placeholder="Enter an amount"
               {...register("paidAMT", { 
@@ -79,9 +82,7 @@ function DonorForm(props:any) {
           </div>
 
           <div>
-            <label htmlFor="monthly">
-              Let's make this a monthly payment!
-            </label>
+            <label htmlFor="monthly">Let's make this a monthly payment!</label>
             <input type="checkbox" value="yes" {...register("monthly")} />
           </div>
 
@@ -98,7 +99,6 @@ function DonorForm(props:any) {
                 pattern: /[a-z]/, })}
             />
           </div>
-
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
@@ -151,4 +151,3 @@ function DonorForm(props:any) {
 }
 
 export default DonorForm;
-
