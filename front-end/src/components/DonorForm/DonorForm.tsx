@@ -75,7 +75,9 @@ function DonorForm(props: any) {
             )}
             <input
               placeholder="Enter an amount"
-              {...register("paidAMT", { required: true })}
+              {...register("paidAMT", { 
+                required: true,
+                pattern: /[0-9]/, })}
             />
           </div>
 
@@ -89,25 +91,18 @@ function DonorForm(props: any) {
           <div>
             {errors.name && <span>*</span>}
             <label>Name</label>
-            {errors.name && (
-              <span style={{ margin: "20px", fontSize: "x-small" }}>
-                Name cannot be blank, must contain letters
-              </span>
-            )}
+            {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank, can only contain letters</span>}
             <input
               placeholder="Name"
-              {...register("name", { required: true })}
+              {...register("name", { 
+                required: true,
+                pattern: /[a-z]/, })}
             />
           </div>
-
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
-            {errors.phone && (
-              <span style={{ margin: "20px", fontSize: "x-small" }}>
-                Phone number must be 10 digits in length
-              </span>
-            )}
+            {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>Please enter a valid phone number</span>}
             <input
               type="tel"
               placeholder="04XX XXX XXX"
@@ -123,15 +118,12 @@ function DonorForm(props: any) {
           <div>
             {errors.email && <span>*</span>}
             <label>Email</label>
-            {errors.email && (
-              <span style={{ margin: "20px", fontSize: "x-small" }}>
-                Must contain a valid email
-              </span>
-            )}
+            {errors.email && <span style={{ margin: "20px", fontSize: "x-small" }}>Please enter a valid email</span>}
             <input
               type="email"
               placeholder="Email address"
-              {...register("email", { required: true })}
+              {...register("email", { 
+                required: true })}
             />
           </div>
 
