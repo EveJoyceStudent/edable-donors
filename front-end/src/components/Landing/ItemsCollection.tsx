@@ -98,8 +98,11 @@ function ItemsCollection() {
                   <ProgressBar
                     variant="warning"
                     now={
-                      (item.data.totalDonations / item.data.initialPrice) * 100
-                    }
+                      item.data.totalDonations
+                        ? (item.data.totalDonations / item.data.initialPrice) *
+                          100
+                        : 0
+                        }
                     label={`${Math.round(
                       (item.data.totalDonations / item.data.initialPrice) * 100
                     )}%`}
