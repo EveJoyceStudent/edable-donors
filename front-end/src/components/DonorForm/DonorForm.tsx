@@ -19,6 +19,7 @@ function DonorForm(props:any) {
 
   const {
     watch,
+    getValues,
     register,
     setValue,
     formState: { errors, isValid },
@@ -27,8 +28,9 @@ function DonorForm(props:any) {
   });
 
   const watchPaidAMT = watch("paidAMT", 0);
+  const watchSubscription = watch("monthly", false);
 
-  const watchData=watch(); 
+  const formDataValues=getValues(); 
 
   const splitOrg = props.org;
 
@@ -95,7 +97,7 @@ function DonorForm(props:any) {
             <label htmlFor="monthly">
               Let's make this a monthly payment!
             </label>
-            <input type="checkbox" value="yes" {...register("monthly")} />
+            <input type="checkbox" {...register("monthly")} />
           </div>
           }
 
@@ -149,12 +151,18 @@ function DonorForm(props:any) {
           </div>
 
           {/* <input type="submit" /> */}
+          <div style={{ minHeight:"150px" }}>
+
           <Paypal
-            formData={watchData}
+            formData={formDataValues}
             watchPaidAMT={watchPaidAMT}
+            watchSubscription={watchSubscription}
             org={splitOrg}
             disabled={!isValid}
-          />
+            type={watchSubscription?"subscription":"capture"}
+            item={props.item}
+            />
+          </div>
         </div>
       </form>
     </div>

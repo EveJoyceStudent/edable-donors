@@ -52,7 +52,7 @@ function ItemPage() {
           <Card.Img variant="top" src={item.img} alt={`${item.name}`} />
           <Card.Body className="pt-0 px-0">
             <Card.Text className="mb-0">
-              ${item.totalDonation || 0} of $
+              ${item.totalDonations || 0} of $
               {item.initialPrice}
             </Card.Text>
             <ProgressBar
@@ -60,10 +60,10 @@ function ItemPage() {
               striped
               variant="danger"
               now={
-                item.totalDonation ? (item.totalDonation / item.initialPrice) * 100 : 0
+                item.totalDonations ? (item.totalDonations / item.initialPrice) * 100 : 0
               }
               label={`${Math.round(
-                (item.totalDonation / item.initialPrice) * 100
+                (item.totalDonations / item.initialPrice) * 100
               )}%`}
             />
             <Card.Text>{item.description}</Card.Text>
@@ -74,7 +74,7 @@ function ItemPage() {
           </Link>
         </Card>
 
-        <DonorForm org={params.orgID} item={params.itemID} itemAmount={item.initialPrice - (item.totalDonation || 0)} />
+        <DonorForm org={params.orgID} item={params.itemID} itemAmount={item.initialPrice - (item.totalDonations || 0)} />
       </div>
     </>
   );
