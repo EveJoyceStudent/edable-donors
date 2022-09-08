@@ -37,7 +37,8 @@ function PastDonations() {
 
         {pastDonations.map((pastDonation: any) => (
           <p>
-            {pastDonation.data.name} donated ${pastDonation.data.paidAMT}
+            {pastDonation.data.IsAnon ? "Anonymous" : pastDonation.data.name}{" "}
+            donated ${pastDonation.data.paidAMT}
           </p>
         ))}
       </div>
