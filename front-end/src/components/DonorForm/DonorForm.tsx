@@ -72,7 +72,9 @@ function DonorForm(props:any) {
             {errors.paidAMT && <span style={{ margin: "20px", fontSize: "x-small" }}>Must contain a number</span>}
             <input
               placeholder="Enter an amount"
-              {...register("paidAMT", { required: true })}
+              {...register("paidAMT", { 
+                required: true,
+                pattern: /[0-9]/, })}
             />
           </div>
 
@@ -91,14 +93,16 @@ function DonorForm(props:any) {
             {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank, must contain letters</span>}
             <input
               placeholder="Name"
-              {...register("name", { required: true })}
+              {...register("name", { 
+                required: true,
+                pattern: /[a-z]/, })}
             />
           </div>
 
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
-            {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>Phone number must be 10 digits in length</span>}
+            {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>Phone number must be 10 digits in length and cannot include letters</span>}
             <input
               type="tel"
               placeholder="04XX XXX XXX"
@@ -118,7 +122,8 @@ function DonorForm(props:any) {
             <input
               type="email"
               placeholder="Email address"
-              {...register("email", { required: true })}
+              {...register("email", { 
+                required: true })}
             />
           </div>
 
