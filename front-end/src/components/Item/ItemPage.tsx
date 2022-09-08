@@ -74,7 +74,7 @@ function ItemPage() {
           </Link>
         </Card>
 
-        <DonorForm org={params.orgID} item={params.itemID} itemAmount={item.initialPrice - (item.totalDonations || 0)} />
+        <DonorForm org={params.orgID} item={params.itemID} itemAmount={Math.round((item.initialPrice - (item.totalDonations || 0)+Number.EPSILON)*100)/100} />
       </div>
     </>
   );

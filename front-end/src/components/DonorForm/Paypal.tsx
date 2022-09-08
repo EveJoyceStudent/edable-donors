@@ -1,5 +1,5 @@
 // @ts-ignore
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection, doc, increment, runTransaction, Timestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
@@ -105,12 +105,12 @@ function Paypal(props: any) {
     return actions.order.create(purchaseData);
   });
 
-  const approveSubscriptionContent = ( async (data: any, actions: any) => {
-    return actions.subscription?.get().then(async (details:any) => {
+  const approveSubscriptionContent = (async (data: any, actions: any) => {
+    return actions.subscription?.get().then(async (details: any) => {
       try {
+        await runTransaction(db, async (transaction) => {
           const orgRef = await addDoc(collection(db, `Organisations/${props.org}/GeneralDonations/Summary/Donations`),
             {
-              orgID: props.org,
               IsError: false,
               IsSubscription: true,
               amount: props.watchPaidAMT,
@@ -126,20 +126,29 @@ function Paypal(props: any) {
               }
             }
           );
+          const summaryRef = await updateDoc(doc(db, `Organisations/${props.org}/GeneralDonations/Summary`),
+            {
+              numberOfDonations: increment(1),
+              totalGeneralDonations: increment(props.watchPaidAMT)
+            }
+          );
+
+        });
         paypalDisabledNavigate("../../success");
 
       } catch (e) {
         console.log('error', e);
       }
-    })}
+    });
+  }
   );
 
-  const approveOrderContent = ( async (data: any, actions: any) => {
-      return actions.order.capture().then(async (details:any) => {
-        try {
+  const approveOrderContent = (async (data: any, actions: any) => {
+    return actions.order.capture().then(async (details: any) => {
+      try {
+        await runTransaction(db, async (transaction) => {
           const orgRef = await addDoc(collection(db, `Organisations/${props.org}/GeneralDonations/Summary/Donations`),
             {
-              orgID: props.org,
               IsError: false,
               IsSubscription: false,
               amount: props.watchPaidAMT,
@@ -155,46 +164,58 @@ function Paypal(props: any) {
               }
             }
           );
-          const name = details.payer.name!.given_name;
-          paypalDisabledNavigate("../../success");
-
-        } catch (e) {
-          console.log('error', e);
-        }
-      });
-    });
-
-    const approveItemOrderContent = ( async (data: any, actions: any) => {
-      return actions.order.capture().then(async (details:any) => {
-        try {
-          const donorRef = await addDoc(collection(db, `Donors`),
-          {
-            email: props.formData.email,
-            phoneNumber: props.formData.phone,
-            mailingAddress: '',
-            name: props.formData.name,
-            IsAnon: props.formData.IsAnon,
-            agreeToContact: props.formData.mailingList,
-          }
-          )
-          const orgRef = await addDoc(collection(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations/ItemSummary/Donations`),
+          const summaryRef = await updateDoc(doc(db, `Organisations/${props.org}/GeneralDonations/Summary`),
             {
-              donorID: donorRef.id,
-              orgID: props.org,
-              IsError: false,
-              amount: props.watchPaidAMT,
-              IsRefunded: false,
-              donationDate: Timestamp.now(),
+              numberOfDonations: increment(1),
+              totalGeneralDonations: increment(props.watchPaidAMT)
             }
           );
-          const name = details.payer.name!.given_name;
-          paypalDisabledNavigate("../../success");
 
-        } catch (e) {
-          console.log('error', e);
-        }
-      });
+        });
+        paypalDisabledNavigate("../../success");
+
+      } catch (e) {
+        console.log('error', e);
+      }
     });
+  });
+
+  const approveItemOrderContent = (async (data: any, actions: any) => {
+    return actions.order.capture().then(async (details: any) => {
+      try {
+        await runTransaction(db, async (transaction) => {
+        const orgRef = await addDoc(collection(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations/ItemSummary/Donations`),
+          {
+            IsError: false,
+            amount: props.watchPaidAMT,
+            IsRefunded: false,
+            donationDate: Timestamp.now(),
+            donor: {
+              email: props.formData.email,
+              phoneNumber: props.formData.phone,
+              mailingAddress: '',
+              name: props.formData.name,
+              IsAnon: props.formData.IsAnon,
+              agreeToContact: props.formData.mailingList,
+            }
+          }
+        );
+        const summaryRef = await updateDoc(doc(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations/ItemSummary`),
+          {
+            numberOfDonations: increment(1),
+            totalItemDonations: increment(props.watchPaidAMT)
+          }
+        );
+
+      });
+        const name = details.payer.name!.given_name;
+        paypalDisabledNavigate("../../success");
+
+      } catch (e) {
+        console.log('error', e);
+      }
+    });
+  });
 
 
   return (
@@ -204,8 +225,8 @@ function Paypal(props: any) {
       {paypalDisplayed &&
         <PayPalButtons
 
-          {...(props.watchSubscription ? { createSubscription: createSubscriptionContent } : { createOrder: createOrderContent } )}
-          {...(props.watchSubscription ? { style: { label: "subscribe", } } : { style: { label: "donate", } } )}
+          {...(props.watchSubscription ? { createSubscription: createSubscriptionContent } : { createOrder: createOrderContent })}
+          {...(props.watchSubscription ? { style: { label: "subscribe", } } : { style: { label: "donate", } })}
           disabled={props.disabled}
           forceReRender={[purchaseData, props.watchPaidAMT, props.watchSubscription]}
           onClick={(data, actions) => {
@@ -220,7 +241,7 @@ function Paypal(props: any) {
             window.alert(err);
             return paypalDisabledNavigate(`../../cancel/${props.org}`);
           }}
-          {...(props.watchSubscription ? { onApprove: approveSubscriptionContent } : { onApprove: approveOrderContent } )}
+          {...(props.watchSubscription ? { onApprove: approveSubscriptionContent } : { onApprove: approveOrderContent })}
         />
       }
     </>
