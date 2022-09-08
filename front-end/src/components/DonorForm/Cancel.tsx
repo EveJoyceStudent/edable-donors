@@ -1,34 +1,39 @@
 import { Button, Image } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
+import "./Message.css";
 
 function Cancel() {
   let params = useParams();
   return (
     //   these lines set up the format of the page
-    <div style={{ textAlign: "center", width: "100vw", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div>
-      <Image src='https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmobile%2F000%2F028%2F692%2Fcat.jpg' style={{width:"300px", height:"300px"}} roundedCircle></Image>
-        <h3 style={{ textAlign: "center", paddingTop:"30px"}}>
-          Sorry, we couldn't complete your transaction. 
-        </h3>
-        <h3 style={{ textAlign: "center", paddingTop: "30px"}}>
-          Would you like to...
-        </h3>
-        <h3 style={{textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Link to={`../../organisation/${params.orgId}`}>
-            <Button variant="warning" style={{ textDecoration: "none", color: "black", fontSize: "30px" }}>
-              Try Again
-            </Button>
-          </Link>
-          &nbsp;or&nbsp;
-          <Link to="/">
-            <Button variant="warning" style={{ textDecoration: "none", color: "black", fontSize: "30px" }}>
-              Return to Donation page
-            </Button>
-          </Link>
-        </h3>
+    <div className="bg">
+      <div className="msgContainer" style={{ height: "calc(100vh - 40px)"}}>
+        <div>
+          <Image className="msgIcon" src='https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmobile%2F000%2F028%2F692%2Fcat.jpg' roundedCircle></Image>
+          <h1 className="msgTitle" style={{ paddingTop: "50px" }}>
+            Sorry, we couldn't complete your transaction.
+          </h1>
+          <h1 className="msgText">
+            Would you like to...
+            <br></br>
+            <br></br>
+            <Link to={`../../organisation/${params.orgId}`}>
+              <Button className="msgButton" variant="warning">
+                <i>Try Again</i>
+              </Button>
+            </Link>
+            &nbsp;&nbsp;or&nbsp;&nbsp;
+            <Link to="/">
+              <Button className="msgButton" variant="warning">
+                <i>Return to Donation page</i>
+              </Button>
+            </Link>
+          </h1>
+
+        </div>
       </div>
     </div>
+    
   );
 }
 
