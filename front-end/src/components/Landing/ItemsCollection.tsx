@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { collectionGroup, query, onSnapshot } from "firebase/firestore";
+import {
+  collectionGroup,
+  query,
+  onSnapshot,
+  collection,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../../config/firebase";
 import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -11,8 +18,12 @@ function ItemsCollection() {
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
-    const items = query(collectionGroup(db, "Items"));
-    onSnapshot(items, async (querySnapshot) => {
+    const q = query(
+      collectionGroup(db, "Items"),
+      where("activeStatus", "==", true)
+    );
+
+    onSnapshot(q, async (querySnapshot) => {
       setItemList(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -36,12 +47,14 @@ function ItemsCollection() {
         <p style={{ paddingTop: "15px", fontSize: "20px" }}>
           Or check out our other campaigns!
         </p>
-        <div className="searchBar"
+        <div
+          className="searchBar"
           style={{
             display: "flex",
             alignItems: "right",
             justifyContent: "right",
-          }}>
+          }}
+        >
           <input
             className={styles.input}
             type="text"
@@ -78,18 +91,20 @@ function ItemsCollection() {
                   </div>
                   <div style={{ display: "flex" }}>
                     <label style={{ fontSize: "12px" }}>
-                      ${item.data.totalDonation || 0} of $
+                      ${item.data.totalDonations || 0} of $
                       {item.data.initialPrice}
                     </label>
                   </div>
                   <ProgressBar
-                    striped
-                    variant="danger"
+                    variant="warning"
                     now={
-                      item.data.totalDonation ? (item.data.totalDonation / item.data.initialPrice) * 100 : 0
-                    }
+                      item.data.totalDonations
+                        ? (item.data.totalDonations / item.data.initialPrice) *
+                          100
+                        : 0
+                        }
                     label={`${Math.round(
-                      (item.data.totalDonation / item.data.initialPrice) * 100
+                      (item.data.totalDonations / item.data.initialPrice) * 100
                     )}%`}
                   />
                   <Card.Text>{item.data.summary}</Card.Text>

@@ -1,7 +1,7 @@
 .banner{
     height:40vh;
-    width:100vw;
-    transform:translate(-20px,0px);
+    width:110vw;
+    transform:translate(-40px,-40px);
     object-fit: cover;
 }
 .msgContainer{
@@ -33,7 +33,6 @@
     object-fit: cover;
 }
 .bg{
-    pointer-events: none;
     background-size: cover;
     position: fixed;
     left: 0;

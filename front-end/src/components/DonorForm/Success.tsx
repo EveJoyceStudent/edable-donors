@@ -3,9 +3,11 @@ import { Image, Button } from "react-bootstrap";
 import "./Message.css";
 
 function Success() {
+
     return (
         //   these lines set up the format of the page
-        <div className="bg" style={{top:"-20px"}}>
+        <div className="bg">
+        {/* <div> */}
             <Image className="banner" src= "https://www.rd.com/wp-content/uploads/2021/01/GettyImages-1175550351.jpg"></Image>
             <div className="msgContainer" style={{height: "60vh", transform:"translate(0px,-15vh)"}}>
                 <div>
@@ -17,7 +19,7 @@ function Success() {
                         An email with your receipt will be sent to you.
                     </h2>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Link to={'/'}>
+                        <Link to='/'>
                             <Button className="msgButton" variant="warning">
                                 <i>Why not donate again?</i>
                             </Button>
