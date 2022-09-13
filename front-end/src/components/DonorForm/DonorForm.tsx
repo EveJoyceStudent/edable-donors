@@ -4,14 +4,14 @@ import "./DonorForm.css";
 import Paypal from "./Paypal";
 
 type DonorFormType = {
-  paidAMT: number,
-  monthly: boolean,
-  name: string,
-  phone: string,
-  email: string,
-  IsAnon: boolean,
-  mailingList: boolean
-}
+  paidAMT: number;
+  monthly: boolean;
+  name: string;
+  phone: string;
+  email: string;
+  IsAnon: boolean;
+  mailingList: boolean;
+};
 
 function DonorForm(props:any) {
 
@@ -24,9 +24,10 @@ function DonorForm(props:any) {
     setValue,
     formState: { errors, isValid },
   } = useForm<DonorFormType>({
-    mode: "onChange"
+    mode: "onChange",
   });
 
+  
   const watchPaidAMT = watch("paidAMT", 0);
   const watchSubscription = watch("monthly", false);
 
@@ -85,12 +86,23 @@ function DonorForm(props:any) {
           <div>
             {errors.paidAMT && <span>*</span>}
             <label>Enter an amount</label>
-            {errors.paidAMT && <span style={{ margin: "20px", fontSize: "x-small" }}>Must contain a number</span>}
-            <input
+            {errors.paidAMT && (
+              <span style={{ margin: "20px", fontSize: "x-small" }}>
+                Please enter an amount
+              </span>
+              
+            )}
+            
+            <input type ="number"
               placeholder="Enter an amount"
-              {...register("paidAMT", { required: true })}
+              {...register("paidAMT", { 
+                required: true,
+                pattern: /[1-9]/, })}
+                
             />
+            
           </div>
+          
 
           {!isItemDonation &&
             <div>
@@ -106,25 +118,26 @@ function DonorForm(props:any) {
           <div>
             {errors.name && <span>*</span>}
             <label>Name</label>
-            {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank, must contain letters</span>}
-            <input
+            {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank</span>}
+            <input type = "text"
               placeholder="Name"
-              {...register("name", { required: true })}
+              {...register("name", { 
+                required: true,
+                pattern: /[a-z]/, })}
             />
           </div>
-
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
-            {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>Phone number must be 10 digits in length</span>}
-            <input
-              type="tel"
+            {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>Please enter a valid phone number</span>}
+            <input 
               placeholder="04XX XXX XXX"
               {...register("phone", {
                 required: true,
                 maxLength: 10,
                 minLength: 10,
-                pattern: /[0-9]/,
+                pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+                ,
               })}
             />
           </div>
@@ -132,11 +145,13 @@ function DonorForm(props:any) {
           <div>
             {errors.email && <span>*</span>}
             <label>Email</label>
-            {errors.email && <span style={{ margin: "20px", fontSize: "x-small" }}>Must contain a valid email</span>}
-            <input
-              type="email"
+            {errors.email && <span style={{ margin: "20px", fontSize: "x-small" }}>Please enter a valid email</span>}
+            <input type="email"
               placeholder="Email address"
-              {...register("email", { required: true })}
+              {...register("email", { 
+                required: true,
+              pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+            })}
             />
           </div>
 
@@ -149,6 +164,7 @@ function DonorForm(props:any) {
             <label htmlFor="mailingList">Join our mailing list?</label>
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
+         
 
           {/* <input type="submit" /> */}
           <div style={{ minHeight:"150px" }}>
@@ -170,4 +186,3 @@ function DonorForm(props:any) {
 }
 
 export default DonorForm;
-
