@@ -4,6 +4,7 @@ import { db } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { Button, Card, ProgressBar } from "react-bootstrap";
 import DonorForm from "../DonorForm/DonorForm";
+import styles from "../Organisation/Organisation.module.css";
 
 function ItemPage() {
   let params = useParams();
@@ -35,15 +36,9 @@ function ItemPage() {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+     <div className={styles.mainContainer}>
         <Card
-          className="orgInfo">
+          className={styles.orgInfo}>
           <h6 style={{ textAlign: "left", margin: "7px" }}>
             <i>YOUR PARTNERSHIP MEANS THE WORLD TO US</i>
           </h6>
