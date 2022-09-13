@@ -116,8 +116,7 @@ function Landing() {
                               to={`organisation/${org.id}`}
                             >
                               <i>
-                                COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
-                                A CONTRIBUTION!
+                                COUNT ME IN AS A PARTNER!
                               </i>
                             </Link>
                           </Button>
