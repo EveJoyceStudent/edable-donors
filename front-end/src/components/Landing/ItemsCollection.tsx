@@ -13,7 +13,36 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { Link } from "react-router-dom";
 import styles from "./ItemsCollection.module.css";
 
+function GetOrgs(){
+  const [orgList, setOrgList] = useState<any>([]);
+
+  // gets all the orgs from dbs
+  useEffect(() => {
+    const q = query(collection(db, "Organisations"));
+    onSnapshot(q, (querySnapshot) => {
+      // setOrgList dumps all the orgs in orgList
+      setOrgList(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    });
+  }, []);
+  return([orgList]);
+}
+
 function ItemsCollection() {
+  ///Searches for the organanisation's name through item's orgID
+  const [orgList] = GetOrgs();
+  function Filter(value: string){
+    for (let i = 0; i < orgList.length; i++) {
+      if (orgList[i].id == value){
+        return(orgList[i].data.name);
+      }
+    }
+  }
+
   const [itemList, setItemList] = useState<any>([]);
   const [search, setSearch] = useState<string>("");
 
@@ -78,7 +107,8 @@ function ItemsCollection() {
                 to={`item/${item.parentDoc}/${item.id}`}
               >
                 <Card.Body>
-                  <Card.Title>{item.data.name}</Card.Title>
+                  <Card.Title>{item.data.name}
+                  <br></br>{Filter(item.data.orgID)}</Card.Title>
                   <div style={{ textAlign: "center" }}>
                     <Card.Img
                       variant="top"
