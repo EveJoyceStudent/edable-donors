@@ -96,7 +96,7 @@ function Landing() {
                           </h2>
                           <img
                             style={{
-                              height: "200px",
+                              height: "180px",
                               width: "200px",
                               paddingBottom: "20px",
                             }}
@@ -116,7 +116,8 @@ function Landing() {
                               to={`organisation/${org.id}`}
                             >
                               <i>
-                                COUNT ME IN AS A PARTNER!
+                                COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
+                                A CONTRIBUTION!
                               </i>
                             </Link>
                           </Button>
