@@ -19,7 +19,7 @@
 .msgText{
     text-align: center;
     font-size: 35px;
-    padding: 40px;
+    padding: 1vh;
 }
 
 .msgButton{
@@ -43,10 +43,10 @@
     border: 20px solid white;
   }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1280px) {
     .msgTitle
     {
-        font-size: calc(10px + 7vw);
+        font-size: calc(10px + 5vw);
     }
     .msgText{
         font-size: calc(5px + 3vw);
@@ -55,7 +55,7 @@
         font-size: calc(5px + 2vw);
     }
     .msgIcon{
-        width: calc(100px + 25vw);
-        height: calc(100px + 25vw);
+        width: calc(100px + 15vw);
+        height: calc(100px + 15vw);
     }
   }

@@ -7,12 +7,11 @@ function Success() {
     return (
         //   these lines set up the format of the page
         <div className="bg">
-        {/* <div> */}
             <Image className="banner" src= "https://www.rd.com/wp-content/uploads/2021/01/GettyImages-1175550351.jpg"></Image>
-            <div className="msgContainer" style={{height: "60vh", transform:"translate(0px,-15vh)"}}>
+            <div className="msgContainer" style={{height: "100vh", transform:"translate(0px,-45vh)"}}>
                 <div>
                     <Image className="msgIcon" src='https://c.tenor.com/04BE-ClaaBAAAAAC/cat-money.gif' roundedCircle></Image>
-                    <h1 className="msgTitle" style={{paddingTop:"50px"}}>
+                    <h1 className="msgTitle">
                         Thank You For Donating!
                     </h1>
                     <h2 className="msgText">
