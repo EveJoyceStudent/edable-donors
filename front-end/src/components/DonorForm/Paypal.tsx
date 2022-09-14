@@ -108,27 +108,33 @@ function Paypal(props: any) {
     return actions.subscription?.get().then(async (details: any) => {
       try {
         await runTransaction(db, async (transaction) => {
-          const orgRef = await addDoc(collection(db, `Organisations/${props.org}/GeneralDonations/Summary/Donations`),
+          const orgRef = await addDoc(collection(db, `Organisations/${props.org}/GeneralDonations`),
             {
-              IsError: false,
-              IsSubscription: true,
-              amount: props.watchPaidAMT,
+              donorPublicName: props.formData.IsAnon ? 'Anonymous' : props.formData.name,
+              paidAMT: props.watchPaidAMT,
               IsRefunded: false,
-              donationDate: Timestamp.now(),
-              donor: {
+              IsSubscribed: true,
+              comment: '',
+              donationDate: Timestamp.now()
+            }
+          );
+          const donorRef = await addDoc(collection(db, `Organisations/${props.org}/GeneralDonations/${orgRef.id}/Private`),
+            {
+                name: props.formData.name,
                 email: props.formData.email,
                 phoneNumber: props.formData.phone,
                 mailingAddress: '',
-                name: props.formData.name,
                 IsAnon: props.formData.IsAnon,
                 agreeToContact: props.formData.mailingList,
-              }
+                howHeard: '',
             }
           );
-          const summaryRef = await updateDoc(doc(db, `Organisations/${props.org}/GeneralDonations/Summary`),
+          const summaryRef = await updateDoc(doc(db, `Organisations/${props.org}`),
             {
-              numberOfDonations: increment(1),
-              totalGeneralDonations: increment(props.watchPaidAMT)
+              totalDonationCount: increment(1),
+              totalGeneralDonationsCount: increment(1),
+              totalDonationsValue: increment(props.watchPaidAMT),
+              totalGeneralDonationsValue: increment(props.watchPaidAMT)
             }
           );
 
