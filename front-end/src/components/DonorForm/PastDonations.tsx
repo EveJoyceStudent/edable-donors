@@ -24,7 +24,6 @@ function PastDonations() {
       );
     });
   }, []);
-
   return (
     <>
       <div
@@ -37,8 +36,10 @@ function PastDonations() {
 
         {pastDonations.map((pastDonation: any) => (
           <p>
-            {pastDonation.data.IsAnon ? "Anonymous" : pastDonation.data.name}{" "}
-            donated ${pastDonation.data.paidAMT}
+            {pastDonation.data.donor.IsAnon
+              ? "Anonymous"
+              : pastDonation.data.donor.name}{" "}
+            donated ${pastDonation.data.amount}
           </p>
         ))}
       </div>
