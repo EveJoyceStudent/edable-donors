@@ -159,7 +159,7 @@ function DonorForm(props:any) {
             <input type="checkbox" value="yes" {...register("IsAnon")} />
           </div>
 
-          <div>
+          <div style={{paddingBottom: "10px"}}>
             <label htmlFor="mailingList">Join our mailing list?</label>
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
