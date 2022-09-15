@@ -39,7 +39,11 @@ function DonorForm(props:any) {
       <p>Your tax deductible contribution:</p>
       <br />
       <div className="presetButtons">
-        <div>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}>
           <button
             type="button"
             onClick={() => {
@@ -65,15 +69,15 @@ function DonorForm(props:any) {
             $20
           </button>
           {isItemDonation && <>
-          <br />
-          <button
-            type="button"
-            onClick={() => {
-              setValue("paidAMT", props.itemAmount);
-            }}
-          >
-            Full Amount
-          </button>
+            <br />
+            <button
+              type="button"
+              onClick={() => {
+                setValue("paidAMT", props.itemAmount);
+              }}
+            >
+              Full Amount
+            </button>
           </>}
 
         </div>
@@ -89,27 +93,28 @@ function DonorForm(props:any) {
               <span style={{ margin: "20px", fontSize: "x-small" }}>
                 Please enter an amount
               </span>
-              
+
             )}
-            
-            <input type ="number"
+
+            <input type="number"
               placeholder="Enter an amount"
-              {...register("paidAMT", { 
+              {...register("paidAMT", {
                 required: true,
-                pattern: /[1-9]/, })}
-                
+                pattern: /[1-9]/,
+              })}
+
             />
-            
+
           </div>
-          
+
 
           {!isItemDonation &&
             <div>
-            <label htmlFor="monthly">
-              Let's make this a monthly payment!
-            </label>
-            <input type="checkbox" {...register("monthly")} />
-          </div>
+              <label htmlFor="monthly">
+                Let's make this a monthly payment!
+              </label>
+              <input type="checkbox" {...register("monthly")} />
+            </div>
           }
 
           <br />
@@ -118,18 +123,19 @@ function DonorForm(props:any) {
             {errors.name && <span>*</span>}
             <label>Name</label>
             {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank</span>}
-            <input type = "text"
+            <input type="text"
               placeholder="Name"
-              {...register("name", { 
+              {...register("name", {
                 required: true,
-                pattern: /[a-z]/, })}
+                pattern: /[a-z]/,
+              })}
             />
           </div>
           <div>
             {errors.phone && <span>*</span>}
             <label>Phone</label>
             {errors.phone && <span style={{ margin: "20px", fontSize: "x-small" }}>Please enter a valid phone number</span>}
-            <input 
+            <input
               placeholder="04XX XXX XXX"
               {...register("phone", {
                 required: true,
@@ -147,10 +153,10 @@ function DonorForm(props:any) {
             {errors.email && <span style={{ margin: "20px", fontSize: "x-small" }}>Please enter a valid email</span>}
             <input type="email"
               placeholder="Email address"
-              {...register("email", { 
+              {...register("email", {
                 required: true,
-              pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-            })}
+                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              })}
             />
           </div>
 
@@ -159,23 +165,23 @@ function DonorForm(props:any) {
             <input type="checkbox" value="yes" {...register("IsAnon")} />
           </div>
 
-          <div style={{paddingBottom: "10px"}}>
+          <div style={{ paddingBottom: "10px" }}>
             <label htmlFor="mailingList">Join our mailing list?</label>
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
-         
+
 
           {/* <input type="submit" /> */}
-          <div style={{ minHeight:"150px" }}>
+          <div style={{ minHeight: "150px" }}>
 
-          <Paypal
-            formData={formDataValues}
-            watchPaidAMT={watchPaidAMT}
-            watchSubscription={watchSubscription}
-            org={splitOrg}
-            disabled={!isValid}
-            type={watchSubscription?"subscription":"capture"}
-            item={props.item}
+            <Paypal
+              formData={formDataValues}
+              watchPaidAMT={watchPaidAMT}
+              watchSubscription={watchSubscription}
+              org={splitOrg}
+              disabled={!isValid}
+              type={watchSubscription ? "subscription" : "capture"}
+              item={props.item}
             />
           </div>
         </div>

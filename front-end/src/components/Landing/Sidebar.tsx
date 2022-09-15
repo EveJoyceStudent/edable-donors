@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collectionGroup, query, onSnapshot } from "firebase/firestore";
+import { query, onSnapshot, collection, where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
@@ -16,8 +16,12 @@ function Sidebar() {
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
-    const Organisations = query(collectionGroup(db, "Organisations"));
-    onSnapshot(Organisations, async (querySnapshot) => {
+    const q = query(
+      collection(db, "Organisations"),
+      where("activeStatus", "==", true)
+    );
+    onSnapshot(q, (querySnapshot) => {
+      // setOrgList dumps all the orgs in orgList
       setOrganisationsList(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -26,7 +30,7 @@ function Sidebar() {
       );
     });
   }, []);
-  // console.log(orgList)
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
@@ -37,35 +41,38 @@ function Sidebar() {
   return (
     <>
       <Navbar expand={false}>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} />
-          <Navbar.Offcanvas
-            id={`offcanvasNavbar-expand`}
-            aria-labelledby={`offcanvasNavbarLabel-expand`}
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand`}
+        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} />
+        <Navbar.Offcanvas
+          id={`offcanvasNavbar-expand`}
+          aria-labelledby={`offcanvasNavbarLabel-expand`}
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title
+              id={`offcanvasNavbarLabel-expand`}
               style={{
-                fontSize: "20px"
-              }}>
-                Social-enterprises supported by EdAble
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <input type="text" onChange={handleChange} placeholder="Search" />
-              {filteredOrganisations.map((Organisation: any) => (
-                <Link
+                fontSize: "20px",
+              }}
+            >
+              Social-enterprises supported by EdAble
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <input type="text" onChange={handleChange} placeholder="Search" />
+            {filteredOrganisations.map((Organisation: any) => (
+              <Link
                 style={{
                   textDecoration: "none",
                   color: "black",
                 }}
                 to={`organisation/${Organisation.id}`}
-                >
+                key={Organisation.id}
+              >
                 <br />
-                  <div>{Organisation.data.name}</div>
-                </Link>
-              ))}
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
+                <div>{Organisation.data.name}</div>
+              </Link>
+            ))}
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
       </Navbar>
     </>
   );
