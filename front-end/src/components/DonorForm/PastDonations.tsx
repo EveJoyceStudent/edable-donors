@@ -27,21 +27,19 @@ function PastDonations() {
     });
   }, []);
   return (
-    <>
-      <div className="donationContainer">
-        <div style={{padding:"40px"}}>
-          <h3 className="donationTitle">Past Donations</h3>
+    <div className="donationContainer">
+      <div style={{ padding: "40px" }}>
+        <h3 className="donationTitle">Past Donations</h3>
         {pastDonations.map((pastDonation: any) => (
-          <p key={pastDonation.id}>
-            {pastDonation.data.donor.IsAnon
-              ? "Anonymous"
-              : pastDonation.data.donor.name}{" "}
-            donated ${pastDonation.data.amount}
+          <p key={pastDonation.id} className="donationInfo">
+            {pastDonation.data.donorPublicName}{" "}
+            <i style={{ fontWeight: "normal", fontStyle: "normal" }}>donated</i>{" "}
+            ${pastDonation.data.amount}
           </p>
         ))}
       </div>
-
-    </>
+    </div>
   );
 }
+
 export default PastDonations;
