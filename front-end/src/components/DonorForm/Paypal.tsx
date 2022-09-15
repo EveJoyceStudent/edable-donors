@@ -173,7 +173,7 @@ function Paypal(props: any) {
         try {
           await runTransaction(db, async (transaction) => {
             // update publicly accessible donation data
-            const itemRef = await addDoc(collection(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations`),
+            const itemRef = await addDoc(collection(db, `Organisations/${props.org}/Items/${props.item}/ItemsDonations`),
               {
                 donorPublicName: props.formData.IsAnon ? 'Anonymous' : props.formData.name,
                 amount: props.watchPaidAMT,
@@ -183,7 +183,7 @@ function Paypal(props: any) {
               }
             );
             // update private donation data
-            await setDoc(doc(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations/${itemRef.id}/Private`,"Private"),
+            await setDoc(doc(db, `Organisations/${props.org}/Items/${props.item}/ItemsDonations/${itemRef.id}/Private`,"Private"),
               {
                 name: props.formData.name,
                 email: props.formData.email,
