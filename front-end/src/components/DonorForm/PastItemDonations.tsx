@@ -9,11 +9,12 @@ function PastDonations() {
   const [pastDonations, setPastDonations] = useState<any>([]);
 
   useEffect(() => {
-    const orgID = params.orgId || "";
+    const orgID = params.orgID || "";
+    const itemID = params.itemID || "";
     const q = query(
       collection(
         db,
-        `Organisations/${orgID}/GeneralDonations/Summary/Donations`
+        `Organisations/${orgID}/Items/${itemID}/ItemsDonations`
       ),
       where("IsRefunded", "==", false)
     );
@@ -26,6 +27,7 @@ function PastDonations() {
       );
     });
   }, []);
+  
   return (
     <div className="donationContainer">
       <div style={{ padding: "40px" }}>
@@ -35,6 +37,7 @@ function PastDonations() {
             {pastDonation.data.donorPublicName}&nbsp;
             <i style={{ fontWeight: "normal", fontStyle: "normal" }}>donated</i>&nbsp;
             ${pastDonation.data.amount}
+            <i style={{ fontWeight: "normal", fontStyle: "normal" }}> &nbsp;towards this item</i>
           </p>
         ))}
       </div>
