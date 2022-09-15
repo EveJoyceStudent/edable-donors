@@ -2,6 +2,7 @@ import { collection, query, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
+import "./PastDonations.css";
 
 function PastDonations() {
   let params = useParams();
@@ -27,21 +28,19 @@ function PastDonations() {
 
   return (
     <>
-      <div
-        style={{
-          border: "1px solid",
-          borderRadius: "15px",
-        }}
-      >
-        <h3>Past Donations</h3>
+      <div className="donationContainer">
+        <div style={{padding:"40px"}}>
+          <h3 className="donationTitle">Past Donations</h3>
 
-        {pastDonations.map((pastDonation: any) => (
-          <p>
-            {pastDonation.data.IsAnon ? "Anonymous" : pastDonation.data.name}{" "}
-            donated ${pastDonation.data.paidAMT}
-          </p>
-        ))}
+          {pastDonations.map((pastDonation: any) => (
+            <p className="donationInfo">
+              {pastDonation.data.IsAnon ? "Anonymous" : pastDonation.data.name}{" "}
+              <i style={{fontWeight:"normal", fontStyle:"normal"}}>donated</i> ${pastDonation.data.paidAMT}
+            </p>
+          ))}
+        </div>
       </div>
+
     </>
   );
 }
