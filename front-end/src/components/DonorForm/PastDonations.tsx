@@ -34,6 +34,9 @@ function PastDonations() {
             ${pastDonation.data.amount}
           </p>
         ))}
+        {pastDonations.length == 0 &&
+          <p className="donationInfo"><i style={{ fontWeight: "normal" }}>Be the first to donate!</i></p>
+        }
       </div>
     </div>
   );
