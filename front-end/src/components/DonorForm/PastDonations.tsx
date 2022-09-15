@@ -12,7 +12,7 @@ function PastDonations() {
     const q = query(
       collection(
         db,
-        `Organisations/${orgID}/GeneralDonations/Summary/Donations`
+        `Organisations/${orgID}/GeneralDonations`
       ),
       where("IsRefunded", "==", false)
     );
@@ -37,9 +37,7 @@ function PastDonations() {
 
         {pastDonations.map((pastDonation: any) => (
           <p key={pastDonation.id}>
-            {pastDonation.data.donor.IsAnon
-              ? "Anonymous"
-              : pastDonation.data.donor.name}{" "}
+            {pastDonation.data.donorPublicName}{" "}
             donated ${pastDonation.data.amount}
           </p>
         ))}
