@@ -200,8 +200,8 @@ function Paypal(props: any) {
             const itemSummary = await getDoc(doc(db, `Organisations/${props.org}/Items/${props.item}`));
             let activeStatusUpdate = itemSummary.data()!.activeStatus;
             let dateCompletedUpdate = itemSummary.data()!.dateCompleted;
-            console.log(itemSummary.data()!.initialPrice ,itemSummary.data()!.totalDonationsValue , props.watchPaidAMT, itemSummary.data()!.initialPrice <= (itemSummary.data()!.totalDonationValue + props.watchPaidAMT));
-            if (itemSummary.data()!.initialPrice <= (itemSummary.data()!.totalDonationsValue + props.watchPaidAMT)) {
+            // console.log(itemSummary.data()!.initialPrice ,itemSummary.data()!.totalDonationsValue , Number(props.watchPaidAMT), itemSummary.data()!.initialPrice <= (itemSummary.data()!.totalDonationsValue + Number(props.watchPaidAMT)));
+            if (itemSummary.data()!.initialPrice <= (itemSummary.data()!.totalDonationsValue + Number(props.watchPaidAMT))) {
               activeStatusUpdate = false;
               dateCompletedUpdate = Timestamp.now();
             }
