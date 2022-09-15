@@ -21,6 +21,10 @@ function Organisation() {
     fetchData().catch(console.error);
   }, [params.orgId]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     //   these lines set up the format of the page
     <div style={{backgroundColor: "#ECFED6", border: "15px solid white", borderRadius: "45px"}}>

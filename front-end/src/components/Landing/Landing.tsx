@@ -29,6 +29,10 @@ function Landing() {
     });
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     //   these lines set up the format of the page
     <>

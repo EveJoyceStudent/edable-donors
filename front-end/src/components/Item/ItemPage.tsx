@@ -34,6 +34,10 @@ function ItemPage() {
     };
     fetchData().catch(console.error);
   }, [params.orgID]);
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div style={{ backgroundColor: "#ECFED6", border: "15px solid white", borderRadius: "45px" }}>
