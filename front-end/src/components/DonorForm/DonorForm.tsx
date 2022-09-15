@@ -19,7 +19,6 @@ function DonorForm(props:any) {
 
   const {
     watch,
-    getValues,
     register,
     setValue,
     formState: { errors, isValid },
@@ -31,7 +30,7 @@ function DonorForm(props:any) {
   const watchPaidAMT = watch("paidAMT", 0);
   const watchSubscription = watch("monthly", false);
 
-  const formDataValues=getValues(); 
+  const formDataValues=watch(); 
 
   const splitOrg = props.org;
 
