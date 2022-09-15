@@ -40,6 +40,9 @@ function PastDonations() {
             <i style={{ fontWeight: "normal", fontStyle: "normal" }}> &nbsp;towards this item</i>
           </p>
         ))}
+        {pastDonations.length == 0 &&
+          <p className="donationInfo"><i style={{ fontWeight: "normal" }}>Be the first to donate!</i></p>
+        }
       </div>
     </div>
   );
