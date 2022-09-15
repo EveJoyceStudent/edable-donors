@@ -16,6 +16,12 @@
   background-color: #fcfbc7;
   border-radius: 30px;
 }
+.star{
+  height: 190px;
+  width: 400px;
+  display: block;
+  margin: auto;
+}
 
 @media screen and (min-width: 100px) {
   h1 {
