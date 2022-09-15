@@ -9,7 +9,7 @@ const fs = require("fs");
 const dotenv = require("dotenv");
 dotenv.config();
 
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
   const date = new Date();
   const filePath = path.join(__dirname, "../pages/emailTemplate.html");
   const source = fs.readFileSync(filePath, "utf-8").toString();
@@ -51,7 +51,7 @@ router.get("/", (req, res) => {
   const mail_options = {
     from: `Bot Mailer <${process.env.user}>`,
     to: "singh.agam0009@gmail.com",
-    subject: "Auto Message",
+    subject: "Donation Receipt",
     html: htmlMail,
   };
 
