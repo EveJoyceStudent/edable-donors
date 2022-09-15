@@ -11,6 +11,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
+import Organisation from "../Organisation/Organisation";
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -76,14 +77,15 @@ function Landing() {
               <Row>
                 <Col>
                   <div className="carouselContainer">
-                    <Carousel
+                    <Carousel 
                       touch={true}
                       interval={null}
                       indicators={true}
                       variant="dark"
                       style={{ margin: "3px" }}
-                    >
+                    >                     
                       {orgList.map((org: any) => (
+                  
                         <Carousel.Item
                           key={org.id.toString()}
                           style={{
@@ -91,10 +93,11 @@ function Landing() {
                             padding: "0px 10vw 50px",
                           }}
                         >
+                          <Link to={`organisation/${org.id}`}>
                           <h2 style={{ textAlign: "center" }}>
                             {org.data.name}
                           </h2>
-                          <img
+                          <img 
                             style={{
                               height: "180px",
                               width: "200px",
@@ -102,6 +105,7 @@ function Landing() {
                             }}
                             src={org.data.img}
                             alt="Org logo"
+                            
                           />
                           <p style={{ textAlign: "center", fontSize: "20px" }}>
                             {org.data.summary}
@@ -115,13 +119,16 @@ function Landing() {
                               }}
                               to={`organisation/${org.id}`}
                             >
+                              
                               <i>
                                 COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
                                 A CONTRIBUTION!
                               </i>
                             </Link>
                           </Button>
+                          </Link>
                         </Carousel.Item>
+                        
                       ))}
                     </Carousel>
                   </div>
