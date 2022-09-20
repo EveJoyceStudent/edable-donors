@@ -50,7 +50,6 @@ function DonorForm(props: any) {
   return (
     <div className="donorInfoContainer">
       <p>Your tax deductible contribution:</p>
-      <br />
       {!proceedFlag &&
         <>
           <div className="presetButtons">
@@ -194,12 +193,15 @@ function DonorForm(props: any) {
 
       {proceedFlag &&
         <>
+        <p style={{fontSize:'1vw',}}>
+
           <div>Hi {formDataSave.name},</div>
           <div>
             You're {formDataSave.monthly ? `setting up a${formDataSave.IsAnon ? "n anonymous" : ""} monthly subscription` : `making a${formDataSave.IsAnon ? "n anonymous" : ""} one-off donation`} of ${formDataSave.paidAMT} 
           </div>
           <div>Email: {formDataSave.email}</div>
           <div>Phone: {formDataSave.phone}</div>
+            </p>
           <div style={{ minHeight: "150px" }}>
 
             <Paypal
