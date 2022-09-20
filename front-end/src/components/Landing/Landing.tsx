@@ -3,7 +3,7 @@ import "./Landing.css";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
-import {Button, Container, Carousel, Row, Col} from "react-bootstrap";
+import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
 import { ReactComponent as LandingPageStar } from "./star.svg";
 
 import Sidebar from "./Sidebar";
@@ -31,8 +31,8 @@ function Landing() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     //   these lines set up the format of the page
@@ -47,7 +47,7 @@ function Landing() {
           <Container fluid>
             <Row>
               <Col xs={0} md="auto">
-                <LandingPageStar className="star"/>
+                <LandingPageStar className="star" />
               </Col>
               <Col>
                 <h1>EdAble</h1>
@@ -71,15 +71,14 @@ function Landing() {
               <Row>
                 <Col>
                   <div className="carouselContainer">
-                    <Carousel 
+                    <Carousel
                       touch={true}
                       interval={null}
                       indicators={true}
                       variant="dark"
                       style={{ margin: "3px" }}
-                    >                     
+                    >
                       {orgList.map((org: any) => (
-                  
                         <Carousel.Item
                           key={org.id.toString()}
                           style={{
@@ -88,41 +87,45 @@ function Landing() {
                           }}
                         >
                           <Link to={`organisation/${org.id}`}>
-                          <h2 style={{ textAlign: "center" }}>
-                            {org.data.name}
-                          </h2>
-                          <img 
-                            style={{
-                              height: "180px",
-                              width: "200px",
-                              paddingBottom: "20px",
-                            }}
-                            src={org.data.img}
-                            alt="Org logo"
-                            
-                          />
-                          <p style={{ textAlign: "center", fontSize: "20px" }}>
-                            {org.data.summary}
-                          </p>
-                          <Button variant="warning">
-                            <Link
+                            <h2
                               style={{
+                                textAlign: "center",
                                 textDecoration: "none",
-                                color: "black",
-                                fontSize: "20px",
                               }}
-                              to={`organisation/${org.id}`}
                             >
-                              
-                              <i>
-                                COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
-                                A CONTRIBUTION!
-                              </i>
-                            </Link>
-                          </Button>
+                              {org.data.name}
+                            </h2>
+                            <img
+                              style={{
+                                height: "180px",
+                                width: "200px",
+                                paddingBottom: "20px",
+                              }}
+                              src={org.data.img}
+                              alt="Org logo"
+                            />
+                            <p
+                              style={{ textAlign: "center", fontSize: "20px" }}
+                            >
+                              {org.data.summary}
+                            </p>
+                            <Button variant="warning">
+                              <Link
+                                style={{
+                                  textDecoration: "none",
+                                  color: "black",
+                                  fontSize: "20px",
+                                }}
+                                to={`organisation/${org.id}`}
+                              >
+                                <i>
+                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
+                                  MAKE A CONTRIBUTION!
+                                </i>
+                              </Link>
+                            </Button>
                           </Link>
                         </Carousel.Item>
-                        
                       ))}
                     </Carousel>
                   </div>

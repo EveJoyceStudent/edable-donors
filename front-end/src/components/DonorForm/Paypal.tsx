@@ -110,7 +110,8 @@ function Paypal(props: any) {
   const createOrderContent = (data: any, actions: any) => {
     return actions.order.create(purchaseData);
   };
-  const generalURL = "http://localhost:8080/mail/general";
+  const generalURL =
+    "https://edable-donor-api-test.azurewebsites.net/mail/general";
   function GeneralDonation() {
     axios
       .post(generalURL, {
@@ -127,7 +128,7 @@ function Paypal(props: any) {
         console.log(error);
       });
   }
-  const itemURL = "http://localhost:8080/mail/item";
+  const itemURL = "https://edable-donor-api-test.azurewebsites.net/mail/item";
 
   function ItemDonation() {
     axios
