@@ -51,7 +51,7 @@ function Organisation() {
           </Col>
 
           <Col className={styles.formContainer}>
-            <DonorForm org={params.orgId} />
+            <DonorForm org={params.orgId} orgName = {org.name} />
           </Col>
 
           <Col className={styles.donorsContainer} style={{marginTop: "40px"}}>

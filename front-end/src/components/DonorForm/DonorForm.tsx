@@ -170,11 +170,11 @@ function DonorForm(props:any) {
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
-
+     
           {/* <input type="submit" /> */}
           <div style={{ minHeight: "150px" }}>
 
-            <Paypal
+            <Paypal 
               formData={formDataValues}
               watchPaidAMT={watchPaidAMT}
               watchSubscription={watchSubscription}
@@ -182,6 +182,9 @@ function DonorForm(props:any) {
               disabled={!isValid}
               type={watchSubscription ? "subscription" : "capture"}
               item={props.item}
+              orgName={props.orgName}
+              itemName={props.itemName} 
+              itemOrgName={props.itemOrgName}
             />
           </div>
         </div>
