@@ -1,11 +1,10 @@
 // @ts-ignore
 import { addDoc, collection, doc, getDoc, increment, runTransaction, setDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
-
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 function Paypal(props: any) {
 
   const [{ options }, dispatch] = usePayPalScriptReducer();
@@ -103,7 +102,44 @@ function Paypal(props: any) {
   const createOrderContent = ((data: any, actions: any) => {
     return actions.order.create(purchaseData);
   });
+  const generalURL =
+  "https://edable-donor-api-test.azurewebsites.net/mail/general";
+  function GeneralDonation() {
+    axios
+      .post(generalURL, {
+        amount: props.formData.paidAMT,
+        name: props.formData.name,
+        donationType: props.formData.monthly,
+        donorEmail: props.formData.email,
+        orgName: props.orgName,
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const itemURL = "https://edable-donor-api-test.azurewebsites.net/mail/item";
 
+  function ItemDonation(){
+    
+    axios
+      .post(itemURL, {
+        amount: props.formData.paidAMT,
+        name: props.formData.name,
+        donorEmail: props.formData.email,
+        itemName:props.itemName, 
+        itemOrgName:props.itemOrgName
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+
+      });
+  }
   const generalDonationTransactions = async (subscription: boolean) => {
     await runTransaction(db, async (transaction) => {
       // update publicly accessible donation data
@@ -139,7 +175,7 @@ function Paypal(props: any) {
         }
       );
     });
-
+    GeneralDonation()
   };
 
   const approveSubscriptionContent = (async (data: any, actions: any) => {
@@ -222,6 +258,8 @@ function Paypal(props: any) {
               }
             );
           });
+          ItemDonation();
+
           paypalDisabledNavigate("../../success");
 
         } catch (e) {
@@ -235,8 +273,8 @@ function Paypal(props: any) {
     <>
       {(props.disabled && formAttemptedIncomplete) && <div>Please complete the form.</div>}
       {paypalDisplayed &&
-        <PayPalButtons
-
+        <PayPalButtons 
+        
           {...(props.watchSubscription ? { createSubscription: createSubscriptionContent } : { createOrder: createOrderContent })}
           {...(props.watchSubscription ? { style: { label: "subscribe", } } : { style: { label: "donate", } })}
           disabled={props.disabled}

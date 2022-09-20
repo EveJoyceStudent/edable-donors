@@ -1,6 +1,5 @@
 // @ts-ignore
 import { useForm } from "react-hook-form";
-import Mailer from "../Mailer/Mailer";
 import "./DonorForm.css";
 import Paypal from "./Paypal";
 
@@ -171,19 +170,11 @@ function DonorForm(props:any) {
             <input type="checkbox" value="yes" {...register("mailingList")} />
           </div>
 
-      <Mailer
-      formData={formDataValues}
-      watchPaidAMT={watchPaidAMT}
-      org={splitOrg}
-      item={props.item}
-      type={watchSubscription ? "subscription" : "capture"}
-      orgName={props.orgName}
-      >
-      </Mailer>
+     
           {/* <input type="submit" /> */}
           <div style={{ minHeight: "150px" }}>
 
-            <Paypal
+            <Paypal 
               formData={formDataValues}
               watchPaidAMT={watchPaidAMT}
               watchSubscription={watchSubscription}
@@ -191,6 +182,9 @@ function DonorForm(props:any) {
               disabled={!isValid}
               type={watchSubscription ? "subscription" : "capture"}
               item={props.item}
+              orgName={props.orgName}
+              itemName={props.itemName} 
+              itemOrgName={props.itemOrgName}
             />
           </div>
         </div>
