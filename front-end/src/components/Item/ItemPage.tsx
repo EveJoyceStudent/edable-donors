@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { Button, Card, ProgressBar } from "react-bootstrap";
+import { Button, Card, ProgressBar, Container, Col, Row } from "react-bootstrap";
 import DonorForm from "../DonorForm/DonorForm";
 import styles from "../Organisation/Organisation.module.css";
+import PastItemDonations from "../DonorForm/PastItemDonations";
 
 function ItemPage() {
   let params = useParams();
@@ -33,45 +34,60 @@ function ItemPage() {
     };
     fetchData().catch(console.error);
   }, [params.orgID]);
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
-    <>
-     <div className={styles.mainContainer}>
-        <Card
-          className={styles.orgInfo}>
-          <h6 style={{ textAlign: "left", margin: "7px" }}>
-            <i>YOUR PARTNERSHIP MEANS THE WORLD TO US</i>
-          </h6>
-          <Card.Title>{org.name}</Card.Title>
-          <Card.Subtitle>would love your support for<br /><em>{item.name}</em></Card.Subtitle>
-          <Card.Img variant="top" src={item.img} alt={`${item.name}`} />
-          <Card.Body className="pt-0 px-0">
-            <Card.Text className="mb-0">
-              ${item.totalDonations || 0} of $
-              {item.initialPrice}
-            </Card.Text>
-            <ProgressBar
-              className="mb-3"
-              striped
-              variant="danger"
-              now={
-                item.totalDonations ? (item.totalDonations / item.initialPrice) * 100 : 0
-              }
-              label={`${Math.round(
-                (item.totalDonations / item.initialPrice) * 100
-              )}%`}
-            />
-            <Card.Text>{item.description}</Card.Text>
-            <Card.Text> Check out the <a href={org.website}>{`${org.name}`} website</a></Card.Text>
-          </Card.Body>
-          <Link to="/">
-            <Button variant="warning">Go back</Button>
-          </Link>
-        </Card>
+    <div style={{ backgroundColor: "#ECFED6", border: "15px solid white", borderRadius: "45px" }}>
+      <Container fluid>
+        <Row style={{ marginTop: "15px" }}>
+          <Col className={styles.orgsContainer}>
+            <Card
+              className={styles.orgInfo}>
+              <h6 style={{ textAlign: "left", margin: "7px" }}>
+                <i>YOUR PARTNERSHIP MEANS THE WORLD TO US</i>
+              </h6>
+              <Card.Title>{org.name}</Card.Title>
+              <Card.Subtitle>would love your support for<br /><em>{item.name}</em></Card.Subtitle>
+              <Card.Img variant="top" src={item.img} alt={`${item.name}`} />
+              <Card.Body className="pt-0 px-0">
+                <Card.Text className="mb-0">
+                  ${item.totalDonationsValue || 0} of $
+                  {item.initialPrice}
+                </Card.Text>
+                <ProgressBar
+                  className="mb-3"
+                  striped
+                  variant="danger"
+                  now={
+                    item.totalDonationsValue ? (item.totalDonationsValue / item.initialPrice) * 100 : 0
+                  }
+                  label={`${Math.round(
+                    (item.totalDonationsValue / item.initialPrice) * 100
+                  )}%`}
+                />
+                <Card.Text>{item.description}</Card.Text>
+                <Card.Text> Check out the <a href={org.website}>{`${org.name}`} website</a></Card.Text>
+              </Card.Body>
+              <Link to="/">
+                <Button variant="warning">Go back</Button>
+              </Link>
+            </Card>
+          </Col>
 
-        <DonorForm org={params.orgID} item={params.itemID} itemAmount={Math.round((item.initialPrice - (item.totalDonations || 0)+Number.EPSILON)*100)/100} />
-      </div>
-    </>
+          <Col className={styles.formContainer}>
+            <DonorForm org={params.orgID} item={params.itemID} itemAmount={Math.round((item.initialPrice - (item.totalDonationsValue || 0) + Number.EPSILON) * 100) / 100} />
+          </Col>
+          <Col className={styles.donorsContainer} style={{marginTop: "40px"}}>
+              <div style={{ padding: "5vw", paddingTop: "0px"}}>
+                <PastItemDonations />
+              </div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
 

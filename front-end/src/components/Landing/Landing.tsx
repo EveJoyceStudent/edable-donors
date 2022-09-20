@@ -3,12 +3,9 @@ import "./Landing.css";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
-import Carousel from "react-bootstrap/Carousel";
-import Button from "react-bootstrap/Button";
+import {Button, Container, Carousel, Row, Col} from "react-bootstrap";
 import { ReactComponent as LandingPageStar } from "./star.svg";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+
 import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
 import Organisation from "../Organisation/Organisation";
@@ -33,6 +30,10 @@ function Landing() {
     });
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     //   these lines set up the format of the page
     <>
@@ -46,14 +47,7 @@ function Landing() {
           <Container fluid>
             <Row>
               <Col xs={0} md="auto">
-                <LandingPageStar
-                  style={{
-                    height: 190,
-                    width: 400,
-                    display: "block",
-                    margin: "auto",
-                  }}
-                />
+                <LandingPageStar className="star"/>
               </Col>
               <Col>
                 <h1>EdAble</h1>

@@ -14,10 +14,33 @@ img {
   width: 18rem;
   text-align: center;
   min-width: 500px;
+  background-color: transparent;
 }
 
-.mainContainer {
+.orgsContainer{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.formContainer {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.donorsContainer{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 1100px) {
+    .orgsContainer{
+      justify-content: center;
+    }
+    .formContainer{
+      justify-content: center;
+    }
+
 }
