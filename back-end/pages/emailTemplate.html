@@ -1,0 +1,279 @@
+<head>
+  <style>
+    * {
+      font-family: Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .background {
+      background-color: #fafafa;
+      padding: 20px;
+    }
+
+    .email {
+      border: 1px solid #e1e1e1;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 600px;
+      padding: 20px 20px 0;
+    }
+
+    .logo {
+      width: auto;
+      max-width: 100%;
+      max-height: 120px;
+      display: block;
+      margin: 0 auto 20px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    table {
+      border-spacing: 0;
+    }
+
+    .table {
+      width: 80%;
+      margin: 25px auto;
+    }
+    .table td {
+      padding: 5px;
+    }
+    .table .text-right {
+      color: #b31b1b;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      margin: 0 0 10px;
+    }
+
+    .header h2 {
+      color: #b31b1b;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .thank-you-image {
+      margin: 25px 0;
+    }
+
+    .content {
+      font-size: 16px;
+      color: #797979;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-family: "Roboto", Arial, Helvetica, Verdana, sans-serif;
+    }
+    .content p {
+      margin-bottom: 20px;
+    }
+
+    .content ul,
+    .content ol {
+      margin: 1em 0;
+    }
+
+    .btn-wrapper {
+      max-width: 400px;
+      margin: 2em auto;
+      text-align: center;
+    }
+
+    .btn {
+      background-color: #b31b1b;
+      border-radius: 3px;
+      border-bottom: 3px solid #871414;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      font-size: 22px;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.17);
+      display: block;
+      width: auto;
+      margin: 0 auto;
+      text-decoration: none;
+      font-family: "Roboto", Arial, Helvetica, Verdana, sans-serif;
+      font-weight: bold;
+    }
+
+    .btn:hover,
+    .btn:focus,
+    .btn:active {
+      background-color: #871414;
+      color: #ffffff;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: #b31b1b;
+      margin: 0.5em 0;
+      line-height: 1.2;
+      font-family: "Roboto Slab", Georgia, Times, sansserif;
+      font-weight: bold;
+    }
+
+    .content ol,
+    .content ul {
+      padding-left: 40px;
+    }
+
+    .content a {
+      color: #b31b1b;
+    }
+
+    .content a:hover {
+      color: #871414;
+    }
+
+    .divider {
+      border-bottom: 1px solid #cccccc;
+      margin: 20px 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #797979;
+    }
+
+    .footer {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      color: #797979;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .footer strong {
+      font-size: 1.2em;
+    }
+    .footer a {
+      color: #666;
+    }
+    .footer a:hover,
+    .footer a:focus,
+    .footer a:active {
+      color: #404040;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .thank-you-image-wrapper img {
+        max-width: 80%;
+      }
+    }
+    .thank-you-image {
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<!-- <div>
+  <div class="centre">
+    <h1>EdAble Donations</h1>
+    <p>This donation was made in form of a gift</p>
+    <div class="orgInfo">
+      <p>ABN: <-placeholder ABN-></p>
+      <p>Address: <-placeholder address-></p>
+    </div>
+    <br />
+    <hr />
+    <p>Receipt Number : {{receiptNum}}</p>
+    <p>Organisation Name : {{orgName}}</p>
+    <br />
+    <hr />
+    <p>Donation Recieved : {{donationDate}}</p>
+    <p>Donated By : {{name}}</p>
+    <p>Donor Email : {{donorEmail}}</p>
+    <br />
+    <hr />
+    <p>Amount : {{amount}}</p>
+    <p>Donation Type : {{donationType}}</p>
+    <br />
+    <hr />
+  </div>
+  <h5>All donations are Tax-Decutable!</h5>
+  <p>Receipt issued with ❤️ by EdAble</p>
+  <br />
+  <hr />
+</div> -->
+
+<div class="background">
+  <div class="email-wrapper">
+    <div class="email">
+      <div class="header">
+        <img
+          class="logo center"
+          src="https://st2.depositphotos.com/1864495/8091/i/450/depositphotos_80919866-stock-photo-internet-meme-lol-guy.jpg"
+        />
+        <h1 class="center">Thank you, {{name}}</h1>
+        <h2 class="center">For your generous gift!</h2>
+      </div>
+      <p>
+        Your generosity means a lot today! Make a gift to another micro-business
+        at
+        <a href="https://edable-donor-test.azurewebsites.net/"
+          >EdAble Donation</a
+        >.
+      </p>
+      <h2 class="center">Your donation receipt</h2>
+      <table class="table">
+        <tr>
+          <td class="text-right">Micro-Business / Item:</td>
+          <td>{{orgName}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Amount:</td>
+          <td>{{amount}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Date:</td>
+          <td>{{donationDate}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Payment Type:</td>
+          <td>{{donationType}}</td>
+        </tr>
+      </table>
+      <p>
+        <small>All Donations made to EdAble are Tax Decutable </small>
+      </p>
+      <p>
+        <small
+          >Please contact <a href="mailto:EdAble.come">EdAble.com</a> or call
+          <-placeholder number-> for questions concerning this official gift
+          receipt.
+        </small>
+      </p>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="section-wrapper">
+      <p>
+        <strong
+          ><a href="https://edable-donor-test.azurewebsites.net/"
+            >EdAble</a
+          ></strong
+        ><br />Address<br />Postcode
+      </p>
+    </div>
+  </div>
+</div>
