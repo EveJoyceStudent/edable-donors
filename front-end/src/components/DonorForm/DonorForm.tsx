@@ -18,28 +18,30 @@ type DonorFormType = {
 function DonorForm(props: any) {
 
   const [proceedFlag, setProceedFlag] = useState(false);
-
+  const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
+  
   const isItemDonation = props.item !== undefined;
-
+  
   const {
-    watch,
+    getValues,
     register,
     setValue,
     formState: { errors, isValid },
   } = useForm<DonorFormType>({
     mode: "onChange",
   });
-
-
-  const watchPaidAMT = watch("paidAMT", 0);
-  const watchSubscription = watch("monthly", false);
-
-  const formDataValues = watch();
+  
+  const [formDataSave, setFormDataSave] = useState<DonorFormType>(getValues());
 
   const splitOrg = props.org;
 
   const proceed = () => {
-    setProceedFlag(true);
+    if(!isValid){
+      setFormAttemptedIncomplete(true);      
+    } else {
+      setFormDataSave(getValues());
+      setProceedFlag(true);
+    }
   };
   const returnToForm = () => {
     setProceedFlag(false);
@@ -178,7 +180,12 @@ function DonorForm(props: any) {
                 <input type="checkbox" value="yes" {...register("IsAnon")} />
               </div>
 
+              <div style={{ paddingBottom: "10px" }}>
+                <label htmlFor="mailingList">Join our mailing list?</label>
+                <input type="checkbox" value="yes" {...register("mailingList")} />
+              </div>
 
+              {(!isValid && formAttemptedIncomplete) && <div>Please complete the form.</div>}
               <Button variant="warning" onClick={proceed}>Proceed to Payment</Button>
             </div>
           </form>
@@ -187,25 +194,21 @@ function DonorForm(props: any) {
 
       {proceedFlag &&
         <>
-          <div>Hi {formDataValues.name},</div>
+          <div>Hi {formDataSave.name},</div>
           <div>
-            You're {watchSubscription ? `setting up a${formDataValues.IsAnon ? "n anonymous" : ""} monthly subscription` : `making a${formDataValues.IsAnon ? "n anonymous" : ""} one-off donation`} of ${formDataValues.paidAMT} 
+            You're {formDataSave.monthly ? `setting up a${formDataSave.IsAnon ? "n anonymous" : ""} monthly subscription` : `making a${formDataSave.IsAnon ? "n anonymous" : ""} one-off donation`} of ${formDataSave.paidAMT} 
           </div>
-          <div>Email: {formDataValues.email}</div>
-          <div>Phone: {formDataValues.phone}</div>
-              <div style={{ paddingBottom: "10px" }}>
-                <label htmlFor="mailingList">Join our mailing list?</label>
-                <input type="checkbox" value="yes" {...register("mailingList")} />
-              </div>
+          <div>Email: {formDataSave.email}</div>
+          <div>Phone: {formDataSave.phone}</div>
           <div style={{ minHeight: "150px" }}>
 
             <Paypal
-              formData={formDataValues}
-              watchPaidAMT={watchPaidAMT}
-              watchSubscription={watchSubscription}
+              formData={formDataSave}
+              watchPaidAMT={formDataSave.paidAMT}
+              watchSubscription={formDataSave.monthly}
               org={splitOrg}
               disabled={!isValid}
-              type={watchSubscription ? "subscription" : "capture"}
+              type={formDataSave.monthly ? "subscription" : "capture"}
               item={props.item}
             />
           </div>

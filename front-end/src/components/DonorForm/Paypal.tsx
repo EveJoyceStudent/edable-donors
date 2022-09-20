@@ -30,8 +30,6 @@ function Paypal(props: any) {
     navigate(link);
   };
 
-  const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
-
   const [purchaseData, setPurchaseData] = useState({
     purchase_units: [
       {
@@ -233,19 +231,12 @@ function Paypal(props: any) {
 
   return (
     <>
-      {(props.disabled && formAttemptedIncomplete) && <div>Please complete the form.</div>}
       {paypalDisplayed &&
         <PayPalButtons
-
           {...(props.watchSubscription ? { createSubscription: createSubscriptionContent } : { createOrder: createOrderContent })}
           {...(props.watchSubscription ? { style: { label: "subscribe", } } : { style: { label: "donate", } })}
           disabled={props.disabled}
           forceReRender={[purchaseData, props.watchPaidAMT, props.watchSubscription, props.formData]}
-          onClick={(data, actions) => {
-            if (props.disabled) {
-              setFormAttemptedIncomplete(true);
-            }
-          }}
           onCancel={(data, actions) => {
             return paypalDisabledNavigate(`../../cancel/${props.org}`);
           }}
