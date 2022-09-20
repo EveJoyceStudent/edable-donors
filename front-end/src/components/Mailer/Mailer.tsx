@@ -3,6 +3,7 @@ import React from "react";
 
 const generalURL =
   "https://edable-donor-api-test.azurewebsites.net/mail/general";
+// "http://localhost:8080/mail/general";
 function Mailer(props: any) {
   const [post, setPost] = React.useState(null);
 

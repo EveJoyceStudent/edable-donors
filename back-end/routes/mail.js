@@ -56,7 +56,7 @@ router.post("/general", (req, res) => {
 
   const mail_options = {
     from: `Bot Mailer <${process.env.user}>`,
-    bcc: "singh.agam0009@gmail.com,singhagampreet100@gmail.com",
+    to: data.donorEmail,
     subject: "Donation Receipt",
     html: htmlMail,
   };
