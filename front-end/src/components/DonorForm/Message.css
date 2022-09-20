@@ -40,7 +40,8 @@
     top: 0;
     bottom: 0;
     background-color: #fcfbc7;
-    border: 20px solid white;
+    border-radius: 45px;
+    border: 15px solid white;
   }
 
 @media screen and (max-width: 1280px) {
