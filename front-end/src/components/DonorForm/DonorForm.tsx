@@ -2,6 +2,7 @@
 import { useForm } from "react-hook-form";
 import "./DonorForm.css";
 import Paypal from "./Paypal";
+import Container from "react-bootstrap";
 
 type DonorFormType = {
   paidAMT: number;
@@ -68,22 +69,28 @@ function DonorForm(props:any) {
           >
             $20
           </button>
+        </div>
+      </div>
+      <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}>
           {isItemDonation && <>
             <br />
             <button
               type="button"
               onClick={() => {
                 setValue("paidAMT", props.itemAmount);
-              }}
+              }} 
             >
               Full Amount
             </button>
           </>}
-
         </div>
-      </div>
+      
       <br />
-      OR
+      <i style={{display:"flex",alignItems:"center", justifyContent:"center"}}>OR</i>
       <form>
         <div>
           <div>

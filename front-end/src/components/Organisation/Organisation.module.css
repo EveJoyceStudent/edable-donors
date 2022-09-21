@@ -42,5 +42,16 @@ img {
     .formContainer{
       justify-content: center;
     }
-
+}
+@media screen and (max-width: 630px) {
+  .orgInfo {
+    width: calc(100vw - 30px);
+    min-width:0px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  img{
+    height: 60vw;
+    width: 60vw;
+  }
 }

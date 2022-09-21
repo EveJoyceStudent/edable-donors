@@ -88,28 +88,18 @@ function Landing() {
                           <h2 style={{ textAlign: "center" }}>
                             {org.data.name}
                           </h2>
-                          <img
-                            style={{
-                              height: "200px",
-                              width: "200px",
-                              paddingBottom: "20px",
-                            }}
+                          <img className="imgCarousel"
                             src={org.data.img}
                             alt="Org logo"
                           />
-                          <p style={{ textAlign: "center", fontSize: "20px" }}>
+                          <p className="orgSummary">
                             {org.data.summary}
                           </p>
                           <Button variant="warning">
-                            <Link
-                              style={{
-                                textDecoration: "none",
-                                color: "black",
-                                fontSize: "20px",
-                              }}
+                            <Link className="btnContribute"
                               to={`organisation/${org.id}`}
                             >
-                              <i>
+                              <i className="btnText">
                                 COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
                                 A CONTRIBUTION!
                               </i>

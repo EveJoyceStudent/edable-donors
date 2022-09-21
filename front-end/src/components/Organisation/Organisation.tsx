@@ -36,7 +36,7 @@ function Organisation() {
                 <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
               </h6>
               <Card.Title>{org.name}</Card.Title>
-              <Card.Img variant="top" src={org.img} alt={`${org.name}`} />
+              <Card.Img className={styles.orgImg} variant="top" src={org.img} alt={`${org.name}`} />
               <Card.Body>
                 <Card.Text>{org.description}</Card.Text>
                 <Card.Text>

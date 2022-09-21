@@ -33,9 +33,36 @@
   .cards {
     flex: 42%;
   }
+  .input{
+    width: 30%;
+  }
 }
 @media (max-width: 768px) {
   .cards {
     flex: 75%;
+  }
+  .input{
+    width: 50%;
+  }
+}
+@media (max-width: 630px) {
+  .cards {
+    flex: 100%;
+  }
+  .input{
+    width: 70%;
+  }
+}
+@media (max-width: 400px) {
+  .input{
+    width: 100%;
+  }
+  .containerDiv{
+    padding: 15px;
+  }
+  .cards{
+    margin-left: 0px;
+    margin-right: 0px;
+    box-shadow: 4px 4px 13px -4px #3F3F3F;
   }
 }
