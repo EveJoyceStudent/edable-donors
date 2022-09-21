@@ -38,8 +38,6 @@ function Paypal(props: any) {
     navigate(link);
   };
 
-  const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
-
   const [purchaseData, setPurchaseData] = useState({
     purchase_units: [
       {
@@ -158,7 +156,7 @@ function Paypal(props: any) {
           amount: props.watchPaidAMT,
           IsRefunded: false,
           IsSubscribed: subscription,
-          comment: "",
+          comment: props.formData.comment,
           donationDate: Timestamp.now(),
         }
       );
@@ -176,7 +174,7 @@ function Paypal(props: any) {
           mailingAddress: "",
           IsAnon: props.formData.IsAnon,
           agreeToContact: props.formData.mailingList,
-          howHeard: "",
+          howHeard: props.formData.howHeard,
         }
       );
       // update donation summaries
@@ -227,7 +225,7 @@ function Paypal(props: any) {
                   : props.formData.name,
                 amount: props.watchPaidAMT,
                 IsRefunded: false,
-                comment: "",
+                comment: props.formData.comment,
                 donationDate: Timestamp.now(),
               }
             );
@@ -245,7 +243,7 @@ function Paypal(props: any) {
                 mailingAddress: "",
                 IsAnon: props.formData.IsAnon,
                 agreeToContact: props.formData.mailingList,
-                howHeard: "",
+                howHeard: props.formData.howHeard,
               }
             );
 
@@ -293,10 +291,7 @@ function Paypal(props: any) {
 
   return (
     <>
-      {props.disabled && formAttemptedIncomplete && (
-        <div>Please complete the form.</div>
-      )}
-      {paypalDisplayed && (
+      {paypalDisplayed &&
         <PayPalButtons
           {...(props.watchSubscription
             ? { createSubscription: createSubscriptionContent }
@@ -311,11 +306,6 @@ function Paypal(props: any) {
             props.watchSubscription,
             props.formData,
           ]}
-          onClick={(data, actions) => {
-            if (props.disabled) {
-              setFormAttemptedIncomplete(true);
-            }
-          }}
           onCancel={(data, actions) => {
             return paypalDisabledNavigate(`../../cancel/${props.org}`);
           }}
@@ -327,7 +317,7 @@ function Paypal(props: any) {
             ? { onApprove: approveSubscriptionContent }
             : { onApprove: approveOrderContent })}
         />
-      )}
+      }
     </>
   );
 }
