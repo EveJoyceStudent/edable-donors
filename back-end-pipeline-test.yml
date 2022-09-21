@@ -30,7 +30,7 @@ steps:
 - task: DownloadSecureFile@1
   name: serviceAccount
   inputs:
-    secureFile: 'serviceAccount.json'
+    secureFile: 'serviceAccount.json.test'
 
 - task: PowerShell@2
   inputs:

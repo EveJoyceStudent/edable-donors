@@ -212,6 +212,9 @@ function DonorForm(props: any) {
               disabled={!isValid}
               type={formDataSave.monthly ? "subscription" : "capture"}
               item={props.item}
+              orgName={props.orgName}
+              itemName={props.itemName} 
+              itemOrgName={props.itemOrgName}
             />
           </div>
           <Button variant="outline-secondary" onClick={returnToForm}>Something looks wrong, edit my donation</Button>
