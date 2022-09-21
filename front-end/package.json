@@ -15,6 +15,7 @@
     "@types/styled-components": "^5.1.26",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "env-cmd": "^10.1.0",
     "faicon": "^1.1.0",
     "firebase": "^9.9.3",
     "flaticon": "^0.1.0",
@@ -36,6 +37,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:test": "env-cmd -f .env.test npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
