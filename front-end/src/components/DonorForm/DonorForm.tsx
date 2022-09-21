@@ -184,8 +184,15 @@ function DonorForm(props: any) {
                 <input type="checkbox" value="yes" {...register("mailingList")} />
               </div>
 
+              <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection:"column",
+            }}>
               {(!isValid && formAttemptedIncomplete) && <div>Please complete the form.</div>}
               <Button variant="warning" onClick={proceed}>Proceed to Payment</Button>
+            </div>
             </div>
           </form>
         </>
@@ -217,7 +224,14 @@ function DonorForm(props: any) {
               itemOrgName={props.itemOrgName}
             />
           </div>
+          <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+
           <Button variant="outline-secondary" onClick={returnToForm}>Something looks wrong, edit my donation</Button>
+            </div>
         </>
       }
 

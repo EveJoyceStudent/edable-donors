@@ -317,7 +317,7 @@ function Paypal(props: any) {
             ? { onApprove: approveSubscriptionContent }
             : { onApprove: approveOrderContent })}
         />
-      )}
+      }
     </>
   );
 }
