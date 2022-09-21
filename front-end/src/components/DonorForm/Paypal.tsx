@@ -156,7 +156,7 @@ function Paypal(props: any) {
           amount: props.watchPaidAMT,
           IsRefunded: false,
           IsSubscribed: subscription,
-          comment: "",
+          comment: props.formData.comment,
           donationDate: Timestamp.now(),
         }
       );
@@ -174,7 +174,7 @@ function Paypal(props: any) {
           mailingAddress: "",
           IsAnon: props.formData.IsAnon,
           agreeToContact: props.formData.mailingList,
-          howHeard: "",
+          howHeard: props.formData.howHeard,
         }
       );
       // update donation summaries
@@ -225,7 +225,7 @@ function Paypal(props: any) {
                   : props.formData.name,
                 amount: props.watchPaidAMT,
                 IsRefunded: false,
-                comment: "",
+                comment: props.formData.comment,
                 donationDate: Timestamp.now(),
               }
             );
@@ -243,7 +243,7 @@ function Paypal(props: any) {
                 mailingAddress: "",
                 IsAnon: props.formData.IsAnon,
                 agreeToContact: props.formData.mailingList,
-                howHeard: "",
+                howHeard: props.formData.howHeard,
               }
             );
 

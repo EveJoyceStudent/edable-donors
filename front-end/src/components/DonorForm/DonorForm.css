@@ -5,6 +5,8 @@
   min-width: 500px;
   max-width: 60%;
   background-color: white;
+  display: flex;
+  justify-content: center;
 }
 
 .presetButtons {
@@ -14,14 +16,14 @@
 }
 
 label {
-  font-size: x-small;
+  font-size: small;
   color: rgb(104, 104, 104);
 }
 
-input {
+input, select {
   display: block;
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
   border-radius: 4px;
   border: 1px solid rgb(215, 215, 215);
   padding: 10px 15px;
