@@ -1,6 +1,6 @@
 // @ts-ignore
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./DonorForm.css";
 import Paypal from "./Paypal";
@@ -21,8 +21,12 @@ function DonorForm(props: any) {
 
   const [proceedFlag, setProceedFlag] = useState(false);
   const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
-
+  
   const isItemDonation = props.item !== undefined;
+  
+  const renderTooltip = (props:any) => (
+    <Tooltip {...props}>We still require your name, but it will not show on our site</Tooltip>
+  );
 
   const {
     getValues,
@@ -31,7 +35,9 @@ function DonorForm(props: any) {
     formState: { errors, isValid },
   } = useForm<DonorFormType>({
     mode: "onChange",
+    
   });
+
 
   const [formDataSave, setFormDataSave] = useState<DonorFormType>(getValues());
 
@@ -137,6 +143,7 @@ function DonorForm(props: any) {
                 <br />
 
                 <div>
+                  
                   {errors.name && <span>*</span>}
                   <label>Name</label>
                   {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank</span>}
@@ -177,10 +184,14 @@ function DonorForm(props: any) {
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="IsAnon">Donate anonymously?</label>
+                <div className ="IsAnon" >
+                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                <label htmlFor="IsAnon">Donate anonymously?</label>
+                  </OverlayTrigger>
                   <input type="checkbox" value="yes" {...register("IsAnon")} />
+
                 </div>
+              
 
                 <div style={{ paddingBottom: "10px" }}>
                   <label htmlFor="mailingList">Join our mailing list?</label>
