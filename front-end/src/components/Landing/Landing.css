@@ -16,7 +16,7 @@
   background-color: #fcfbc7;
   border-radius: 30px;
 }
-.star{
+.star {
   height: 190px;
   width: 400px;
   display: block;
@@ -78,13 +78,8 @@ h4 {
   padding-bottom: 3%;
   border-radius: 30px;
   box-shadow: 1px 2px 15px -4px #3f3f3f;
-  min-height: 400px;
-  max-height: 400px;
+  height: 440px;
 }
-
-/* .carouselContainer { */
-/* min-height: 600px; */
-/* } */
 
 /* #carousel-indicators {
     color:rgb(17, 0, 61)

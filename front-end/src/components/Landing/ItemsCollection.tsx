@@ -121,20 +121,20 @@ function ItemsCollection() {
                   </div>
                   <div style={{ display: "flex" }}>
                     <label style={{ fontSize: "12px" }}>
-                      ${item.data.totalDonations || 0} of $
+                      ${item.data.totalDonationsValue || 0} of $
                       {item.data.initialPrice}
                     </label>
                   </div>
                   <ProgressBar
                     variant="warning"
                     now={
-                      item.data.totalDonations
-                        ? (item.data.totalDonations / item.data.initialPrice) *
+                      item.data.totalDonationsValue
+                        ? (item.data.totalDonationsValue / item.data.initialPrice) *
                           100
                         : 0
                         }
                     label={`${Math.round(
-                      (item.data.totalDonations / item.data.initialPrice) * 100
+                      (item.data.totalDonationsValue / item.data.initialPrice) * 100
                     )}%`}
                   />
                   <Card.Text>{item.data.summary}</Card.Text>
