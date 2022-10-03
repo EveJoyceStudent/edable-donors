@@ -76,54 +76,50 @@ function Landing() {
                       interval={null}
                       indicators={true}
                       variant="dark"
-                      style={{ margin: "3px" }}
                     >
                       {orgList.map((org: any) => (
                         <Carousel.Item
                           key={org.id.toString()}
                           style={{
                             textAlign: "center",
-                            padding: "0px 10vw 50px",
                           }}
                         >
-                          <Link to={`organisation/${org.id}`}>
-                            <h2
-                              style={{
-                                textAlign: "center",
-                                textDecoration: "none",
-                              }}
-                            >
-                              {org.data.name}
-                            </h2>
-                            <img
-                              style={{
-                                height: "180px",
-                                width: "200px",
-                                paddingBottom: "20px",
-                              }}
-                              src={org.data.img}
-                              alt="Org logo"
-                            />
-                            <p
-                              style={{ textAlign: "center", fontSize: "20px" }}
-                            >
-                              {org.data.summary}
-                            </p>
-                            <Button variant="warning">
-                              <Link
+                          <Link to={`organisation/${org.id}`}
+                            style={{
+                              textDecoration: "none",
+                              color: "black",
+                            }}
+                          >
+                            {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
+                            <div className="carousel-contents">
+                              <h2>
+                                {org.data.name}
+                              </h2>
+                              <img
                                 style={{
-                                  textDecoration: "none",
-                                  color: "black",
+                                  height: "180px",
+                                  width: "200px",
+                                  paddingBottom: "20px",
+                                }}
+                                src={org.data.img}
+                                alt="Org logo"
+                              />
+                              <p
+                                style={{ fontSize: "20px" }}
+                              >
+                                {org.data.summary}
+                              </p>
+                              <Button variant="warning"
+                                style={{
                                   fontSize: "20px",
                                 }}
-                                to={`organisation/${org.id}`}
                               >
                                 <i>
                                   COUNT ME IN AS A PARTNER!<br></br>I WANT TO
                                   MAKE A CONTRIBUTION!
                                 </i>
-                              </Link>
-                            </Button>
+                              </Button>
+                            </div>
                           </Link>
                         </Carousel.Item>
                       ))}
