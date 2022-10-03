@@ -24,8 +24,11 @@ function DonorForm(props: any) {
   
   const isItemDonation = props.item !== undefined;
   
-  const renderTooltip = (props:any) => (
+  const anonTooltip = (props:any) => (
     <Tooltip {...props}>We still require your name, but it will not show on our site</Tooltip>
+  );
+  const amountTooltip = (props:any) => (
+    <Tooltip {...props}>All donations made are in AUD</Tooltip>
   );
 
   const {
@@ -109,9 +112,12 @@ function DonorForm(props: any) {
             OR
             <form>
               <div>
-                <div>
-                  {errors.paidAMT && <span>*</span>}
+                <div className = "Amount">
+                <OverlayTrigger placement="top" overlay={amountTooltip}>
                   <label>Enter an amount</label>
+                  </OverlayTrigger>
+                  {errors.paidAMT && <span>*</span>}
+
                   {errors.paidAMT && (
                     <span style={{ margin: "20px", fontSize: "x-small" }}>
                       Please enter an amount
@@ -185,7 +191,7 @@ function DonorForm(props: any) {
                 </div>
 
                 <div className ="IsAnon" >
-                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                <OverlayTrigger placement="top" overlay={anonTooltip}>
                 <label htmlFor="IsAnon">Donate anonymously?</label>
                   </OverlayTrigger>
                   <input type="checkbox" value="yes" {...register("IsAnon")} />
