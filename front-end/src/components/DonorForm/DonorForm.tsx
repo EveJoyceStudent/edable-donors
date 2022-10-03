@@ -157,7 +157,7 @@ function DonorForm(props: any) {
                     placeholder="Name"
                     {...register("name", {
                       required: true,
-                      pattern: /[a-z]/,
+                      pattern: /^[a-zA-Z0-9]+$/,
                     })}
                   />
                 </div>
