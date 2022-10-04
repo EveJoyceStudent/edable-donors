@@ -113,11 +113,10 @@ function DonorForm(props: any) {
             <form>
               <div>
                 <div className = "Amount">
+                {errors.paidAMT && <span>*</span>}
                 <OverlayTrigger placement="top" overlay={amountTooltip}>
                   <label>Enter an amount</label>
                   </OverlayTrigger>
-                  {errors.paidAMT && <span>*</span>}
-
                   {errors.paidAMT && (
                     <span style={{ margin: "20px", fontSize: "x-small" }}>
                       Please enter an amount
@@ -191,10 +190,10 @@ function DonorForm(props: any) {
                 </div>
 
                 <div className ="IsAnon" >
-                <label htmlFor="IsAnon">Donate anonymously?</label>
                 <OverlayTrigger placement="top" overlay={anonTooltip}>
+                <label htmlFor="IsAnon">Donate anonymously?</label>
+                </OverlayTrigger>
                   <input type="checkbox" value="yes" {...register("IsAnon")} />
-                  </OverlayTrigger>
 
                 </div>
               
