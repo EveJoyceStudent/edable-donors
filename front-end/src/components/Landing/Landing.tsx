@@ -3,11 +3,12 @@ import "./Landing.css";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
-import {Button, Container, Carousel, Row, Col} from "react-bootstrap";
+import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
 import { ReactComponent as LandingPageStar } from "./star.svg";
 
 import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
+import Organisation from "../Organisation/Organisation";
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -30,8 +31,8 @@ function Landing() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     //   these lines set up the format of the page
@@ -46,7 +47,7 @@ function Landing() {
           <Container fluid>
             <Row>
               <Col xs={0} md="auto">
-                <LandingPageStar className="star"/>
+                <LandingPageStar className="star" />
               </Col>
               <Col>
                 <h1>EdAble</h1>
@@ -85,26 +86,29 @@ function Landing() {
                             padding: "0px 10vw 50px",
                           }}
                         >
-                          <h2 style={{ textAlign: "center" }}>
+                          <Link to={`organisation/${org.id}`}>
+                            <h2 style={{ textAlign: "center" }}>
                             {org.data.name}
-                          </h2>
-                          <img className="imgCarousel"
-                            src={org.data.img}
-                            alt={`${org.data.name}`+"'s logo"}
-                          />
-                          <p className="orgSummary">
-                            {org.data.summary}
-                          </p>
-                          <Button variant="warning">
-                            <Link className="btnContribute"
-                              to={`organisation/${org.id}`}
-                            >
-                              <i className="btnText">
-                                COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
-                                A CONTRIBUTION!
-                              </i>
-                            </Link>
-                          </Button>
+                            </h2>
+                            <img className="imgCarousel"
+                              src={org.data.img}
+                              alt={`${org.data.name}`+"'s logo"}
+                            />
+                            <p className="orgSummary">
+                              {org.data.summary}
+                            </p>
+                            <Button variant="warning">
+                              <Link className="btnContribute"
+                                to={`organisation/${org.id}`}
+                              >
+                                <i className="btnText">
+                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
+                                  A CONTRIBUTION!
+                                </i>
+                              </Link>
+                            </Button>
+                          </Link>
+
                         </Carousel.Item>
                       ))}
                     </Carousel>

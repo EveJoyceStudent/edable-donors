@@ -51,7 +51,7 @@ function Organisation() {
           </Col>
 
           <Col className={styles.formContainer}>
-            <DonorForm org={params.orgId} />
+            <DonorForm org={params.orgId} orgName = {org.name} />
           </Col>
         </Row>
         <Row>

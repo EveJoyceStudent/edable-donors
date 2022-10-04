@@ -78,7 +78,7 @@ function ItemPage() {
           </Col>
 
           <Col className={styles.formContainer}>
-            <DonorForm org={params.orgID} item={params.itemID} itemAmount={Math.round((item.initialPrice - (item.totalDonationsValue || 0) + Number.EPSILON) * 100) / 100} />
+            <DonorForm org={params.orgID} item={params.itemID} itemName={item.name} itemOrgName={org.name} itemAmount={Math.round((item.initialPrice - (item.totalDonationsValue || 0) + Number.EPSILON) * 100) / 100} />
           </Col>
           <Col className={styles.donorsContainer} style={{marginTop: "40px"}}>
               <div style={{ padding: "5vw", paddingTop: "0px"}}>
