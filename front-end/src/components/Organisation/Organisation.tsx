@@ -32,14 +32,14 @@ function Organisation() {
         <Row style={{marginTop: "15px"}}>
           <Col className={styles.orgsContainer}>
             <Card className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px" }}>
+              <h6 style={{ textAlign: "left", margin: "7px"}}>
                 <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
               </h6>
-              <Card.Title>{org.name}</Card.Title>
-              <Card.Img className={styles.orgImg} variant="top" src={org.img} alt={`${org.name}`} />
+              <Card.Title style={{fontSize: "2rem"}}>{org.name}</Card.Title>
+              <Card.Img className={styles.orgImg} variant="top" src={org.img} alt={`${org.name}`+"'s logo"} />
               <Card.Body>
-                <Card.Text>{org.description}</Card.Text>
-                <Card.Text>
+                <Card.Text className={styles.orgDescription}>{org.description}</Card.Text>
+                <Card.Text className={styles.orgDescription}>
                   {" "}
                   Check out the <a href={org.website}>{`${org.name}`} website</a>
                 </Card.Text>
@@ -53,12 +53,13 @@ function Organisation() {
           <Col className={styles.formContainer}>
             <DonorForm org={params.orgId} />
           </Col>
-
-          <Col className={styles.donorsContainer} style={{marginTop: "40px"}}>
-              <div style={{ padding: "5vw", paddingTop: "0px"}}>
-                <PastDonations />
-              </div>
-              {/* items go here */}
+        </Row>
+        <Row>
+          <Col className={styles.donorsContainer} style={{ marginTop: "40px" }}>
+            <div style={{ padding: "5vw", paddingTop: "0px" }}>
+              <PastDonations />
+            </div>
+            {/* items go here */}
           </Col>
         </Row>
       </Container>

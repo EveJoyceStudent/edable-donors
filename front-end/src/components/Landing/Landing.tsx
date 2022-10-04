@@ -75,7 +75,7 @@ function Landing() {
                       interval={null}
                       indicators={true}
                       variant="dark"
-                      style={{ margin: "3px" }}
+                      style={{ margin: "3px"}}
                     >
                       {orgList.map((org: any) => (
                         <Carousel.Item
@@ -90,7 +90,7 @@ function Landing() {
                           </h2>
                           <img className="imgCarousel"
                             src={org.data.img}
-                            alt="Org logo"
+                            alt={`${org.data.name}`+"'s logo"}
                           />
                           <p className="orgSummary">
                             {org.data.summary}

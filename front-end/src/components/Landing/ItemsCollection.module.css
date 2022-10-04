@@ -23,6 +23,12 @@
   border: none;
   box-shadow: 4px 4px 21px -4px #3F3F3F;
 }
+.itemImg{
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  border-radius: 20px;
+}
 
 @media (max-width: 1200px) {
   .cards {
@@ -53,7 +59,7 @@
     width: 70%;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .input{
     width: 100%;
   }
@@ -64,5 +70,9 @@
     margin-left: 0px;
     margin-right: 0px;
     box-shadow: 4px 4px 13px -4px #3F3F3F;
+  }
+  .itemImg{
+    width: 175px;
+    height: 175px;
   }
 }

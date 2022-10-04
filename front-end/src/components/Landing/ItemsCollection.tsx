@@ -110,13 +110,10 @@ function ItemsCollection() {
                   <Card.Title>{item.data.name}
                   <br></br>{Filter(item.data.orgID)}</Card.Title>
                   <div style={{ textAlign: "center" }}>
-                    <Card.Img
+                    <Card.Img className={styles.itemImg}
                       variant="top"
                       src={item.data.img}
-                      style={{
-                        height: "200px",
-                        width: "200px",
-                      }}
+                      alt={"Image of " + `${item.data.name}`}
                     />
                   </div>
                   <div style={{ display: "flex" }}>
