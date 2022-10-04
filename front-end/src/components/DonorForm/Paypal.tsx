@@ -109,7 +109,7 @@ function Paypal(props: any) {
     return actions.order.create(purchaseData);
   };
   const generalURL =
-    "https://edable-donor-api-test.azurewebsites.net/mail/general";
+    `${process.env.REACT_APP_API_URL}mail/general`;
   function GeneralDonation() {
     axios
       .post(generalURL, {
@@ -126,7 +126,7 @@ function Paypal(props: any) {
         console.log(error);
       });
   }
-  const itemURL = "https://edable-donor-api-test.azurewebsites.net/mail/item";
+  const itemURL = `${process.env.REACT_APP_API_URL}mail/item`;
 
   function ItemDonation() {
     axios
