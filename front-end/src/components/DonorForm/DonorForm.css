@@ -2,10 +2,11 @@
   border-radius: 30px;
   border: 1px solid rgb(215, 215, 215);
   padding: 30px;
-  margin-top: 20px;
-  margin-bottom: 50px;
   min-width: 500px;
   max-width: 60%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
 }
 
 .presetButtons {
@@ -15,14 +16,14 @@
 }
 
 label {
-  font-size: x-small;
+  font-size: small;
   color: rgb(104, 104, 104);
 }
 
-input {
+input, select {
   display: block;
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
   border-radius: 4px;
   border: 1px solid rgb(215, 215, 215);
   padding: 10px 15px;
@@ -40,6 +41,7 @@ button {
   border: 1px solid rgb(215, 215, 215);
   padding: 5px 10px;
   font-size: 14px;
+  margin: 5px;
 }
 
 button[type='submit'],
@@ -58,4 +60,18 @@ input[type='submit'] {
 button[type='submit']:hover,
 input[type='submit']:hover {
   background: #bf1650;
+}
+
+@media screen and (max-width: 630px) {
+  .donorInfoContainer{
+    width: calc(100vw - 30px);
+    min-width:0px;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 310px) {
+  .donorInfoContainer{
+    padding:10px;
+    padding-top: 30px;
+  }
 }

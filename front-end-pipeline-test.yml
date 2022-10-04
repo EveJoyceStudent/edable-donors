@@ -23,7 +23,7 @@ steps:
 - script: |
     CI=false
     npm install
-    npm run build
+    npm run build:test
   displayName: 'npm install and build'
   workingDirectory: $(workingdir)
 
