@@ -76,37 +76,42 @@ function Landing() {
                       interval={null}
                       indicators={true}
                       variant="dark"
-                      style={{ margin: "3px"}}
                     >
                       {orgList.map((org: any) => (
                         <Carousel.Item
                           key={org.id.toString()}
                           style={{
                             textAlign: "center",
-                            padding: "0px 10vw 50px",
                           }}
                         >
-                          <Link to={`organisation/${org.id}`}>
-                            <h2 style={{ textAlign: "center" }}>
-                            {org.data.name}
-                            </h2>
-                            <img className="imgCarousel"
-                              src={org.data.img}
-                              alt={`${org.data.name}`+"'s logo"}
-                            />
-                            <p className="orgSummary">
-                              {org.data.summary}
-                            </p>
-                            <Button variant="warning">
-                              <Link className="btnContribute"
-                                to={`organisation/${org.id}`}
+                          <Link to={`organisation/${org.id}`}
+                            style={{
+                              textDecoration: "none",
+                              color: "black",
+                            }}
+                          >
+                            {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
+                            <div className="carousel-contents">
+                              <h2 style={{ textAlign: "center" }}>
+                                {org.data.name}
+                              </h2>
+                              <img className="imgCarousel"
+                                src={org.data.img}
+                                alt={`${org.data.name}` + "'s logo"}
+                              />
+                              <p className="orgSummary">
+                                {org.data.summary}
+                              </p>
+                              <Button
+                                className="btnContribute"
+                                variant="warning"
                               >
                                 <i className="btnText">
                                   COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
                                   A CONTRIBUTION!
                                 </i>
-                              </Link>
-                            </Button>
+                              </Button>
+                            </div>
                           </Link>
 
                         </Carousel.Item>

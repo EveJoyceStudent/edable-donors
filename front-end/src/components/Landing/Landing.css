@@ -71,13 +71,16 @@ h4 {
 }
 
 .carousel {
-  align-items: justify;
   background-color: rgb(254, 218, 252);
+  margin: 3px;
+  border-radius: 30px;
+  box-shadow: 1px 2px 15px -4px #3f3f3f;
+}
+
+.carousel-contents {
   margin-top: 3%;
   padding-top: 1rem;
   padding-bottom: 2%;
-  border-radius: 30px;
-  box-shadow: 1px 2px 15px -4px #3f3f3f;
   height: 450px;
 }
 
