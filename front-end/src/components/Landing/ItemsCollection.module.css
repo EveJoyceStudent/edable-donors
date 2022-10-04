@@ -23,6 +23,12 @@
   border: none;
   box-shadow: 4px 4px 21px -4px #3F3F3F;
 }
+.itemImg{
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  border-radius: 20px;
+}
 
 @media (max-width: 1200px) {
   .cards {
@@ -33,9 +39,40 @@
   .cards {
     flex: 42%;
   }
+  .input{
+    width: 30%;
+  }
 }
 @media (max-width: 768px) {
   .cards {
     flex: 75%;
+  }
+  .input{
+    width: 50%;
+  }
+}
+@media (max-width: 630px) {
+  .cards {
+    flex: 100%;
+  }
+  .input{
+    width: 70%;
+  }
+}
+@media (max-width: 500px) {
+  .input{
+    width: 100%;
+  }
+  .containerDiv{
+    padding: 15px;
+  }
+  .cards{
+    margin-left: 0px;
+    margin-right: 0px;
+    box-shadow: 4px 4px 13px -4px #3F3F3F;
+  }
+  .itemImg{
+    width: 175px;
+    height: 175px;
   }
 }

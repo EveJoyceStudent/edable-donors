@@ -40,7 +40,7 @@ function PastDonations() {
 
   return (
     <div className="donationContainer">
-      <div style={{ padding: "40px" }}>
+      <div className="conPadding">
         <h3 className="donationTitle">Past Donations</h3>
         {pastDescendin.map((pastDonation: any) => (
           <p key={pastDonation.id} className="donationInfo">

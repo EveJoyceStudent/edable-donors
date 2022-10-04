@@ -92,35 +92,28 @@ function Landing() {
                           >
                             {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
                             <div className="carousel-contents">
-                              <h2>
+                              <h2 style={{ textAlign: "center" }}>
                                 {org.data.name}
                               </h2>
-                              <img
-                                style={{
-                                  height: "180px",
-                                  width: "200px",
-                                  paddingBottom: "20px",
-                                }}
+                              <img className="imgCarousel"
                                 src={org.data.img}
-                                alt="Org logo"
+                                alt={`${org.data.name}` + "'s logo"}
                               />
-                              <p
-                                style={{ fontSize: "20px" }}
-                              >
+                              <p className="orgSummary">
                                 {org.data.summary}
                               </p>
-                              <Button variant="warning"
-                                style={{
-                                  fontSize: "20px",
-                                }}
+                              <Button
+                                className="btnContribute"
+                                variant="warning"
                               >
-                                <i>
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
-                                  MAKE A CONTRIBUTION!
+                                <i className="btnText">
+                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
+                                  A CONTRIBUTION!
                                 </i>
                               </Button>
                             </div>
                           </Link>
+
                         </Carousel.Item>
                       ))}
                     </Carousel>

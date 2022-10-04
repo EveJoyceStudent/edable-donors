@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./DonorForm.css";
 import Paypal from "./Paypal";
+import Container from "react-bootstrap";
 
 type DonorFormType = {
   paidAMT: number;
@@ -100,7 +101,7 @@ function DonorForm(props: any) {
               </div>
             </div>
             <br />
-            OR
+            <i style={{display:"flex",alignItems:"center", justifyContent:"center"}}>OR</i>
             <form>
               <div>
                 <div>

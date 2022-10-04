@@ -10,7 +10,7 @@ function Cancel() {
       <div className="msgContainer" style={{ height: "calc(100vh - 40px)"}}>
         <div>
           <Image className="msgIcon" src='https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmobile%2F000%2F028%2F692%2Fcat.jpg' roundedCircle></Image>
-          <h1 className="msgTitle" style={{ paddingTop: "50px" }}>
+          <h1 className="msgTitle" style={{ paddingTop: "1vh" }}>
             Sorry, we couldn't complete your transaction.
           </h1>
           <h1 className="msgText">
