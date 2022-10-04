@@ -76,7 +76,7 @@ function Landing() {
                       interval={null}
                       indicators={true}
                       variant="dark"
-                      style={{ margin: "3px" }}
+                      style={{ margin: "3px"}}
                     >
                       {orgList.map((org: any) => (
                         <Carousel.Item
@@ -87,44 +87,28 @@ function Landing() {
                           }}
                         >
                           <Link to={`organisation/${org.id}`}>
-                            <h2
-                              style={{
-                                textAlign: "center",
-                                textDecoration: "none",
-                              }}
-                            >
-                              {org.data.name}
+                            <h2 style={{ textAlign: "center" }}>
+                            {org.data.name}
                             </h2>
-                            <img
-                              style={{
-                                height: "180px",
-                                width: "200px",
-                                paddingBottom: "20px",
-                              }}
+                            <img className="imgCarousel"
                               src={org.data.img}
-                              alt="Org logo"
+                              alt={`${org.data.name}`+"'s logo"}
                             />
-                            <p
-                              style={{ textAlign: "center", fontSize: "20px" }}
-                            >
+                            <p className="orgSummary">
                               {org.data.summary}
                             </p>
                             <Button variant="warning">
-                              <Link
-                                style={{
-                                  textDecoration: "none",
-                                  color: "black",
-                                  fontSize: "20px",
-                                }}
+                              <Link className="btnContribute"
                                 to={`organisation/${org.id}`}
                               >
-                                <i>
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
-                                  MAKE A CONTRIBUTION!
+                                <i className="btnText">
+                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
+                                  A CONTRIBUTION!
                                 </i>
                               </Link>
                             </Button>
                           </Link>
+
                         </Carousel.Item>
                       ))}
                     </Carousel>

@@ -51,7 +51,7 @@ function ItemPage() {
               </h6>
               <Card.Title>{org.name}</Card.Title>
               <Card.Subtitle>would love your support for<br /><em>{item.name}</em></Card.Subtitle>
-              <Card.Img variant="top" src={item.img} alt={`${item.name}`} />
+              <Card.Img variant="top" src={item.img} alt={"Image of " + `${item.name}`} />
               <Card.Body className="pt-0 px-0">
                 <Card.Text className="mb-0">
                   ${item.totalDonationsValue || 0} of $

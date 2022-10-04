@@ -15,9 +15,22 @@
     font-weight: bold;
     text-align: center;
 }
+.conPadding{
+    padding: 40px;
+}
 
 @media screen and (max-width: 1100px) {
     .donationContainer{
         width: calc(95vw - 30px);
+        box-shadow: 2px 2px 21px -2px #3F3F3F;
     }
   }
+@media screen and (max-width: 300px) {
+    .donationTitle{
+        font-size: 15px;
+    }
+    .conPadding{
+        padding: 25px;
+        padding-top: 30px;
+    }
+}

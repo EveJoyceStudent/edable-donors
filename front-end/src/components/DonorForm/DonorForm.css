@@ -61,3 +61,17 @@ button[type='submit']:hover,
 input[type='submit']:hover {
   background: #bf1650;
 }
+
+@media screen and (max-width: 630px) {
+  .donorInfoContainer{
+    width: calc(100vw - 30px);
+    min-width:0px;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 310px) {
+  .donorInfoContainer{
+    padding:10px;
+    padding-top: 30px;
+  }
+}
