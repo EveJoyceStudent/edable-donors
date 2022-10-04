@@ -241,7 +241,7 @@ function DonorForm(props: any) {
 
         {proceedFlag &&
           <>
-            <p style={{ fontSize: '1vw', }}>
+            <div className="donation-summary" style={{ fontSize: '1vw', }}>
 
               <div>Hi {formDataSave.name},</div>
               <div>
@@ -252,7 +252,7 @@ function DonorForm(props: any) {
               }
               <div>Email: {formDataSave.email}</div>
               <div>Phone: {formDataSave.phone}</div>
-            </p>
+            </div>
             <div style={{ minHeight: "150px" }}>
 
               <Paypal
