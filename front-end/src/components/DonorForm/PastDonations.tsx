@@ -11,11 +11,7 @@ function PastDonations() {
   useEffect(() => {
     const orgID = params.orgId || "";
     const q = query(
-<<<<<<< HEAD
-      collection(db, `Organisations/${orgID}/GeneralDonations/`),
-=======
       collection(db, `Organisations/${orgID}/GeneralDonations`),
->>>>>>> 7cb3020605bb05a9003e41febd2ce7c82b603188
       where("IsRefunded", "==", false)
     );
     onSnapshot(q, (querySnapshot) => {
