@@ -1,6 +1,6 @@
 // @ts-ignore
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./DonorForm.css";
 import Paypal from "./Paypal";
@@ -22,8 +22,15 @@ function DonorForm(props: any) {
 
   const [proceedFlag, setProceedFlag] = useState(false);
   const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
-
+  
   const isItemDonation = props.item !== undefined;
+  
+  const anonTooltip = (props:any) => (
+    <Tooltip {...props}>We still require your name but it will not show on our site</Tooltip>
+  );
+  const amountTooltip = (props:any) => (
+    <Tooltip {...props}>All donations made are in AUD</Tooltip>
+  );
 
   const {
     getValues,
@@ -32,7 +39,9 @@ function DonorForm(props: any) {
     formState: { errors, isValid },
   } = useForm<DonorFormType>({
     mode: "onChange",
+    
   });
+
 
   const [formDataSave, setFormDataSave] = useState<DonorFormType>(getValues());
 
@@ -104,9 +113,11 @@ function DonorForm(props: any) {
             <i style={{display:"flex",alignItems:"center", justifyContent:"center"}}>OR</i>
             <form>
               <div>
-                <div>
-                  {errors.paidAMT && <span>*</span>}
-                  <label>Enter an amount</label>
+                <div className = "Amount">
+                {errors.paidAMT && <span>*</span>}
+                <OverlayTrigger placement="top" overlay={amountTooltip}>
+                  <label>Enter an amount<sup>(ℹ️)</sup></label>
+                  </OverlayTrigger>
                   {errors.paidAMT && (
                     <span style={{ margin: "20px", fontSize: "x-small" }}>
                       Please enter an amount
@@ -138,6 +149,7 @@ function DonorForm(props: any) {
                 <br />
 
                 <div>
+                  
                   {errors.name && <span>*</span>}
                   <label>Name</label>
                   {errors.name && <span style={{ margin: "20px", fontSize: "x-small" }}>Name cannot be blank</span>}
@@ -145,7 +157,7 @@ function DonorForm(props: any) {
                     placeholder="Name"
                     {...register("name", {
                       required: true,
-                      pattern: /[a-z]/,
+                      pattern: /^[a-zA-Z0-9]/,
                     })}
                   />
                 </div>
@@ -178,10 +190,14 @@ function DonorForm(props: any) {
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="IsAnon">Donate anonymously?</label>
+                <div className ="IsAnon" >
+                <OverlayTrigger placement="top" overlay={anonTooltip}>
+                <label htmlFor="IsAnon">Donate anonymously?<sup>(ℹ️)</sup></label>
+                </OverlayTrigger>
                   <input type="checkbox" value="yes" {...register("IsAnon")} />
+
                 </div>
+              
 
                 <div style={{ paddingBottom: "10px" }}>
                   <label htmlFor="mailingList">Join our mailing list?</label>
