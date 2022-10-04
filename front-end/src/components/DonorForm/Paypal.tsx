@@ -291,7 +291,7 @@ function Paypal(props: any) {
 
   return (
     <>
-      {paypalDisplayed &&
+      {paypalDisplayed && (
         <PayPalButtons
           {...(props.watchSubscription
             ? { createSubscription: createSubscriptionContent }
@@ -317,7 +317,7 @@ function Paypal(props: any) {
             ? { onApprove: approveSubscriptionContent }
             : { onApprove: approveOrderContent })}
         />
-      }
+      )}
     </>
   );
 }

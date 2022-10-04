@@ -58,6 +58,13 @@ router.post("/general", (req, res) => {
     to: data.donorEmail,
     subject: "Donation Receipt",
     html: htmlMail,
+    attachments: [
+      {
+        filename: "logo.jpg",
+        path: `${__dirname}/../assets/logo.png`,
+        cid: "logo1",
+      },
+    ],
   };
 
   transport.sendMail(mail_options, function (error, result) {
@@ -115,6 +122,13 @@ router.post("/item", (req, res) => {
     to: data.donorEmail,
     subject: "Donation Receipt",
     html: htmlMail,
+    attachments: [
+      {
+        filename: "logo.jpg",
+        path: `${__dirname}/../assets/logo.png`,
+        cid: "logo1",
+      },
+    ],
   };
 
   transport.sendMail(mail_options, function (error, result) {
