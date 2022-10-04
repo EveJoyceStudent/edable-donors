@@ -120,7 +120,6 @@ function Paypal(props: any) {
         orgName: props.orgName,
       })
       .then((response) => {
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -138,7 +137,6 @@ function Paypal(props: any) {
         itemOrgName: props.itemOrgName,
       })
       .then((response) => {
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -254,7 +252,6 @@ function Paypal(props: any) {
             );
             let activeStatusUpdate = itemSummary.data()!.activeStatus;
             let dateCompletedUpdate = itemSummary.data()!.dateCompleted;
-            // console.log(itemSummary.data()!.initialPrice ,itemSummary.data()!.totalDonationsValue , Number(props.watchPaidAMT), itemSummary.data()!.initialPrice <= (itemSummary.data()!.totalDonationsValue + Number(props.watchPaidAMT)));
             if (
               itemSummary.data()!.initialPrice <=
               itemSummary.data()!.totalDonationsValue +

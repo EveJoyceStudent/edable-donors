@@ -12,7 +12,6 @@ function LandingPage() {
 
   const handleTypeChange = (e: any) => {
     setCount((count = e.target.value));
-    console.log(count);
   };
 
   return (

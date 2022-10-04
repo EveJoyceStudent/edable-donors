@@ -68,7 +68,6 @@ function ItemsCollection() {
   const filteredItems = itemList.filter((item: any) =>
     item.data.name.toLowerCase().includes(search.toLowerCase())
   );
-  console.log(itemList);
 
   return (
     <>
