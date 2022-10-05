@@ -11,13 +11,11 @@ dotenv.config();
 const mail = require("./routes/mail");
 
 // Middlewares
-const allowedOriginsDev = ["http://localhost:3000"];
-const allowedOriginsProd = [
-  "https://edable-donor.azurewebsites.net",
-  "https://edable-donor-test.azurewebsites.net",
-];
+
 const isDev = process.env.NODE_ENV === "development";
-const allowedOriginsFinal = isDev ? allowedOriginsDev : allowedOriginsProd;
+const allowedOriginsFinal = isDev
+  ? process.env.allowedOriginsDev
+  : process.env.allowedOriginsProd;
 
 // cors config
 const corsOptions = {
@@ -36,7 +34,7 @@ app.use(express.json());
 app.use("/mail", mail);
 
 app.get("/", (req, res) => {
-  res.send("Hello Edable!");
+  res.send("Hello EdAble!");
 });
 
 // server start
