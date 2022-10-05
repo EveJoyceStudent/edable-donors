@@ -16,6 +16,12 @@
   background-color: #fcfbc7;
   border-radius: 30px;
 }
+.star{
+  height: 200px;
+  width: 400px;
+  display: block;
+  margin: auto;
+}
 
 @media screen and (min-width: 100px) {
   h1 {
@@ -65,20 +71,80 @@ h4 {
 }
 
 .carousel {
-  align-items: justify;
   background-color: rgb(254, 218, 252);
-  margin-top: 3%;
-  padding-top: 1%;
-  padding-bottom: 3%;
+  margin: 3px;
   border-radius: 30px;
   box-shadow: 1px 2px 15px -4px #3f3f3f;
-  min-height: 400px;
-  max-height: 400px;
 }
 
-/* .carouselContainer { */
-/* min-height: 600px; */
-/* } */
+.carousel-contents {
+  margin-top: 3%;
+  padding-top: 1rem;
+  padding-bottom: 2%;
+  height: 450px;
+}
+
+.btnContribute {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+.orgSummary{
+  text-align: center;
+  font-size: 20px;
+}
+.imgCarousel {
+  height: 200px;
+  width: 200px;
+  padding-bottom: 20px;
+}
+@media screen and (max-width: 770px) {
+  .btnContribute {
+    font-size: 17px;
+  }
+  .btn{
+    --bs-btn-line-height: 1.75;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .star{
+    height: 150px;
+    width: 300px;
+  }
+  .btnContribute {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .btnContribute{
+    font-size: 13px;
+  }
+  .btn{
+    --bs-btn-line-height: 1;
+  }
+}
+@media screen and (max-width: 340px) {
+  .star{
+    height: 100px;
+    width: 200px;
+  }
+  h2{
+    font-size: 20px;
+  }
+  .orgSummary{
+    font-size: 15px;
+  }
+  .imgCarousel{
+    width: 150px;
+    height: 150px;
+  }
+}
+@media screen and (max-width: 340px) {
+  .navBarContainer{
+    margin-left:20px;
+  }
+}
 
 /* #carousel-indicators {
     color:rgb(17, 0, 61)

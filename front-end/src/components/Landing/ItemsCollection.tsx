@@ -68,7 +68,6 @@ function ItemsCollection() {
   const filteredItems = itemList.filter((item: any) =>
     item.data.name.toLowerCase().includes(search.toLowerCase())
   );
-  console.log(itemList);
 
   return (
     <>
@@ -110,31 +109,28 @@ function ItemsCollection() {
                   <Card.Title>{item.data.name}
                   <br></br>{Filter(item.data.orgID)}</Card.Title>
                   <div style={{ textAlign: "center" }}>
-                    <Card.Img
+                    <Card.Img className={styles.itemImg}
                       variant="top"
                       src={item.data.img}
-                      style={{
-                        height: "200px",
-                        width: "200px",
-                      }}
+                      alt={"Image of " + `${item.data.name}`}
                     />
                   </div>
                   <div style={{ display: "flex" }}>
                     <label style={{ fontSize: "12px" }}>
-                      ${item.data.totalDonations || 0} of $
+                      ${item.data.totalDonationsValue || 0} of $
                       {item.data.initialPrice}
                     </label>
                   </div>
                   <ProgressBar
                     variant="warning"
                     now={
-                      item.data.totalDonations
-                        ? (item.data.totalDonations / item.data.initialPrice) *
+                      item.data.totalDonationsValue
+                        ? (item.data.totalDonationsValue / item.data.initialPrice) *
                           100
                         : 0
                         }
                     label={`${Math.round(
-                      (item.data.totalDonations / item.data.initialPrice) * 100
+                      (item.data.totalDonationsValue / item.data.initialPrice) * 100
                     )}%`}
                   />
                   <Card.Text>{item.data.summary}</Card.Text>

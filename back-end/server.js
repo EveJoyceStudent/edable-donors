@@ -8,21 +8,37 @@ const app = express();
 dotenv.config();
 
 // imports
-const orgs = require("./routes/organisations");
-const donors = require("./routes/donor");
+const mail = require("./routes/mail");
 
 // Middlewares
-app.use(cors());
+
+const isDev = process.env.NODE_ENV === "development";
+const allowedOriginsFinal = isDev
+  ? process.env.allowedOriginsDev
+  : process.env.allowedOriginsProd;
+
+// cors config
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOriginsFinal.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
-app.use("/organisation", orgs);
-app.use("/donor", donors);
+app.use("/mail", mail);
 
 app.get("/", (req, res) => {
-  res.send("This is the backend of the Edable Donors system !!!");
+  res.send("Hello EdAble!");
 });
 
 // server start
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 8080, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 });
 

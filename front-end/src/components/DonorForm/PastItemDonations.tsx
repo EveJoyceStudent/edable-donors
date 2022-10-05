@@ -1,4 +1,10 @@
-import { collection, query, onSnapshot, where } from "firebase/firestore";
+import {
+  collection,
+  query,
+  onSnapshot,
+  where,
+  limit,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
@@ -9,10 +15,12 @@ function PastDonations() {
   const [pastDonations, setPastDonations] = useState<any>([]);
 
   useEffect(() => {
-    const orgID = params.orgId || "";
+    const orgID = params.orgID || "";
+    const itemID = params.itemID || "";
     const q = query(
-      collection(db, `Organisations/${orgID}/GeneralDonations`),
-      where("IsRefunded", "==", false)
+      collection(db, `Organisations/${orgID}/Items/${itemID}/ItemsDonations`),
+      where("IsRefunded", "==", false),
+      limit(10)
     );
     onSnapshot(q, (querySnapshot) => {
       setPastDonations(
@@ -24,6 +32,7 @@ function PastDonations() {
       );
     });
   }, []);
+
   const pastDescending = [...pastDonations].sort(
     (a, b) => b.timestamp - a.timestamp
   );
@@ -38,6 +47,10 @@ function PastDonations() {
             {pastDonation.data.donorPublicName}&nbsp;
             <i style={{ fontWeight: "normal", fontStyle: "normal" }}>donated</i>
             &nbsp; ${pastDonation.data.amount}
+            <i style={{ fontWeight: "normal", fontStyle: "normal" }}>
+              {" "}
+              &nbsp;towards this item
+            </i>
           </p>
         ))}
         {pastDescendin.length == 0 && (

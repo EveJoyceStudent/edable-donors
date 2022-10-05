@@ -3,11 +3,12 @@ import "./Landing.css";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
-import {Button, Container, Carousel, Row, Col} from "react-bootstrap";
+import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
 import { ReactComponent as LandingPageStar } from "./star.svg";
 
 import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
+import Organisation from "../Organisation/Organisation";
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -29,6 +30,10 @@ function Landing() {
     });
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     //   these lines set up the format of the page
     <>
@@ -42,14 +47,7 @@ function Landing() {
           <Container fluid>
             <Row>
               <Col xs={0} md="auto">
-                <LandingPageStar
-                  style={{
-                    height: 190,
-                    width: 400,
-                    display: "block",
-                    margin: "auto",
-                  }}
-                />
+                <LandingPageStar className="star" />
               </Col>
               <Col>
                 <h1>EdAble</h1>
@@ -78,45 +76,44 @@ function Landing() {
                       interval={null}
                       indicators={true}
                       variant="dark"
-                      style={{ margin: "3px" }}
                     >
                       {orgList.map((org: any) => (
                         <Carousel.Item
                           key={org.id.toString()}
                           style={{
                             textAlign: "center",
-                            padding: "0px 10vw 50px",
                           }}
                         >
-                          <h2 style={{ textAlign: "center" }}>
-                            {org.data.name}
-                          </h2>
-                          <img
+                          <Link to={`organisation/${org.id}`}
                             style={{
-                              height: "200px",
-                              width: "200px",
-                              paddingBottom: "20px",
+                              textDecoration: "none",
+                              color: "black",
                             }}
-                            src={org.data.img}
-                            alt="Org logo"
-                          />
-                          <p style={{ textAlign: "center", fontSize: "20px" }}>
-                            {org.data.summary}
-                          </p>
-                          <Button variant="warning">
-                            <Link
-                              style={{
-                                textDecoration: "none",
-                                color: "black",
-                                fontSize: "20px",
-                              }}
-                              to={`organisation/${org.id}`}
-                            >
-                              <i>
-                                COUNT ME IN AS A PARTNER!
-                              </i>
-                            </Link>
-                          </Button>
+                          >
+                            {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
+                            <div className="carousel-contents">
+                              <h2 style={{ textAlign: "center" }}>
+                                {org.data.name}
+                              </h2>
+                              <img className="imgCarousel"
+                                src={org.data.img}
+                                alt={`${org.data.name}` + "'s logo"}
+                              />
+                              <p className="orgSummary">
+                                {org.data.summary}
+                              </p>
+                              <Button
+                                className="btnContribute"
+                                variant="warning"
+                              >
+                                <i className="btnText">
+                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
+                                  A CONTRIBUTION!
+                                </i>
+                              </Button>
+                            </div>
+                          </Link>
+
                         </Carousel.Item>
                       ))}
                     </Carousel>

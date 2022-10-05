@@ -1,13 +1,21 @@
 // @ts-ignore
-import { addDoc, collection, doc, getDoc, increment, runTransaction, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  increment,
+  runTransaction,
+  setDoc,
+  Timestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../config/firebase";
-
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 function Paypal(props: any) {
-
   const [{ options }, dispatch] = usePayPalScriptReducer();
 
   useEffect(() => {
@@ -16,7 +24,7 @@ function Paypal(props: any) {
       value: {
         ...options,
         intent: props.type,
-        vault: props.watchSubscription
+        vault: props.watchSubscription,
       },
     });
   }, [props.type, props.watchSubscription]);
@@ -29,8 +37,6 @@ function Paypal(props: any) {
     setPaypalDisplayed(false);
     navigate(link);
   };
-
-  const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
 
   const [purchaseData, setPurchaseData] = useState({
     purchase_units: [
@@ -56,7 +62,7 @@ function Paypal(props: any) {
             category: "DONATION",
           },
         ],
-        soft_descriptor: "donation"
+        soft_descriptor: "donation",
       },
     ],
   });
@@ -66,11 +72,11 @@ function Paypal(props: any) {
       purchase_units: [
         {
           amount: {
-            value: (props.watchPaidAMT).toString(),
+            value: props.watchPaidAMT.toString(),
             breakdown: {
               item_total: {
                 currency_code: "AUD",
-                value: (props.watchPaidAMT).toString(),
+                value: props.watchPaidAMT.toString(),
               },
             },
           },
@@ -81,181 +87,222 @@ function Paypal(props: any) {
               quantity: "1",
               unit_amount: {
                 currency_code: "AUD",
-                value: (props.watchPaidAMT).toString(),
+                value: props.watchPaidAMT.toString(),
               },
               category: "DONATION",
             },
           ],
-          soft_descriptor: "donation"
+          soft_descriptor: "donation",
         },
       ],
     });
   }, [props.watchPaidAMT]);
 
-  const createSubscriptionContent = ((data: any, actions: any) => {
-    return actions.subscription
-      .create({
-        plan_id: "P-70L40494657433117MMMU72Q",
-        quantity: Math.floor(props.watchPaidAMT)
-      });
-  });
+  const createSubscriptionContent = (data: any, actions: any) => {
+    return actions.subscription.create({
+      plan_id: "P-70L40494657433117MMMU72Q",
+      quantity: Math.floor(props.watchPaidAMT),
+    });
+  };
 
-  const createOrderContent = ((data: any, actions: any) => {
+  const createOrderContent = (data: any, actions: any) => {
     return actions.order.create(purchaseData);
-  });
+  };
+  const generalURL =
+    `${process.env.REACT_APP_API_URL}mail/general`;
+  function GeneralDonation() {
+    axios
+      .post(generalURL, {
+        amount: props.formData.paidAMT,
+        name: props.formData.name,
+        donationType: props.formData.monthly,
+        donorEmail: props.formData.email,
+        orgName: props.orgName,
+      })
+      .then((response) => {
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const itemURL = `${process.env.REACT_APP_API_URL}mail/item`;
 
-  const approveSubscriptionContent = (async (data: any, actions: any) => {
+  function ItemDonation() {
+    axios
+      .post(itemURL, {
+        amount: props.formData.paidAMT,
+        name: props.formData.name,
+        donorEmail: props.formData.email,
+        itemName: props.itemName,
+        itemOrgName: props.itemOrgName,
+      })
+      .then((response) => {
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  const generalDonationTransactions = async (subscription: boolean) => {
+    await runTransaction(db, async (transaction) => {
+      // update publicly accessible donation data
+      const orgRef = await addDoc(
+        collection(db, `Organisations/${props.org}/GeneralDonations`),
+        {
+          donorPublicName: props.formData.IsAnon
+            ? "Anonymous"
+            : props.formData.name,
+          amount: props.watchPaidAMT,
+          IsRefunded: false,
+          IsSubscribed: subscription,
+          comment: props.formData.comment,
+          donationDate: Timestamp.now(),
+        }
+      );
+      // update private donation data
+      await setDoc(
+        doc(
+          db,
+          `Organisations/${props.org}/GeneralDonations/${orgRef.id}/Private`,
+          "Private"
+        ),
+        {
+          name: props.formData.name,
+          email: props.formData.email,
+          phoneNumber: props.formData.phone,
+          mailingAddress: "",
+          IsAnon: props.formData.IsAnon,
+          agreeToContact: props.formData.mailingList,
+          howHeard: props.formData.howHeard,
+        }
+      );
+      // update donation summaries
+      await updateDoc(doc(db, `Organisations/${props.org}`), {
+        totalDonationCount: increment(1),
+        totalGeneralDonationsCount: increment(1),
+        totalDonationsValue: increment(props.watchPaidAMT),
+        totalGeneralDonationsValue: increment(props.watchPaidAMT),
+      });
+    });
+    GeneralDonation();
+  };
+
+  const approveSubscriptionContent = async (data: any, actions: any) => {
     return actions.subscription?.get().then(async (details: any) => {
       try {
-        await runTransaction(db, async (transaction) => {
-          const orgRef = await addDoc(collection(db, `Organisations/${props.org}/GeneralDonations/Summary/Donations`),
-            {
-              IsError: false,
-              IsSubscription: true,
-              amount: props.watchPaidAMT,
-              IsRefunded: false,
-              donationDate: Timestamp.now(),
-              donor: {
-                email: props.formData.email,
-                phoneNumber: props.formData.phone,
-                mailingAddress: '',
-                name: props.formData.name,
-                IsAnon: props.formData.IsAnon,
-                agreeToContact: props.formData.mailingList,
-              }
-            }
-          );
-          const summaryRef = await updateDoc(doc(db, `Organisations/${props.org}/GeneralDonations/Summary`),
-            {
-              numberOfDonations: increment(1),
-              totalGeneralDonations: increment(props.watchPaidAMT)
-            }
-          );
-
-        });
+        await generalDonationTransactions(true);
         paypalDisabledNavigate("../../success");
-
       } catch (e) {
-        console.log('error', e);
+        console.log("error", e);
       }
     });
-  }
-  );
+  };
 
-  const approveOrderContent = (async (data: any, actions: any) => {
-    if(!props.item){
-
+  const approveOrderContent = async (data: any, actions: any) => {
+    if (!props.item) {
       return actions.order.capture().then(async (details: any) => {
         try {
-          await runTransaction(db, async (transaction) => {
-            const orgRef = await addDoc(collection(db, `Organisations/${props.org}/GeneralDonations/Summary/Donations`),
-              {
-                IsError: false,
-                IsSubscription: false,
-                amount: props.watchPaidAMT,
-                IsRefunded: false,
-                donationDate: Timestamp.now(),
-                donor: {
-                  email: props.formData.email,
-                  phoneNumber: props.formData.phone,
-                  mailingAddress: '',
-                  name: props.formData.name,
-                  IsAnon: props.formData.IsAnon,
-                  agreeToContact: props.formData.mailingList,
-                }
-              }
-              );
-              const docRef = doc(db, `Organisations/${props.org}/GeneralDonations/Summary`);
-              const docSnap = await getDoc(docRef);
-              if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
-              } else {
-                const summaryRef = await setDoc(doc(db, `Organisations/${props.org}/GeneralDonations/Summary`),
-                {
-                  numberOfDonations: 0,
-                  totalGeneralDonations: 0
-                }
-              );
-              }
-              const summaryRef = await updateDoc(doc(db, `Organisations/${props.org}/GeneralDonations/Summary`),
-              {
-                numberOfDonations: increment(1),
-                totalGeneralDonations: increment(props.watchPaidAMT)
-              }
-            );
-  
-          });
+          await generalDonationTransactions(false);
           paypalDisabledNavigate("../../success");
-  
         } catch (e) {
-          console.log('error', e);
+          console.log("error", e);
         }
       });
     } else {
-
       return actions.order.capture().then(async (details: any) => {
         try {
           await runTransaction(db, async (transaction) => {
-          const orgRef = await addDoc(collection(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations/ItemSummary/Donations`),
-            {
-              IsError: false,
-              amount: props.watchPaidAMT,
-              IsRefunded: false,
-              donationDate: Timestamp.now(),
-              donor: {
+            // update publicly accessible donation data
+            const itemRef = await addDoc(
+              collection(
+                db,
+                `Organisations/${props.org}/Items/${props.item}/ItemsDonations`
+              ),
+              {
+                donorPublicName: props.formData.IsAnon
+                  ? "Anonymous"
+                  : props.formData.name,
+                amount: props.watchPaidAMT,
+                IsRefunded: false,
+                comment: props.formData.comment,
+                donationDate: Timestamp.now(),
+              }
+            );
+            // update private donation data
+            await setDoc(
+              doc(
+                db,
+                `Organisations/${props.org}/Items/${props.item}/ItemsDonations/${itemRef.id}/Private`,
+                "Private"
+              ),
+              {
+                name: props.formData.name,
                 email: props.formData.email,
                 phoneNumber: props.formData.phone,
-                mailingAddress: '',
-                name: props.formData.name,
+                mailingAddress: "",
                 IsAnon: props.formData.IsAnon,
                 agreeToContact: props.formData.mailingList,
+                howHeard: props.formData.howHeard,
               }
+            );
+
+            // update donation summaries
+            // first check if this donation will complete the donations to an item and disactivate if complete
+            const itemSummary = await getDoc(
+              doc(db, `Organisations/${props.org}/Items/${props.item}`)
+            );
+            let activeStatusUpdate = itemSummary.data()!.activeStatus;
+            let dateCompletedUpdate = itemSummary.data()!.dateCompleted;
+            if (
+              itemSummary.data()!.initialPrice <=
+              itemSummary.data()!.totalDonationsValue +
+                Number(props.watchPaidAMT)
+            ) {
+              activeStatusUpdate = false;
+              dateCompletedUpdate = Timestamp.now();
             }
-          );
-          const docRef = doc(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations/ItemSummary`);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-          } else {
-            const summaryRef = await setDoc(doc(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations/ItemSummary`),
-            {
-              numberOfDonations: 0,
-              totalItemDonations: 0
-            }
-          );
-          }
-          const summaryRef = await updateDoc(doc(db, `Organisations/${props.org}/Items/${props.item}/ItemDonations/ItemSummary`),
-            {
-              numberOfDonations: increment(1),
-              totalItemDonations: increment(props.watchPaidAMT)
-            }
-          );
-    
-        });
+            await updateDoc(
+              doc(db, `Organisations/${props.org}/Items/${props.item}`),
+              {
+                totalDonationCount: increment(1),
+                totalDonationsValue: increment(props.watchPaidAMT),
+                activeStatus: activeStatusUpdate,
+                dateCompleted: dateCompletedUpdate,
+              }
+            );
+            await updateDoc(doc(db, `Organisations/${props.org}`), {
+              totalDonationCount: increment(1),
+              totalItemDonationsCount: increment(1),
+              totalDonationsValue: increment(props.watchPaidAMT),
+              totalItemDonationsValue: increment(props.watchPaidAMT),
+            });
+          });
+          ItemDonation();
+
           paypalDisabledNavigate("../../success");
-    
         } catch (e) {
-          console.log('error', e);
+          console.log("error", e);
         }
       });
     }
-  });
+  };
 
   return (
     <>
-      {(props.disabled && formAttemptedIncomplete) && <div>Please complete the form.</div>}
-      {paypalDisplayed &&
+      {paypalDisplayed && (
         <PayPalButtons
-
-          {...(props.watchSubscription ? { createSubscription: createSubscriptionContent } : { createOrder: createOrderContent })}
-          {...(props.watchSubscription ? { style: { label: "subscribe", } } : { style: { label: "donate", } })}
+          {...(props.watchSubscription
+            ? { createSubscription: createSubscriptionContent }
+            : { createOrder: createOrderContent })}
+          {...(props.watchSubscription
+            ? { style: { label: "subscribe" } }
+            : { style: { label: "donate" } })}
           disabled={props.disabled}
-          forceReRender={[purchaseData, props.watchPaidAMT, props.watchSubscription]}
-          onClick={(data, actions) => {
-            if (props.disabled) {
-              setFormAttemptedIncomplete(true);
-            }
-          }}
+          forceReRender={[
+            purchaseData,
+            props.watchPaidAMT,
+            props.watchSubscription,
+            props.formData,
+          ]}
           onCancel={(data, actions) => {
             return paypalDisabledNavigate(`../../cancel/${props.org}`);
           }}
@@ -263,9 +310,11 @@ function Paypal(props: any) {
             window.alert(err);
             return paypalDisabledNavigate(`../../cancel/${props.org}`);
           }}
-          {...(props.watchSubscription ? { onApprove: approveSubscriptionContent } : { onApprove: approveOrderContent })}
+          {...(props.watchSubscription
+            ? { onApprove: approveSubscriptionContent }
+            : { onApprove: approveOrderContent })}
         />
-      }
+      )}
     </>
   );
 }
