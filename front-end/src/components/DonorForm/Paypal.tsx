@@ -33,9 +33,9 @@ function Paypal(props: any) {
 
   const [paypalDisplayed, setPaypalDisplayed] = useState(true);
 
-  const paypalDisabledNavigate = (link: string) => {
+  const paypalDisabledNavigate = (link: string, donationID:string) => {
     setPaypalDisplayed(false);
-    navigate(link);
+    navigate(link, {state:{donationID:donationID}});
   };
 
   const [purchaseData, setPurchaseData] = useState({
@@ -193,7 +193,7 @@ function Paypal(props: any) {
     return actions.subscription?.get().then(async (details: any) => {
       try {
         await generalDonationTransactions(true,details.id);
-        paypalDisabledNavigate("../../success");
+        paypalDisabledNavigate("../../success",details.id);
       } catch (e) {
         console.log("error", e);
       }
@@ -205,7 +205,7 @@ function Paypal(props: any) {
       return actions.order.capture().then(async (details: any) => {
         try {
           await generalDonationTransactions(false, details.purchase_units[0].payments.captures[0].id);
-          paypalDisabledNavigate("../../success");
+          paypalDisabledNavigate("../../success",details.purchase_units[0].payments.captures[0].id);
         } catch (e) {
           console.log("error", e);
         }
@@ -282,7 +282,7 @@ function Paypal(props: any) {
           });
           sendItemDonationEmail(details.purchase_units[0].payments.captures[0].id);
 
-          paypalDisabledNavigate("../../success");
+          paypalDisabledNavigate("../../success",details.purchase_units[0].payments.captures[0].id);
         } catch (e) {
           console.log("error", e);
         }
@@ -308,11 +308,11 @@ function Paypal(props: any) {
             props.formData,
           ]}
           onCancel={(data, actions) => {
-            return paypalDisabledNavigate(`../../cancel/${props.org}`);
+            return paypalDisabledNavigate(`../../cancel/${props.org}`,"");
           }}
           onError={(err) => {
             window.alert(err);
-            return paypalDisabledNavigate(`../../cancel/${props.org}`);
+            return paypalDisabledNavigate(`../../cancel/${props.org}`,"");
           }}
           {...(props.watchSubscription
             ? { onApprove: approveSubscriptionContent }
