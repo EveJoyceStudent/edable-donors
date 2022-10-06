@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Base from "./components/Base";
 import Landing from "./components/Landing/Landing";
+import Volunteer from "./components/Volunteer/Volunteer";
 import Default from "./components/Default";
 import Organisation from "./components/Organisation/Organisation";
 import ItemPage from "./components/Item/ItemPage";
@@ -12,6 +13,7 @@ import Success from "./components/DonorForm/Success";
 import Cancel from "./components/DonorForm/Cancel";
 import PastDonations from "./components/DonorForm/PastDonations";
 import PastItemDonations from "./components/DonorForm/PastItemDonations";
+import DonateTime from "./components/Volunteer/DonateTime";
 
 function App() {
   return (
@@ -26,12 +28,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Base />}>
             <Route path="/" element={<Landing />} />
+            <Route path="volunteer" element={<Volunteer />} />
             <Route path="success" element={<Success />} />
             <Route path="organisation/:orgId" element={<Organisation />} />
             <Route path="cancel/:orgId" element={<Cancel />} />
             <Route path="organisation/:orgId" element={<PastDonations />} />
             <Route path="item/:orgID/:itemID" element={<ItemPage />} />
             <Route path="item/:orgID/:itemID" element={<PastItemDonations />} />
+            <Route path="volunteer/organisation/:orgId" element={<DonateTime />} />
 
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
