@@ -173,6 +173,7 @@ function Paypal(props: any) {
           IsAnon: props.formData.IsAnon,
           agreeToContact: props.formData.mailingList,
           howHeard: props.formData.howHeard,
+          howHeardOther: props.formData.howHeardOther ? props.formData.howHeardOther:"",
         }
       );
       // update donation summaries
@@ -242,6 +243,7 @@ function Paypal(props: any) {
                 IsAnon: props.formData.IsAnon,
                 agreeToContact: props.formData.mailingList,
                 howHeard: props.formData.howHeard,
+                howHeardOther: props.formData.howHeardOther ? props.formData.howHeardOther:"",
               }
             );
 
