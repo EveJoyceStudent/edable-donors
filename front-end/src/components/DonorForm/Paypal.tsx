@@ -34,9 +34,9 @@ function Paypal(props: any) {
 
   const [paypalDisplayed, setPaypalDisplayed] = useState(true);
 
-  const paypalDisabledNavigate = (link: string) => {
+  const paypalDisabledNavigate = (link: string, donationID:string) => {
     setPaypalDisplayed(false);
-    navigate(link);
+    navigate(link, {state:{donationID:donationID}});
   };
 
   const [purchaseData, setPurchaseData] = useState({
@@ -111,7 +111,7 @@ function Paypal(props: any) {
   };
   const generalURL =
     `${process.env.REACT_APP_API_URL}mail/general`;
-  function GeneralDonation() {
+  function sendGeneralDonationEmail(paypalId:string) {
     axios
       .post(generalURL, {
         amount: props.formData.paidAMT,
@@ -119,6 +119,7 @@ function Paypal(props: any) {
         donationType: props.formData.monthly,
         donorEmail: props.formData.email,
         orgName: props.orgName,
+        paypalTransactionId: paypalId,
       })
       .then((response) => {
       })
@@ -128,7 +129,7 @@ function Paypal(props: any) {
   }
   const itemURL = `${process.env.REACT_APP_API_URL}mail/item`;
 
-  function ItemDonation() {
+  function sendItemDonationEmail(paypalId:string) {
     axios
       .post(itemURL, {
         amount: props.formData.paidAMT,
@@ -136,6 +137,7 @@ function Paypal(props: any) {
         donorEmail: props.formData.email,
         itemName: props.itemName,
         itemOrgName: props.itemOrgName,
+        paypalTransactionId: paypalId,
       })
       .then((response) => {
       })
@@ -143,7 +145,7 @@ function Paypal(props: any) {
         console.log(error);
       });
   }
-  const generalDonationTransactions = async (subscription: boolean) => {
+  const generalDonationTransactions = async (subscription: boolean, paypalId: string) => {
     await runTransaction(db, async (transaction) => {
       // update publicly accessible donation data
       const newDonationRef = doc(collection(db, `Organisations/${props.org}/GeneralDonations`));
@@ -178,6 +180,7 @@ function Paypal(props: any) {
           "Private"
         ),
         {
+          paypalTransactionId: paypalId,
           name: props.formData.name,
           email: props.formData.email,
           phoneNumber: props.formData.phone,
@@ -196,14 +199,14 @@ function Paypal(props: any) {
         totalGeneralDonationsValue: increment(props.watchPaidAMT),
       });
     });
-    GeneralDonation();
+    sendGeneralDonationEmail(paypalId);
   };
 
   const approveSubscriptionContent = async (data: any, actions: any) => {
     return actions.subscription?.get().then(async (details: any) => {
       try {
-        await generalDonationTransactions(true);
-        paypalDisabledNavigate("../../success");
+        await generalDonationTransactions(true,details.id);
+        paypalDisabledNavigate("../../success",details.id);
       } catch (e) {
         console.log("error", e);
         throw new Error("approval error");
@@ -215,8 +218,8 @@ function Paypal(props: any) {
     if (!props.item) {
       return actions.order.capture().then(async (details: any) => {
         try {
-          await generalDonationTransactions(false);
-          paypalDisabledNavigate("../../success");
+          await generalDonationTransactions(false, details.purchase_units[0].payments.captures[0].id);
+          paypalDisabledNavigate("../../success",details.purchase_units[0].payments.captures[0].id);
         } catch (e) {
           console.log("error", e);
           throw new Error("approval error");
@@ -260,6 +263,7 @@ function Paypal(props: any) {
                 "Private"
               ),
               {
+                paypalTransactionId: details.purchase_units[0].payments.captures[0].id,
                 name: props.formData.name,
                 email: props.formData.email,
                 phoneNumber: props.formData.phone,
@@ -289,9 +293,9 @@ function Paypal(props: any) {
               totalItemDonationsValue: increment(props.watchPaidAMT),
             });
           });
-          ItemDonation();
+          sendItemDonationEmail(details.purchase_units[0].payments.captures[0].id);
 
-          paypalDisabledNavigate("../../success");
+          paypalDisabledNavigate("../../success",details.purchase_units[0].payments.captures[0].id);
         } catch (e) {
           console.log("error", e);
           throw new Error("approval error");          
@@ -318,11 +322,11 @@ function Paypal(props: any) {
             props.formData,
           ]}
           onCancel={(data, actions) => {
-            return paypalDisabledNavigate(`../../cancel/${props.org}`);
+            return paypalDisabledNavigate(`../../cancel/${props.org}`,"");
           }}
           onError={(err) => {
             window.alert(err);
-            return paypalDisabledNavigate(`../../cancel/${props.org}`);
+            return paypalDisabledNavigate(`../../cancel/${props.org}`,"");
           }}
           {...(props.watchSubscription
             ? { onApprove: approveSubscriptionContent }
