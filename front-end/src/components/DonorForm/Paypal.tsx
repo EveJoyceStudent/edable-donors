@@ -109,7 +109,7 @@ function Paypal(props: any) {
     return actions.order.create(purchaseData);
   };
   const generalURL =
-    "https://edable-donor-api-test.azurewebsites.net/mail/general";
+    `${process.env.REACT_APP_API_URL}mail/general`;
   function GeneralDonation() {
     axios
       .post(generalURL, {
@@ -120,13 +120,12 @@ function Paypal(props: any) {
         orgName: props.orgName,
       })
       .then((response) => {
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  const itemURL = "https://edable-donor-api-test.azurewebsites.net/mail/item";
+  const itemURL = `${process.env.REACT_APP_API_URL}mail/item`;
 
   function ItemDonation() {
     axios
@@ -138,7 +137,6 @@ function Paypal(props: any) {
         itemOrgName: props.itemOrgName,
       })
       .then((response) => {
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -254,7 +252,6 @@ function Paypal(props: any) {
             );
             let activeStatusUpdate = itemSummary.data()!.activeStatus;
             let dateCompletedUpdate = itemSummary.data()!.dateCompleted;
-            // console.log(itemSummary.data()!.initialPrice ,itemSummary.data()!.totalDonationsValue , Number(props.watchPaidAMT), itemSummary.data()!.initialPrice <= (itemSummary.data()!.totalDonationsValue + Number(props.watchPaidAMT)));
             if (
               itemSummary.data()!.initialPrice <=
               itemSummary.data()!.totalDonationsValue +
@@ -291,7 +288,7 @@ function Paypal(props: any) {
 
   return (
     <>
-      {paypalDisplayed &&
+      {paypalDisplayed && (
         <PayPalButtons
           {...(props.watchSubscription
             ? { createSubscription: createSubscriptionContent }
@@ -317,7 +314,7 @@ function Paypal(props: any) {
             ? { onApprove: approveSubscriptionContent }
             : { onApprove: approveOrderContent })}
         />
-      }
+      )}
     </>
   );
 }
