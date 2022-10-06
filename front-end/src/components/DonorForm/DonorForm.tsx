@@ -4,7 +4,6 @@ import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./DonorForm.css";
 import Paypal from "./Paypal";
-import Container from "react-bootstrap";
 
 type DonorFormType = {
   paidAMT: number;
@@ -110,7 +109,7 @@ function DonorForm(props: any) {
               </div>
             </div>
             <br />
-            <i style={{display:"flex",alignItems:"center", justifyContent:"center"}}>OR</i>
+            OR
             <form>
               <div>
                 <div className = "Amount">
@@ -241,7 +240,7 @@ function DonorForm(props: any) {
 
         {proceedFlag &&
           <>
-            <div className="donation-summary" style={{ fontSize: '1vw', }}>
+            <p style={{ fontSize: '1vw', }}>
 
               <div>Hi {formDataSave.name},</div>
               <div>
@@ -252,7 +251,7 @@ function DonorForm(props: any) {
               }
               <div>Email: {formDataSave.email}</div>
               <div>Phone: {formDataSave.phone}</div>
-            </div>
+            </p>
             <div style={{ minHeight: "150px" }}>
 
               <Paypal
