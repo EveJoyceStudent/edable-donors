@@ -8,6 +8,7 @@ import {
   runTransaction,
   setDoc,
   Timestamp,
+  Transaction,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
@@ -145,24 +146,35 @@ function Paypal(props: any) {
   const generalDonationTransactions = async (subscription: boolean) => {
     await runTransaction(db, async (transaction) => {
       // update publicly accessible donation data
-      const orgRef = await addDoc(
-        collection(db, `Organisations/${props.org}/GeneralDonations`),
-        {
-          donorPublicName: props.formData.IsAnon
-            ? "Anonymous"
-            : props.formData.name,
-          amount: props.watchPaidAMT,
-          IsRefunded: false,
-          IsSubscribed: subscription,
-          comment: props.formData.comment,
-          donationDate: Timestamp.now(),
-        }
-      );
+      const newDonationRef = doc(collection(db, `Organisations/${props.org}/GeneralDonations`));
+      transaction.set(newDonationRef,{
+        donorPublicName: props.formData.IsAnon
+          ? "Anonymous"
+          : props.formData.name,
+        amount: props.watchPaidAMT,
+        IsRefunded: false,
+        IsSubscribed: subscription,
+        comment: props.formData.comment,
+        donationDate: Timestamp.now(),
+      });
+      // const orgRef = await addDoc(
+      //   collection(db, `Organisations/${props.org}/GeneralDonations`),
+      //   {
+      //     donorPublicName: props.formData.IsAnon
+      //       ? "Anonymous"
+      //       : props.formData.name,
+      //     amount: props.watchPaidAMT,
+      //     IsRefunded: false,
+      //     IsSubscribed: subscription,
+      //     comment: props.formData.comment,
+      //     donationDate: Timestamp.now(),
+      //   }
+      // );
       // update private donation data
-      await setDoc(
+      transaction.set(
         doc(
           db,
-          `Organisations/${props.org}/GeneralDonations/${orgRef.id}/Private`,
+          `Organisations/${props.org}/GeneralDonations/${newDonationRef.id}/Private`,
           "Private"
         ),
         {
@@ -177,7 +189,7 @@ function Paypal(props: any) {
         }
       );
       // update donation summaries
-      await updateDoc(doc(db, `Organisations/${props.org}`), {
+      transaction.update(doc(db, `Organisations/${props.org}`), {
         totalDonationCount: increment(1),
         totalGeneralDonationsCount: increment(1),
         totalDonationsValue: increment(props.watchPaidAMT),
@@ -194,6 +206,7 @@ function Paypal(props: any) {
         paypalDisabledNavigate("../../success");
       } catch (e) {
         console.log("error", e);
+        throw new Error("approval error");
       }
     });
   };
@@ -206,19 +219,30 @@ function Paypal(props: any) {
           paypalDisabledNavigate("../../success");
         } catch (e) {
           console.log("error", e);
+          throw new Error("approval error");
         }
       });
     } else {
       return actions.order.capture().then(async (details: any) => {
         try {
           await runTransaction(db, async (transaction) => {
+            // first check if this donation will complete the donations to an item and disactivate if complete
+            const itemSummary = await transaction.get(
+              doc(db, `Organisations/${props.org}/Items/${props.item}`)
+            );
+            let activeStatusUpdate = itemSummary.data()!.activeStatus;
+            let dateCompletedUpdate = itemSummary.data()!.dateCompleted;
+            if (
+              itemSummary.data()!.initialPrice <=
+              itemSummary.data()!.totalDonationsValue +
+                Number(props.watchPaidAMT)
+            ) {
+              activeStatusUpdate = false;
+              dateCompletedUpdate = Timestamp.now();
+            }
             // update publicly accessible donation data
-            const itemRef = await addDoc(
-              collection(
-                db,
-                `Organisations/${props.org}/Items/${props.item}/ItemsDonations`
-              ),
-              {
+            const newDonationRef = doc(collection(db,`Organisations/${props.org}/Items/${props.item}/ItemsDonations`));
+            transaction.set(newDonationRef,{
                 donorPublicName: props.formData.IsAnon
                   ? "Anonymous"
                   : props.formData.name,
@@ -229,10 +253,10 @@ function Paypal(props: any) {
               }
             );
             // update private donation data
-            await setDoc(
+            transaction.set(
               doc(
                 db,
-                `Organisations/${props.org}/Items/${props.item}/ItemsDonations/${itemRef.id}/Private`,
+                `Organisations/${props.org}/Items/${props.item}/ItemsDonations/${newDonationRef.id}/Private`,
                 "Private"
               ),
               {
@@ -248,21 +272,8 @@ function Paypal(props: any) {
             );
 
             // update donation summaries
-            // first check if this donation will complete the donations to an item and disactivate if complete
-            const itemSummary = await getDoc(
-              doc(db, `Organisations/${props.org}/Items/${props.item}`)
-            );
-            let activeStatusUpdate = itemSummary.data()!.activeStatus;
-            let dateCompletedUpdate = itemSummary.data()!.dateCompleted;
-            if (
-              itemSummary.data()!.initialPrice <=
-              itemSummary.data()!.totalDonationsValue +
-                Number(props.watchPaidAMT)
-            ) {
-              activeStatusUpdate = false;
-              dateCompletedUpdate = Timestamp.now();
-            }
-            await updateDoc(
+            
+            transaction.update(
               doc(db, `Organisations/${props.org}/Items/${props.item}`),
               {
                 totalDonationCount: increment(1),
@@ -271,7 +282,7 @@ function Paypal(props: any) {
                 dateCompleted: dateCompletedUpdate,
               }
             );
-            await updateDoc(doc(db, `Organisations/${props.org}`), {
+            transaction.update(doc(db, `Organisations/${props.org}`), {
               totalDonationCount: increment(1),
               totalItemDonationsCount: increment(1),
               totalDonationsValue: increment(props.watchPaidAMT),
@@ -283,6 +294,7 @@ function Paypal(props: any) {
           paypalDisabledNavigate("../../success");
         } catch (e) {
           console.log("error", e);
+          throw new Error("approval error");          
         }
       });
     }
