@@ -39,10 +39,11 @@ function Organisation() {
               <Card.Img className={styles.orgImg} variant="top" src={org.img} alt={`${org.name}`+"'s logo"} />
               <Card.Body>
                 <Card.Text className={styles.orgDescription}>{org.description}</Card.Text>
+                {org.website &&
                 <Card.Text className={styles.orgDescription}>
                   {" "}
                   Check out the <a href={org.website}>{`${org.name}`} website</a>
-                </Card.Text>
+                </Card.Text>}
               </Card.Body>
               <Link to="/">
                 <Button variant="warning">Go back</Button>
