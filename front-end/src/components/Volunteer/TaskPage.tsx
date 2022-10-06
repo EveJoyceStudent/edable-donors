@@ -5,9 +5,9 @@ import { doc, getDoc } from "firebase/firestore";
 import VolunteerForm from "./VolunteerForm";
 import styles from "../Organisation/Organisation.module.css";
 import { Button, Card, Container, Row, Col, ProgressBar } from "react-bootstrap";
-import TasksCollection from "./TasksCollection";
+import PastDonations from "../DonorForm/PastDonations";
 
-function DonateTime() {
+function TaskPage() {
   let params = useParams();
   const [org, setOrg] = useState<any>([]);
 
@@ -32,18 +32,29 @@ function DonateTime() {
         <Row style={{marginTop: "15px"}}>
           <Col className={styles.orgsContainer}>
             <Card className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px"}}>
-                <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
+            <h6 style={{ textAlign: "left", margin: "7px" }}>
+                <i>YOUR PARTNERSHIP MEANS THE WORLD TO US</i>
               </h6>
-              <Card.Title style={{fontSize: "2rem"}}>{org.name}</Card.Title>
-              <Card.Img className={styles.orgImg} variant="top" src={org.img} alt={`${org.name}`+"'s logo"} />
+              <Card.Title style={{fontSize: "2rem"}}>Organisation</Card.Title>
+              <Card.Subtitle>is looking for volunteers<br /><em>to do some stuff!</em></Card.Subtitle>
+              <Card.Img className={styles.orgImg} variant="top" src="https://thumbs.dreamstime.com/b/group-volunteer-trees-growing-environment-care-happy-african-american-volunteer-smiling-proposing-you-young-green-130156971.jpg" alt={`${org.name}`+"'s logo"} />
               <Card.Body>
-                <Card.Text className={styles.orgDescription}>{org.description}</Card.Text>
-                  {org.website &&
+              <Card.Text className="mb-0">
+                  80 slots remaining
+                </Card.Text>
+                <ProgressBar
+                  className="mb-3"
+                  striped
+                  variant="danger"
+                  now={20
+                  }
+                  label={'20%'}
+                />
+                <Card.Text className={styles.orgDescription}>We would like some people to do some stuff for us! </Card.Text>
                 <Card.Text className={styles.orgDescription}>
                   {" "}
                   Check out the <a href={org.website}>{`${org.name}`} website</a>
-                </Card.Text>}
+                </Card.Text>
               </Card.Body>
               <Link to="/volunteer">
                 <Button variant="warning">Go back</Button>
@@ -55,15 +66,10 @@ function DonateTime() {
             <VolunteerForm/>
           </Col>
         </Row>
-        <Row>
-          <Col>
-          <TasksCollection/>
-          </Col>
-        </Row>
       </Container>
 
     </div>
   );
 }
 
-export default DonateTime;
+export default TaskPage;

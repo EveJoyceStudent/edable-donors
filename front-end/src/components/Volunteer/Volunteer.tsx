@@ -9,6 +9,7 @@ import { ReactComponent as LandingPageStar } from "../Landing/star.svg";
 import Sidebar from "../Landing/Sidebar";
 import ItemsCollection from "../Landing/ItemsCollection";
 import Organisation from "../Organisation/Organisation";
+import TasksCollection from "./TasksCollection";
 
 function Volunteer() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -118,6 +119,9 @@ function Volunteer() {
                     </Carousel>
                   </div>
                 </Col>
+              </Row>
+              <Row>
+                <TasksCollection/>
               </Row>
             </Container>
           </div>
