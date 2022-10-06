@@ -75,3 +75,15 @@ input[type='submit']:hover {
     padding-top: 30px;
   }
 }
+.volunteerOrgInfo{
+  display: none;
+}
+.DOB{
+  display: block;
+}
+#isOrg:checked + .volunteerOrgInfo {
+  display: block;
+}
+#isOrg:checked ~ .DOB {
+  display: none;
+}
