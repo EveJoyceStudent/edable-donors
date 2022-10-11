@@ -4,6 +4,7 @@ import {
   onSnapshot,
   limit,
   orderBy,
+  where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -15,10 +16,11 @@ function PastDonations() {
   const [pastDonations, setPastDonations] = useState<any>([]);
 
   useEffect(() => {
-    const orgID = params.orgID || "";
-    const itemID = params.itemID || "";
+      const orgID = params.orgID || "";
+      const itemID = params.itemID || "";
     const q = query(
       collection(db, `Organisations/${orgID}/Items/${itemID}/ItemsDonations`),
+      where("IsRefunded", "==", false),
       orderBy("donationDate", "desc"),
       limit(10)
     );
@@ -28,8 +30,8 @@ function PastDonations() {
           id: doc.id,
           data: doc.data(),
         }))
-      );
-    });
+        );
+      }, (e)=>console.log("error", e));
   }, []);
 
   return (

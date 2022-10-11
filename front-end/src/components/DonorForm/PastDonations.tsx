@@ -4,6 +4,7 @@ import {
   onSnapshot,
   orderBy,
   limit,
+  where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -18,6 +19,7 @@ function PastDonations() {
     const orgID = params.orgId || "";
     const q = query(
       collection(db, `Organisations/${orgID}/GeneralDonations`),
+      where("IsRefunded", "==", false),
       orderBy("donationDate", "desc"),
       limit(10)
     );
@@ -28,7 +30,7 @@ function PastDonations() {
           data: doc.data(),
         }))
       );
-    });
+    }, (e)=>console.log("error", e));
   }, []);
 
   return (
