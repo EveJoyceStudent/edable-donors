@@ -84,7 +84,8 @@ function Landing() {
                             textAlign: "center",
                           }}
                         >
-                          <Link to={`organisation/${org.id}`}
+                          <Link
+                            to={`organisation/${org.id}`}
                             style={{
                               textDecoration: "none",
                               color: "black",
@@ -95,25 +96,23 @@ function Landing() {
                               <h2 style={{ textAlign: "center" }}>
                                 {org.data.name}
                               </h2>
-                              <img className="imgCarousel"
+                              <img
+                                className="imgCarousel"
                                 src={org.data.img}
                                 alt={`${org.data.name}` + "'s logo"}
                               />
-                              <p className="orgSummary">
-                                {org.data.summary}
-                              </p>
+                              <p className="orgSummary">{org.data.summary}</p>
                               <Button
                                 className="btnContribute"
                                 variant="warning"
                               >
                                 <i className="btnText">
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
-                                  A CONTRIBUTION!
+                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
+                                  MAKE A CONTRIBUTION!
                                 </i>
                               </Button>
                             </div>
                           </Link>
-
                         </Carousel.Item>
                       ))}
                     </Carousel>
@@ -123,7 +122,7 @@ function Landing() {
             </Container>
           </div>
         </div>
-        <ItemsCollection />
+        <ItemsCollection orgList={orgList} />
       </div>
     </>
   );

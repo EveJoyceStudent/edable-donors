@@ -13,32 +13,20 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { Link } from "react-router-dom";
 import styles from "./ItemsCollection.module.css";
 
-function GetOrgs(){
-  const [orgList, setOrgList] = useState<any>([]);
-
-  // gets all the orgs from dbs
-  useEffect(() => {
-    const q = query(collection(db, "Organisations"));
-    onSnapshot(q, (querySnapshot) => {
-      // setOrgList dumps all the orgs in orgList
-      setOrgList(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
-    });
-  }, []);
-  return([orgList]);
-}
-
-function ItemsCollection() {
+function ItemsCollection(props: any) {
+  function GetOrgs() {
+    const [initialOrgList, setOrgList] = useState<any>([]);
+    useEffect(() => {
+      setOrgList(props.orgList);
+    }, []);
+    return [initialOrgList];
+  }
   ///Searches for the organanisation's name through item's orgID
-  const [orgList] = GetOrgs();
-  function Filter(value: string){
-    for (let i = 0; i < orgList.length; i++) {
-      if (orgList[i].id == value){
-        return(orgList[i].data.name);
+  const [initialOrgList] = GetOrgs();
+  function Filter(value: string) {
+    for (let i = 0; i < initialOrgList.length; i++) {
+      if (initialOrgList[i].id == value) {
+        return initialOrgList[i].data.name;
       }
     }
   }
@@ -106,10 +94,14 @@ function ItemsCollection() {
                 to={`item/${item.parentDoc}/${item.id}`}
               >
                 <Card.Body>
-                  <Card.Title>{item.data.name}
-                  <br></br>{Filter(item.data.orgID)}</Card.Title>
+                  <Card.Title>
+                    {item.data.name}
+                    <br></br>
+                    {Filter(item.data.orgID)}
+                  </Card.Title>
                   <div style={{ textAlign: "center" }}>
-                    <Card.Img className={styles.itemImg}
+                    <Card.Img
+                      className={styles.itemImg}
                       variant="top"
                       src={item.data.img}
                       alt={"Image of " + `${item.data.name}`}
@@ -125,12 +117,14 @@ function ItemsCollection() {
                     variant="warning"
                     now={
                       item.data.totalDonationsValue
-                        ? (item.data.totalDonationsValue / item.data.initialPrice) *
+                        ? (item.data.totalDonationsValue /
+                            item.data.initialPrice) *
                           100
                         : 0
-                        }
+                    }
                     label={`${Math.round(
-                      (item.data.totalDonationsValue / item.data.initialPrice) * 100
+                      (item.data.totalDonationsValue / item.data.initialPrice) *
+                        100
                     )}%`}
                   />
                   <Card.Text>{item.data.summary}</Card.Text>
