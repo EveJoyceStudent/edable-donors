@@ -2,7 +2,6 @@ import {
   collection,
   query,
   onSnapshot,
-  where,
   orderBy,
   limit,
 } from "firebase/firestore";
