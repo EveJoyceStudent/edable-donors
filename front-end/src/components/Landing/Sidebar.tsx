@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { query, onSnapshot, collection, where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { Link } from "react-router-dom";
-import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
@@ -11,24 +10,16 @@ type SidemenuProps = {
   outerContainerId: string;
 };
 
-function Sidebar() {
+function Sidebar(props: any) {
   const [orgList, setOrganisationsList] = useState<any>([]);
   const [search, setSearch] = useState<string>("");
+  const orgListInitialInput = orgList;
 
   useEffect(() => {
-    const q = query(
-      collection(db, "Organisations"),
-      where("activeStatus", "==", true)
-    );
-    onSnapshot(q, (querySnapshot) => {
-      // setOrgList dumps all the orgs in orgList
-      setOrganisationsList(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
-    });
+    setOrganisationsList({
+      orgListInitialInput
+    })
+    where("activeStatus", "==", true)
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
