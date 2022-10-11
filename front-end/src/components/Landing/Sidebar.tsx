@@ -11,22 +11,13 @@ type SidemenuProps = {
 };
 
 function Sidebar(props: any) {
-  const [orgList, setOrganisationsList] = useState<any>([]);
   const [search, setSearch] = useState<string>("");
-  const orgListInitialInput = orgList;
-
-  useEffect(() => {
-    setOrganisationsList({
-      orgListInitialInput
-    })
-    where("activeStatus", "==", true)
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const filteredOrganisations = orgList.filter((Organisations: any) =>
+  const filteredOrganisations = props.orgList.filter((Organisations: any) =>
     Organisations.data.name.toLowerCase().includes(search.toLowerCase())
   );
   return (
