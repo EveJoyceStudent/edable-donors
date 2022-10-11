@@ -1,8 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Image, Button } from "react-bootstrap";
 import "./Message.css";
+import { useEffect, useState } from "react";
+
+type DonationInfoType = {
+  donationID: string;
+};
 
 function Success() {
+  let locationData = useLocation().state as DonationInfoType;
+  
+  const [donationIdDisplay, setDonationIdDisplay] = useState("");
+  
+  useEffect(() => {
+    if(locationData){setDonationIdDisplay(locationData.donationID);}
+  }, [locationData]);
+
   return (
     //   these lines set up the format of the page
     <div className="bg">
@@ -21,6 +34,11 @@ function Success() {
             roundedCircle
           ></Image>
           <h1 className="msgTitle">Thank You For Donating!</h1>
+          { donationIdDisplay!=="" &&
+          <h2 className="msgText">
+            Donation Number: {donationIdDisplay}.
+          </h2>
+          }
           <h2 className="msgText">
             An email with your receipt will be sent to you.
           </h2>

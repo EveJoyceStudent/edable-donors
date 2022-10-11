@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import DonorForm from "../DonorForm/DonorForm";
-import styles from "./Organisation.module.css";
-import { Button, Card, Container, Row, Col } from "react-bootstrap";
-import PastDonations from "../DonorForm/PastDonations";
+import VolunteerForm from "./VolunteerForm";
+import styles from "../Organisation/Organisation.module.css";
+import { Button, Card, Container, Row, Col, ProgressBar } from "react-bootstrap";
+import TasksCollection from "./TasksCollection";
 
-function Organisation() {
+function DonateTime() {
   let params = useParams();
   const [org, setOrg] = useState<any>([]);
 
@@ -39,28 +39,25 @@ function Organisation() {
               <Card.Img className={styles.orgImg} variant="top" src={org.img} alt={`${org.name}`+"'s logo"} />
               <Card.Body>
                 <Card.Text className={styles.orgDescription}>{org.description}</Card.Text>
-                {org.website &&
+                  {org.website &&
                 <Card.Text className={styles.orgDescription}>
                   {" "}
                   Check out the <a href={org.website}>{`${org.name}`} website</a>
                 </Card.Text>}
               </Card.Body>
-              <Link to="/">
+              <Link to="/volunteer">
                 <Button variant="warning">Go back</Button>
               </Link>
             </Card>
           </Col>
 
           <Col className={styles.formContainer}>
-            <DonorForm org={params.orgId} orgName = {org.name} />
+            <VolunteerForm/>
           </Col>
         </Row>
         <Row>
-          <Col className={styles.donorsContainer} style={{ marginTop: "40px" }}>
-            <div style={{ padding: "5vw", paddingTop: "0px" }}>
-              <PastDonations />
-            </div>
-            {/* items go here */}
+          <Col>
+          <TasksCollection/>
           </Col>
         </Row>
       </Container>
@@ -69,4 +66,4 @@ function Organisation() {
   );
 }
 
-export default Organisation;
+export default DonateTime;

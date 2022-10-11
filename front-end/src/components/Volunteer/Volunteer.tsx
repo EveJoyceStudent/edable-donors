@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import "./Landing.css";
+import "../Landing/Landing.css";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
-import { ReactComponent as LandingPageStar } from "./star.svg";
+import { ReactComponent as LandingPageStar } from "../Landing/star.svg";
 
-import Sidebar from "./Sidebar";
-import ItemsCollection from "./ItemsCollection";
+import Sidebar from "../Landing/Sidebar";
+import ItemsCollection from "../Landing/ItemsCollection";
 import Organisation from "../Organisation/Organisation";
+import TasksCollection from "./TasksCollection";
 
-function Landing() {
+function Volunteer() {
   const [orgList, setOrgList] = useState<any>([]);
 
   // gets all the orgs from dbs
@@ -40,7 +41,7 @@ function Landing() {
       <div className="landing">
         {/* Burger menu */}
         <div className="navBarContainer">
-          <Sidebar orgList={orgList} />
+          <Sidebar />
         </div>
 
         <div className="header">
@@ -62,8 +63,7 @@ function Landing() {
           </Container>
           <br />
           <p>
-            By making a tax deductable donation to EdAble, you will contribute
-            to...
+            Volunteer now.
           </p>
           <div className="App" id="outer-container">
             {/* Carousel */}
@@ -84,8 +84,7 @@ function Landing() {
                             textAlign: "center",
                           }}
                         >
-                          <Link
-                            to={`organisation/${org.id}`}
+                          <Link to={`/volunteer/organisation/${org.id}`}
                             style={{
                               textDecoration: "none",
                               color: "black",
@@ -96,36 +95,40 @@ function Landing() {
                               <h2 style={{ textAlign: "center" }}>
                                 {org.data.name}
                               </h2>
-                              <img
-                                className="imgCarousel"
+                              <img className="imgCarousel"
                                 src={org.data.img}
                                 alt={`${org.data.name}` + "'s logo"}
                               />
-                              <p className="orgSummary">{org.data.summary}</p>
+                              <p className="orgSummary">
+                                {org.data.summary}
+                              </p>
                               <Button
                                 className="btnContribute"
                                 variant="warning"
                               >
                                 <i className="btnText">
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
-                                  MAKE A CONTRIBUTION!
+                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
+                                  A CONTRIBUTION!
                                 </i>
                               </Button>
                             </div>
                           </Link>
+
                         </Carousel.Item>
                       ))}
                     </Carousel>
                   </div>
                 </Col>
               </Row>
+              <Row>
+                <TasksCollection/>
+              </Row>
             </Container>
           </div>
         </div>
-        <ItemsCollection orgList={orgList} />
       </div>
     </>
   );
 }
 
-export default Landing;
+export default Volunteer;
