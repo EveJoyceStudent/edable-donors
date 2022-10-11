@@ -40,7 +40,7 @@ function Landing() {
       <div className="landing">
         {/* Burger menu */}
         <div className="navBarContainer">
-          <Sidebar />
+          <Sidebar orgList={orgList} />
         </div>
 
         <div className="header">
