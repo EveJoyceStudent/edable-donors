@@ -114,7 +114,7 @@ function Paypal(props: any) {
   function sendGeneralDonationEmail(paypalId:string) {
     axios
       .post(generalURL, {
-        amount: props.formData.paidAMT,
+        amount: Number(props.formData.paidAMT),
         name: props.formData.name,
         donationType: props.formData.monthly,
         donorEmail: props.formData.email,
@@ -132,7 +132,7 @@ function Paypal(props: any) {
   function sendItemDonationEmail(paypalId:string) {
     axios
       .post(itemURL, {
-        amount: props.formData.paidAMT,
+        amount: Number(props.formData.paidAMT),
         name: props.formData.name,
         donorEmail: props.formData.email,
         itemName: props.itemName,
@@ -185,8 +185,8 @@ function Paypal(props: any) {
           email: props.formData.email,
           phoneNumber: props.formData.phone,
           mailingAddress: "",
-          IsAnon: props.formData.IsAnon,
-          agreeToContact: props.formData.mailingList,
+          IsAnon: JSON.parse(props.formData.IsAnon),
+          agreeToContact: JSON.parse(props.formData.mailingList),
           howHeard: props.formData.howHeard,
           howHeardOther: props.formData.howHeardOther ? props.formData.howHeardOther:"",
         }
@@ -249,7 +249,7 @@ function Paypal(props: any) {
                 donorPublicName: props.formData.IsAnon
                   ? "Anonymous"
                   : props.formData.name,
-                amount: props.watchPaidAMT,
+                amount: Number(props.watchPaidAMT),
                 IsRefunded: false,
                 comment: props.formData.comment,
                 donationDate: Timestamp.now(),
@@ -268,8 +268,8 @@ function Paypal(props: any) {
                 email: props.formData.email,
                 phoneNumber: props.formData.phone,
                 mailingAddress: "",
-                IsAnon: props.formData.IsAnon,
-                agreeToContact: props.formData.mailingList,
+                IsAnon: JSON.parse(props.formData.IsAnon),
+                agreeToContact: JSON.parse(props.formData.mailingList),
                 howHeard: props.formData.howHeard,
                 howHeardOther: props.formData.howHeardOther ? props.formData.howHeardOther:"",
               }
