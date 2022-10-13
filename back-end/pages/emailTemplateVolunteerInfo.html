@@ -1,0 +1,349 @@
+<head>
+  <style>
+    * {
+      font-family: Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .background {
+      background-color: #fafafa;
+      padding: 20px;
+    }
+
+    .email {
+      border: 1px solid #e1e1e1;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 600px;
+      padding: 20px 20px 0;
+    }
+
+    .logo {
+      width: auto;
+      max-width: 100%;
+      max-height: 120px;
+      display: block;
+      margin: 0 auto 20px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    table {
+      border-spacing: 0;
+    }
+
+    .table {
+      width: 80%;
+      margin: 25px auto;
+    }
+
+    .table td {
+      padding: 5px;
+    }
+
+    .table .text-right {
+      color: #b31b1b;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      margin: 0 0 10px;
+    }
+
+    .header h2 {
+      color: #b31b1b;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .thank-you-image {
+      margin: 25px 0;
+    }
+
+    .content {
+      font-size: 16px;
+      color: #797979;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-family: "Roboto", Arial, Helvetica, Verdana, sans-serif;
+    }
+
+    .content p {
+      margin-bottom: 20px;
+    }
+
+    .content ul,
+    .content ol {
+      margin: 1em 0;
+    }
+
+    .btn-wrapper {
+      max-width: 400px;
+      margin: 2em auto;
+      text-align: center;
+    }
+
+    .btn {
+      background-color: #b31b1b;
+      border-radius: 3px;
+      border-bottom: 3px solid #871414;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      font-size: 22px;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.17);
+      display: block;
+      width: auto;
+      margin: 0 auto;
+      text-decoration: none;
+      font-family: "Roboto", Arial, Helvetica, Verdana, sans-serif;
+      font-weight: bold;
+    }
+
+    .btn:hover,
+    .btn:focus,
+    .btn:active {
+      background-color: #871414;
+      color: #ffffff;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: #b31b1b;
+      margin: 0.5em 0;
+      line-height: 1.2;
+      font-family: "Roboto Slab", Georgia, Times, sansserif;
+      font-weight: bold;
+    }
+
+    .content ol,
+    .content ul {
+      padding-left: 40px;
+    }
+
+    .content a {
+      color: #b31b1b;
+    }
+
+    .content a:hover {
+      color: #871414;
+    }
+
+    .divider {
+      border-bottom: 1px solid #cccccc;
+      margin: 20px 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #797979;
+    }
+
+    .footer {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      color: #797979;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .footer strong {
+      font-size: 1.2em;
+    }
+
+    .footer a {
+      color: #666;
+    }
+
+    .footer a:hover,
+    .footer a:focus,
+    .footer a:active {
+      color: #404040;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .thank-you-image-wrapper img {
+        max-width: 80%;
+      }
+    }
+
+    .thank-you-image {
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<!-- <div>
+  <div class="centre">
+    <h1>EdAble Donations</h1>
+    <p>This donation was made in form of a gift</p>
+    <div class="orgInfo">
+      <p>ABN: <-placeholder ABN-></p>
+      <p>Address: <-placeholder address-></p>
+    </div>
+    <br />
+    <hr />
+    <p>Receipt Number : {{receiptNum}}</p>
+    <p>Organisation Name : {{orgName}}</p>
+    <br />
+    <hr />
+    <p>Donation Recieved : {{donationDate}}</p>
+    <p>Donated By : {{name}}</p>
+    <p>Donor Email : {{donorEmail}}</p>
+    <br />
+    <hr />
+    <p>Amount : {{amount}}</p>
+    <p>Donation Type : {{donationType}}</p>
+    <br />
+    <hr />
+  </div>
+  <h5>All donations are Tax-Decutable!</h5>
+  <p>Receipt issued with ❤️ by EdAble</p>
+  <br />
+  <hr />
+</div> -->
+
+<div class="background">
+  <div class="email-wrapper">
+    <div class="email">
+      <div class="header">
+        <img class="logo center" src="cid:logo1" />
+        <h1 class="center">A new volunteer has expressed an interest in volunteering for Micro-Business:{{orgName}}</h1>
+      </div>
+
+      <!-- orgName: data.orgName,
+    donationDate: date.toDateString(),
+    name: data.name,
+    organisationFlag: data.organisationFlag,
+    organisationName: data.organisationName,
+    numVolunteers: data.numVolunteers,
+    dob:data.dob,
+    phone:data.phone,
+    email:data.email,
+    postcode:data.postcode,
+    hours:data.hours,
+    availablity:data.hmph,
+
+    howContribute:data.howContribute,
+    skills:data.skills,
+    comment:data.comment,
+    howHeard:data.howHeard, -->
+      <h2 class="center">Volunteer Details</h2>
+      <table class="table">
+        <tr>
+          <td class="text-right">Name:</td>
+          <td>{{name}}</td>
+        </tr>
+        {{#if organisationFlag}}
+        <tr>
+          <td class="text-right">Volunteer Type:</td>
+          <td>Organisation</td>
+        </tr>
+        <tr>
+          <td class="text-right">Organisation Name:</td>
+          <td>{{organisationName}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Number of Volunteers:</td>
+          <td>{{numVolunteers}}</td>
+        </tr>
+        {{/if}}
+        {{#if individualFlag}}
+        <tr>
+          <td class="text-right">Volunteer Type:</td>
+          <td>Individual</td>
+        </tr>
+        <tr>
+          <td class="text-right">Date of Birth:</td>
+          <td>{{dob}}</td>
+        </tr>
+        {{/if}}
+        <tr>
+          <td class="text-right">Phone Number:</td>
+          <td>{{phone}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Email:</td>
+          <td>{{email}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Postcode:</td>
+          <td>{{postcode}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Volunteer available for number of hours:</td>
+          <td>{{hours}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Volunteer available for number of hours:</td>
+          <td>{{hours}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Volunteer available for number of hours:</td>
+          <td>
+            <ul>
+              {{#each days}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right">howContribute:</td>
+          <td>{{howContribute}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">skills:</td>
+          <td>{{skills}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">howHeard:</td>
+          <td>{{howHeard}}
+            {{#if howHeardOther}}
+            : {{howHeardOther}}
+            {{/if}}
+          </td>
+        <tr>
+        </tr>
+        <tr>
+          <td class="text-right">comment:</td>
+          <td>{{comment}}</td>
+        </tr>
+      </table>
+      <p>
+        <small>This is an automated email.
+        </small>
+      </p>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="section-wrapper">
+      <p>
+        <strong><a
+            href="https://edable-donor-test.azurewebsites.net/">EdAble</a></strong><br />Address<br />Postcode<br />EdAble
+        ABN - 37 656 736 338
+      </p>
+    </div>
+  </div>
+</div>
