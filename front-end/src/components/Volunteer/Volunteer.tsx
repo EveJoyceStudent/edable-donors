@@ -40,9 +40,9 @@ function Volunteer() {
     <>
       <div className="landing">
         {/* Burger menu */}
-        <div className="navBarContainer">
+        {/* <div className="navBarContainer">
           <Sidebar />
-        </div>
+        </div> */}
 
         <div className="header">
           <Container fluid>
@@ -119,9 +119,6 @@ function Volunteer() {
                     </Carousel>
                   </div>
                 </Col>
-              </Row>
-              <Row>
-                <TasksCollection/>
               </Row>
             </Container>
           </div>
