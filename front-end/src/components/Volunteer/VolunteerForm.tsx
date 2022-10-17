@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "../DonorForm/DonorForm.css";
+import VolunteerDonate from "../Volunteer/VolunteerDonate";
 
 type VolunteerFormType = {
   volunteerName: string;
@@ -17,18 +18,21 @@ type VolunteerFormType = {
   volunteerEmail: string;
   volunteerOrgName: string;
   volunteerDOB: Date;
-  volunteerVolunteerAmount: number;
+  volunteerAmount: number;
   volunteerHours: number;
   volunteerPostcode: number;
-  Monday: string;
-  Tuesday: string;
-  Wednesday: string;
-  Thursday: string;
-  Friday: string;
-  Saturday: string;
-  Sunday: string;
-  Skills: string;
   volunteerComment: string;
+  volunteerHowHeard: string;
+  volunteerHowHeardOther: string;
+  howContribute: string;
+  Monday: boolean;
+  Tuesday: boolean;
+  Wednesday: boolean;
+  Thursday: boolean;
+  Friday: boolean;
+  Saturday: boolean;
+  Sunday: boolean;
+  Skills: string;
 };
 
 function VolunteerForm(props: any) {
@@ -86,18 +90,15 @@ function VolunteerForm(props: any) {
             <input type="checkbox" id="isOrg" value="yes" />
             <div className="volunteerOrgInfo">
               <div>
-                {/* {errors.volunteerOrgName && <span>*</span>} */}
                 <label>Name of Organisation</label>
-                {/* {errors.volunteerOrgName && ( */}
-                <span style={{ margin: "20px", fontSize: "x-small" }}>
+                {/* <span style={{ margin: "20px", fontSize: "x-small" }}>
                   Name cannot be blank
-                </span>
+                </span> */}
                 {/* )} */}
                 <input
                   type="text"
                   placeholder="Name of Organisation"
                   {...register("volunteerOrgName", {
-                    required: true,
                     pattern: /^[a-zA-Z0-9]/,
                   })}
                 />
@@ -107,15 +108,14 @@ function VolunteerForm(props: any) {
                 {/* {errors.volunteerVolunteerAmount && <span>*</span>} */}
                 <label>Number of Volunteers</label>
                 {/* {errors.volunteerVolunteerAmount && ( */}
-                <span style={{ margin: "20px", fontSize: "x-small" }}>
+                {/* <span style={{ margin: "20px", fontSize: "x-small" }}>
                   Number of volunteers cannot be blank
-                </span>
+                </span> */}
                 {/* )} */}
                 <input
                   type="number"
                   placeholder="Enter an amount"
-                  {...register("volunteerVolunteerAmount", {
-                    required: true,
+                  {...register("volunteerAmount", {
                     pattern: /[1-9]/,
                   })}
                 />
@@ -271,7 +271,12 @@ function VolunteerForm(props: any) {
           </div>
           <div>
             <label>How would you like to contribute?</label>
-            <input type="text" placeholder="What would you like to do?" />
+            <input
+            type="text"
+            placeholder="What would you like to do?" 
+            {...register("howContribute")}
+            ></input>
+            
           </div>
           <div>
             <label>Skills (optional)</label>
@@ -290,7 +295,7 @@ function VolunteerForm(props: any) {
             />
             <label>How did you hear about us? (optional)</label>
             <select
-              // {...register("volunteerHowHeard")}
+              {...register("volunteerHowHeard")}
               className="input"
               id="designation"
               onChange={(e) => {
@@ -313,7 +318,7 @@ function VolunteerForm(props: any) {
               <label className="label">How did you find out about us</label>
               <div className="control ">
                 <input
-                  // {...register("volunteerHowHeardOther")}
+                  {...register("volunteerHowHeardOther")}
                   className="input"
                   type="text"
                   placeholder="Other"
@@ -346,14 +351,21 @@ function VolunteerForm(props: any) {
           <>
             <p style={{ fontSize: "1vw" }}>
               <div>Hi {formDataSave.volunteerName},</div>
-              <div>You're of ${formDataSave.volunteerVolunteerAmount}</div>
+              <div>You're volunteering {formDataSave.volunteerAmount} people</div>
               {formDataSave.volunteerComment && (
                 <div>{`With comment "${formDataSave.volunteerComment}"`}</div>
               )}
               <div>Email: {formDataSave.volunteerEmail}</div>
               <div>Phone: {formDataSave.volunteerPhone}</div>
+              <div>You would like to help by {formDataSave.howContribute}</div>
+              <div>Skills: {formDataSave.Skills}</div>
             </p>
             <div style={{ minHeight: "150px" }}></div>
+            <VolunteerDonate
+            formData={formDataSave}
+            volunteerName={formDataSave.volunteerName}
+            orgName={props.orgName}
+            />
             <div
               style={{
                 display: "flex",
