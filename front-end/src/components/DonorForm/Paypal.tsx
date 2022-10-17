@@ -185,8 +185,8 @@ function Paypal(props: any) {
           email: props.formData.email,
           phoneNumber: props.formData.phone,
           mailingAddress: "",
-          IsAnon: JSON.parse(props.formData.IsAnon),
-          agreeToContact: JSON.parse(props.formData.mailingList),
+          IsAnon: Boolean(props.formData.IsAnon),
+          agreeToContact: Boolean(props.formData.mailingList),
           howHeard: props.formData.howHeard,
           howHeardOther: props.formData.howHeardOther ? props.formData.howHeardOther:"",
         }
@@ -268,8 +268,8 @@ function Paypal(props: any) {
                 email: props.formData.email,
                 phoneNumber: props.formData.phone,
                 mailingAddress: "",
-                IsAnon: JSON.parse(props.formData.IsAnon),
-                agreeToContact: JSON.parse(props.formData.mailingList),
+                IsAnon: Boolean(props.formData.IsAnon),
+                agreeToContact: Boolean(props.formData.mailingList),
                 howHeard: props.formData.howHeard,
                 howHeardOther: props.formData.howHeardOther ? props.formData.howHeardOther:"",
               }
