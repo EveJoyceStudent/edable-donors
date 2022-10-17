@@ -101,7 +101,7 @@ function Paypal(props: any) {
 
   const createSubscriptionContent = (data: any, actions: any) => {
     return actions.subscription.create({
-      plan_id: "P-70L40494657433117MMMU72Q",
+      plan_id: process.env.REACT_APP_PAYPAL_SUBSCRIPTION_PLAN_ID,
       quantity: Math.floor(props.watchPaidAMT),
     });
   };
