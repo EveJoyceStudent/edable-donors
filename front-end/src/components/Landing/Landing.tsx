@@ -73,7 +73,7 @@ function Landing() {
                   <div className="carouselContainer">
                     <Carousel
                       touch={true}
-                      interval={null}
+                      interval={2500}
                       indicators={true}
                       variant="dark"
                     >
@@ -107,8 +107,8 @@ function Landing() {
                                 variant="warning"
                               >
                                 <i className="btnText">
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
-                                  MAKE A CONTRIBUTION!
+                                  I want to make a contribution to <br></br>
+                                  <b>{org.data.name}!</b>
                                 </i>
                               </Button>
                             </div>
