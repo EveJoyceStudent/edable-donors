@@ -1,14 +1,12 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  /* font-family: 'Roboto'; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -19,4 +17,88 @@ code {
 #page-wrap {
   padding-bottom: 10px;
   padding-top: 10px;
+}
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"),
+    url("./fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+}
+
+
+@font-face {
+  font-family: "Lora";
+  src: local("Lora"),
+    url("./fonts/Lora/Lora-VariableFont_wght.ttf") format("truetype");
+}
+
+/* H1 */
+h1 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 64px;
+  /* identical to box height, or 123% */
+  color: #000000;
+}
+
+/* H2 */
+h2 {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 47px;
+  line-height: 60px;
+  /* identical to box height, or 128% */
+  color: #f1f1f1;
+}
+/* H3 */
+h3 {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 51px;
+  color: #c4c4c4;
+}
+/* H4 */
+h4 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 35px;
+  line-height: 43px;
+  /* identical to box height, or 123% */
+  letter-spacing: 0.02em;
+  color: #000000;
+}
+/* H5 */
+h5 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 44px;
+  /* identical to box height, or 157% */
+  color: #000000;
+}
+/* H6 */
+h6 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 25px;
+  /* identical to box height */
+  color: #000000;
+}
+/* body */
+body {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 32px;
+  /* identical to box height, or 152% */
+  color: #000000;
 }

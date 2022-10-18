@@ -1,5 +1,5 @@
 .containerDiv {
-  background-color: rgb(212, 238, 249);
+  /* background-color: rgb(212, 238, 249); */
   border-radius: 40px;
   margin: 15px;
   padding: 30px;
@@ -19,9 +19,9 @@
 .cards {
   flex: 20%;
   margin: 15px;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   border: none;
-  box-shadow: 4px 4px 21px -4px #3F3F3F;
+  box-shadow: 4px 4px 21px -4px #adadad;
 }
 .itemImg{
   width: 200px;
