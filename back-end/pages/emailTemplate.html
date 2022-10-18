@@ -229,7 +229,7 @@
         Your generosity means a lot today! Make a gift to another micro-business
         at
         <a href="https://edable-donor-test.azurewebsites.net/"
-          >EdAble Donation</a
+          >EdAble FOODS incorporated</a
         >.
       </p>
       <h2 class="center">Your donation receipt</h2>
@@ -240,7 +240,7 @@
         </tr>
         <tr>
           <td class="text-right">Amount:</td>
-          <td>{{amount}}</td>
+          <td>${{amount}}(AUD)</td>
         </tr>
         <tr>
           <td class="text-right">Date:</td>
@@ -253,6 +253,21 @@
         <tr>
           <td class="text-right">Donation Number:</td>
           <td>{{paypalTransactionId}}</td>
+        </tr>
+      </table>
+      <h2 class="center">Your details</h2>
+      <table class="table">
+        <tr>
+          <td class="text-right">Name:</td>
+          <td>{{name}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Phone:</td>
+          <td>{{phone}}</td>
+        </tr>
+        <tr>
+          <td class="text-right">Email:</td>
+          <td>{{email}}</td>
         </tr>
       </table>
       <p>
