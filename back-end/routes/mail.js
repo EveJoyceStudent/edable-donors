@@ -152,6 +152,27 @@ router.post("/volunteer-info", (req, res) => {
   const source = fs.readFileSync(filePath, "utf-8").toString();
   const template = handlebars.compile(source);
   let days = [];
+  if(data.monday){
+    days.push("Monday");
+  }
+  if(data.tuesday){
+    days.push("Tuesday");
+  }
+  if(data.wednesday){
+    days.push("Wednesday");
+  }
+  if(data.thursday){
+    days.push("Thursday");
+  }
+  if(data.friday){
+    days.push("Friday");
+  }
+  if(data.saturday){
+    days.push("Saturday");
+  }
+  if(data.sunday){
+    days.push("Sunday");
+  }
   const replacements = {
     orgName: data.orgName,
     donationDate: date.toDateString(),

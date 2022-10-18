@@ -194,35 +194,6 @@
     }
   </style>
 </head>
-<!-- <div>
-  <div class="centre">
-    <h1>EdAble Donations</h1>
-    <p>This donation was made in form of a gift</p>
-    <div class="orgInfo">
-      <p>ABN: <-placeholder ABN-></p>
-      <p>Address: <-placeholder address-></p>
-    </div>
-    <br />
-    <hr />
-    <p>Receipt Number : {{receiptNum}}</p>
-    <p>Organisation Name : {{orgName}}</p>
-    <br />
-    <hr />
-    <p>Donation Recieved : {{donationDate}}</p>
-    <p>Donated By : {{name}}</p>
-    <p>Donor Email : {{donorEmail}}</p>
-    <br />
-    <hr />
-    <p>Amount : {{amount}}</p>
-    <p>Donation Type : {{donationType}}</p>
-    <br />
-    <hr />
-  </div>
-  <h5>All donations are Tax-Decutable!</h5>
-  <p>Receipt issued with ❤️ by EdAble</p>
-  <br />
-  <hr />
-</div> -->
 
 <div class="background">
   <div class="email-wrapper">
@@ -249,12 +220,14 @@
     skills:data.skills,
     comment:data.comment,
     howHeard:data.howHeard, -->
+
       <h2 class="center">Volunteer Details</h2>
       <table class="table">
         <tr>
           <td class="text-right">Name:</td>
           <td>{{name}}</td>
         </tr>
+
         {{#if organisationFlag}}
         <tr>
           <td class="text-right">Volunteer Type:</td>
@@ -269,6 +242,7 @@
           <td>{{numVolunteers}}</td>
         </tr>
         {{/if}}
+
         {{#if individualFlag}}
         <tr>
           <td class="text-right">Volunteer Type:</td>
@@ -279,6 +253,7 @@
           <td>{{dob}}</td>
         </tr>
         {{/if}}
+
         <tr>
           <td class="text-right">Phone Number:</td>
           <td>{{phone}}</td>
@@ -296,14 +271,10 @@
           <td>{{hours}}</td>
         </tr>
         <tr>
-          <td class="text-right">Volunteer available for number of hours:</td>
-          <td>{{hours}}</td>
-        </tr>
-        <tr>
-          <td class="text-right">Volunteer available for number of hours:</td>
+          <td class="text-right">Volunteer available on:</td>
           <td>
             <ul>
-              {{#each days}}
+              {{#each availablity}}
               <li>{{this}}</li>
               {{/each}}
             </ul>
