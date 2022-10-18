@@ -6,11 +6,6 @@ import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
 import { ReactComponent as LandingPageStar } from "../Landing/star.svg";
 
-import Sidebar from "../Landing/Sidebar";
-import ItemsCollection from "../Landing/ItemsCollection";
-import Organisation from "../Organisation/Organisation";
-import TasksCollection from "./TasksCollection";
-
 function Volunteer() {
   const [orgList, setOrgList] = useState<any>([]);
 
@@ -62,9 +57,7 @@ function Volunteer() {
             </Row>
           </Container>
           <br />
-          <p>
-            Volunteer now.
-          </p>
+          <p>Volunteer now.</p>
           <div className="App" id="outer-container">
             {/* Carousel */}
             <Container>
@@ -84,7 +77,8 @@ function Volunteer() {
                             textAlign: "center",
                           }}
                         >
-                          <Link to={`/volunteer/organisation/${org.id}`}
+                          <Link
+                            to={`/volunteer/organisation/${org.id}`}
                             style={{
                               textDecoration: "none",
                               color: "black",
@@ -95,25 +89,23 @@ function Volunteer() {
                               <h2 style={{ textAlign: "center" }}>
                                 {org.data.name}
                               </h2>
-                              <img className="imgCarousel"
+                              <img
+                                className="imgCarousel"
                                 src={org.data.img}
                                 alt={`${org.data.name}` + "'s logo"}
                               />
-                              <p className="orgSummary">
-                                {org.data.summary}
-                              </p>
+                              <p className="orgSummary">{org.data.summary}</p>
                               <Button
                                 className="btnContribute"
                                 variant="warning"
                               >
                                 <i className="btnText">
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
-                                  A CONTRIBUTION!
+                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
+                                  MAKE A CONTRIBUTION!
                                 </i>
                               </Button>
                             </div>
                           </Link>
-
                         </Carousel.Item>
                       ))}
                     </Carousel>
