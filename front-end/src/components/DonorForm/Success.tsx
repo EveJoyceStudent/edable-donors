@@ -19,21 +19,21 @@ function Success() {
   return (
     //   these lines set up the format of the page
     <div className="bg">
-      <Image
-        className="banner"
-        src="https://www.rd.com/wp-content/uploads/2021/01/GettyImages-1175550351.jpg"
-      ></Image>
+      <div className="banner">
+      </div>
       <div
         className="msgContainer"
         style={{ height: "100vh", transform: "translate(0px,-45vh)" }}
       >
         <div>
+          {/* // insert organisation logo // */}
           <Image
             className="msgIcon"
             src="https://c.tenor.com/04BE-ClaaBAAAAAC/cat-money.gif"
             roundedCircle
           ></Image>
-          <h1 className="msgTitle">Thank You For Donating!</h1>
+
+          <h1 className="msgTitle">Thank you for donating!</h1>
           { donationIdDisplay!=="" &&
           <h2 className="msgText">
             Donation Number: {donationIdDisplay}.

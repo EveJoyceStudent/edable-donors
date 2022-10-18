@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
-import { ReactComponent as LandingPageStar } from "./star.svg";
+import { ReactComponent as InclusionHero } from "./InclusionHero.svg";
 
 import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
@@ -46,25 +46,26 @@ function Landing() {
         <div className="header">
           <Container fluid>
             <Row>
-              <Col xs={0} md="auto">
-                <LandingPageStar className="star" />
-              </Col>
               <Col>
-                <h1>EdAble</h1>
-                <h3>
+                {/* <h1 style={{ color:'white'}}>EdAble</h1> */}
+                <h3 style={{ color: 'white', textAlign: "left"}}>
                   <i>
                     increasing employment opportunities for people with Autism
                     Spectrum Disorder and other Disabilities
                   </i>
                 </h3>
               </Col>
+              <Col xs={0} md="auto">
+                <InclusionHero className="star" />
+              </Col>
             </Row>
           </Container>
           <br />
-          <p>
+          <p style={{ color: 'orange'}}>
             By making a tax deductable donation to EdAble, you will contribute
             to...
           </p>
+          </div>
           <div className="App" id="outer-container">
             {/* Carousel */}
             <Container>
@@ -75,7 +76,7 @@ function Landing() {
                       touch={true}
                       interval={2500}
                       indicators={true}
-                      variant="dark"
+                      variant="light"
                     >
                       {orgList.map((org: any) => (
                         <Carousel.Item
@@ -107,7 +108,7 @@ function Landing() {
                                 variant="warning"
                               >
                                 <i className="btnText">
-                                  I want to make a contribution to <br></br>
+                                  I want to contribute to <br></br>
                                   <b>{org.data.name}!</b>
                                 </i>
                               </Button>
@@ -121,7 +122,7 @@ function Landing() {
               </Row>
             </Container>
           </div>
-        </div>
+        
         <ItemsCollection orgList={orgList} />
       </div>
     </>

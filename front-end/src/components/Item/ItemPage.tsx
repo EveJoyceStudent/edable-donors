@@ -40,7 +40,7 @@ function ItemPage() {
   }, [])
 
   return (
-    <div style={{ backgroundColor: "#ECFED6", border: "15px solid white", borderRadius: "45px" }}>
+    <div style={{ backgroundColor: "black", paddingTop: 10 }}>
       <Container fluid>
         <Row style={{ marginTop: "15px" }}>
           <Col className={styles.orgsContainer}>
@@ -59,8 +59,7 @@ function ItemPage() {
                 </Card.Text>
                 <ProgressBar
                   className="mb-3"
-                  striped
-                  variant="danger"
+                  variant="warning"
                   now={
                     item.totalDonationsValue ? (item.totalDonationsValue / item.initialPrice) * 100 : 0
                   }
@@ -72,7 +71,7 @@ function ItemPage() {
                 {org.website && <Card.Text> Check out the <a href={org.website}>{`${org.name}`} website</a></Card.Text>}
               </Card.Body>
               <Link to="/">
-                <Button variant="warning">Go back</Button>
+                <Button className="goBackBtn" variant="warning">Go back</Button>
               </Link>
             </Card>
           </Col>
