@@ -1,22 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      font-family: Helvetica, Arial, sans-serif;
+    .email {
+      max-width: 800px;
+      margin: 0 auto;
+      border: 1px solid #C4C4C4;
+    }
+
+    body {
+      font-family: "Roboto", Arial, Helvetica, Verdana, sans-serif;
       margin: 0;
       padding: 0;
     }
 
-    .background {
-      background-color: #fafafa;
-      padding: 20px;
+    .header {
+      background-color: #000000;
+      padding: 10px;
     }
 
-    .email {
-      border: 1px solid #e1e1e1;
+    .logoSection {
       background-color: #ffffff;
       margin: 0 auto;
-      max-width: 600px;
-      padding: 20px 20px 0;
     }
 
     .logo {
@@ -24,20 +38,78 @@
       max-width: 100%;
       max-height: 120px;
       display: block;
-      margin: 0 auto 20px;
+      padding: 20px;
     }
 
-    .center {
-      text-align: center;
+    h1,
+    h2 {
+      color: #E50040;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
     }
 
-    table {
-      border-spacing: 0;
+    h2 {
+      font-size: 20px;
+      color: #666666;
+    }
+
+    .header h1 {
+      font-size: 26px;
+    }
+
+    .header h2 {
+      color: #FFFFFF;
+      font-weight: normal;
+      border-block-end: 10px solid;
+      padding-block-end: 10px;
+      border-image-source: linear-gradient(58.88deg, #E50040 44.07%, #5E17A9 80.04%);
+      border-image-slice: 1;
+    }
+
+    .subheading {
+      color: #FFFFFF;
+      margin: 10px auto;
+      max-width: 600px;
+    }
+
+    .subheading a {
+      color: #FF7000;
+    }
+
+    .subheading a:hover,
+    .subheading a:focus,
+    .subheading a:active {
+      color: #FF7000;
+    }
+
+    .receiptBackground {
+      background-color: #ffffff;
+    }
+
+    .receipt {
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+
+    .receipt p {
+      margin: 0;
+    }
+
+    .receipt a {
+      color: #5E17A9;
+    }
+
+    .receipt a:hover,
+    .receipt a:focus,
+    .receipt a:active {
+      color: #5E17A9;
     }
 
     .table {
-      width: 80%;
-      margin: 25px auto;
+      border-spacing: 0;
+      margin: 5px auto;
     }
 
     .table td {
@@ -45,17 +117,39 @@
     }
 
     .table .text-right {
-      color: #b31b1b;
+      color: #E50040;
     }
 
-    .header h1 {
-      font-size: 26px;
-      margin: 0 0 10px;
+    small {
+      font-size: .9em;
     }
 
-    .header h2 {
-      color: #b31b1b;
+    .footer {
+      text-align: center;
+      padding: 5px;
+      background: #333333;
+      color: #c4c4c4;
+      line-height: 1.6;
     }
+
+    .footer p {
+      font-size: 12px;
+    }
+
+    .footer strong {
+      font-size: 1.2em;
+    }
+
+    .footer a {
+      color: #c4c4c4;
+    }
+
+    .footer a:hover,
+    .footer a:focus,
+    .footer a:active {
+      color: #FFF;
+    }
+
 
     .center {
       text-align: center;
@@ -64,257 +158,124 @@
     .text-right {
       text-align: right;
     }
-
-    .thank-you-image {
-      margin: 25px 0;
-    }
-
-    .content {
-      font-size: 16px;
-      color: #797979;
-      margin-bottom: 20px;
-      line-height: 1.6;
-      font-family: "Roboto", Arial, Helvetica, Verdana, sans-serif;
-    }
-
-    .content p {
-      margin-bottom: 20px;
-    }
-
-    .content ul,
-    .content ol {
-      margin: 1em 0;
-    }
-
-    .btn-wrapper {
-      max-width: 400px;
-      margin: 2em auto;
-      text-align: center;
-    }
-
-    .btn {
-      background-color: #b31b1b;
-      border-radius: 3px;
-      border-bottom: 3px solid #871414;
-      color: #ffffff;
-      text-align: center;
-      padding: 10px;
-      font-size: 22px;
-      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.17);
-      display: block;
-      width: auto;
-      margin: 0 auto;
-      text-decoration: none;
-      font-family: "Roboto", Arial, Helvetica, Verdana, sans-serif;
-      font-weight: bold;
-    }
-
-    .btn:hover,
-    .btn:focus,
-    .btn:active {
-      background-color: #871414;
-      color: #ffffff;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: #b31b1b;
-      margin: 0.5em 0;
-      line-height: 1.2;
-      font-family: "Roboto Slab", Georgia, Times, sansserif;
-      font-weight: bold;
-    }
-
-    .content ol,
-    .content ul {
-      padding-left: 40px;
-    }
-
-    .content a {
-      color: #b31b1b;
-    }
-
-    .content a:hover {
-      color: #871414;
-    }
-
-    .divider {
-      border-bottom: 1px solid #cccccc;
-      margin: 20px 0;
-    }
-
-    h2 {
-      font-size: 20px;
-      color: #797979;
-    }
-
-    .footer {
-      margin: 20px 0;
-      text-align: center;
-    }
-
-    .footer p {
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-
-    .footer {
-      color: #797979;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-
-    .footer strong {
-      font-size: 1.2em;
-    }
-
-    .footer a {
-      color: #666;
-    }
-
-    .footer a:hover,
-    .footer a:focus,
-    .footer a:active {
-      color: #404040;
-    }
-
-    @media only screen and (max-width: 600px) {
-      .thank-you-image-wrapper img {
-        max-width: 80%;
-      }
-    }
-
-    .thank-you-image {
-      display: block;
-      margin: 20px auto;
-    }
   </style>
 </head>
 
-<div class="background">
-  <div class="email-wrapper">
-    <div class="email">
+<body>
+  <div class="email">
+    <header>
+      <div class="logoSection">
+        <img class="logo center" src="cid:logo1" alt="EdAble Logo">
+      </div>
       <div class="header">
-        <img class="logo center" src="cid:logo1" />
         <h1 class="center">A new volunteer has expressed an interest in volunteering for Micro-Business:{{orgName}}</h1>
       </div>
+    </header>
+    <main>
+      <div class="receiptBackground">
+        <div class="receipt">
 
-      <!-- orgName: data.orgName,
-    donationDate: date.toDateString(),
-    name: data.name,
-    organisationFlag: data.organisationFlag,
-    organisationName: data.organisationName,
-    numVolunteers: data.numVolunteers,
-    dob:data.dob,
-    phone:data.phone,
-    email:data.email,
-    postcode:data.postcode,
-    hours:data.hours,
-    availablity:data.hmph,
+          <h2 class="center">Volunteer Details</h2>
+          <table class="table">
+            <tr>
+              <td class="text-right">Name:</td>
+              <td>{{name}}</td>
+            </tr>
 
-    howContribute:data.howContribute,
-    skills:data.skills,
-    comment:data.comment,
-    howHeard:data.howHeard, -->
-
-      <h2 class="center">Volunteer Details</h2>
-      <table class="table">
-        <tr>
-          <td class="text-right">Name:</td>
-          <td>{{name}}</td>
-        </tr>
-
-        {{#if organisationFlag}}
-        <tr>
-          <td class="text-right">Volunteer Type:</td>
-          <td>Organisation</td>
-        </tr>
-        <tr>
-          <td class="text-right">Organisation Name:</td>
-          <td>{{organisationName}}</td>
-        </tr>
-        <tr>
-          <td class="text-right">Number of Volunteers:</td>
-          <td>{{numVolunteers}}</td>
-        </tr>
-        {{/if}}
-
-        {{#if individualFlag}}
-        <tr>
-          <td class="text-right">Volunteer Type:</td>
-          <td>Individual</td>
-        </tr>
-        <tr>
-          <td class="text-right">Date of Birth:</td>
-          <td>{{dob}}</td>
-        </tr>
-        {{/if}}
-
-        <tr>
-          <td class="text-right">Phone Number:</td>
-          <td>{{phone}}</td>
-        </tr>
-        <tr>
-          <td class="text-right">Email:</td>
-          <td>{{email}}</td>
-        </tr>
-        <tr>
-          <td class="text-right">Postcode:</td>
-          <td>{{postcode}}</td>
-        </tr>
-        <tr>
-          <td class="text-right">Volunteer available for number of hours:</td>
-          <td>{{hours}}</td>
-        </tr>
-        <tr>
-          <td class="text-right">Volunteer available on:</td>
-          <td>
-            <ul>
-              {{#each availablity}}
-              <li>{{this}}</li>
-              {{/each}}
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-right">howContribute:</td>
-          <td>{{howContribute}}</td>
-        </tr>
-        <tr>
-          <td class="text-right">skills:</td>
-          <td>{{skills}}</td>
-        </tr>
-        <tr>
-          <td class="text-right">howHeard:</td>
-          <td>{{howHeard}}
-            {{#if howHeardOther}}
-            : {{howHeardOther}}
+            {{#if organisationFlag}}
+            <tr>
+              <td class="text-right">Volunteer Type:</td>
+              <td>Organisation</td>
+            </tr>
+            <tr>
+              <td class="text-right">Organisation Name:</td>
+              <td>{{organisationName}}</td>
+            </tr>
+            <tr>
+              <td class="text-right">Number of Volunteers:</td>
+              <td>{{numVolunteers}}</td>
+            </tr>
             {{/if}}
-          </td>
-        <tr>
-        </tr>
-        <tr>
-          <td class="text-right">comment:</td>
-          <td>{{comment}}</td>
-        </tr>
-      </table>
-      <p>
-        <small>This is an automated email.
-        </small>
-      </p>
-    </div>
+
+            {{#if individualFlag}}
+            <tr>
+              <td class="text-right">Volunteer Type:</td>
+              <td>Individual</td>
+            </tr>
+            <tr>
+              <td class="text-right">Date of Birth:</td>
+              <td>{{dob}}</td>
+            </tr>
+            {{/if}}
+
+            <tr>
+              <td class="text-right">Phone Number:</td>
+              <td>{{phone}}</td>
+            </tr>
+            <tr>
+              <td class="text-right">Email:</td>
+              <td>{{email}}</td>
+            </tr>
+            <tr>
+              <td class="text-right">Postcode:</td>
+              <td>{{postcode}}</td>
+            </tr>
+            <tr>
+              <td class="text-right">Volunteer available for number of hours:</td>
+              <td>{{hours}}</td>
+            </tr>
+            <tr>
+              <td class="text-right">Volunteer available on:</td>
+              <td>
+                <ul>
+                  {{#each availablity}}
+                  <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right">howContribute:</td>
+              <td>{{howContribute}}</td>
+            </tr>
+            <tr>
+              <td class="text-right">skills:</td>
+              <td>{{skills}}</td>
+            </tr>
+            <tr>
+              <td class="text-right">howHeard:</td>
+              <td>{{howHeard}}
+                {{#if howHeardOther}}
+                : {{howHeardOther}}
+                {{/if}}
+              </td>
+            <tr>
+            </tr>
+            <tr>
+              <td class="text-right">comment:</td>
+              <td>{{comment}}</td>
+            </tr>
+          </table>
+          <p>
+            <small>This is an automated email.
+            </small>
+          </p>
+        </div>
+      </div>
+    </main>
+    <footer>
+
+      <div class="footer">
+        <div class="section-wrapper">
+          <p>
+            <strong><a
+                href="https://edable-donor-test.azurewebsites.net/">EdAble</a></strong><br />Address<br />Postcode<br />EdAble
+            ABN - 37 656 736 338
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
-  <div class="footer">
-    <div class="section-wrapper">
-      <p>
-        <strong><a
-            href="https://edable-donor-test.azurewebsites.net/">EdAble</a></strong><br />Address<br />Postcode<br />EdAble
-        ABN - 37 656 736 338
-      </p>
-    </div>
-  </div>
-</div>
+</body>
+
+</html>
