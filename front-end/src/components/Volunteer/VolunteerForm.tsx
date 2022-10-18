@@ -5,6 +5,8 @@ import {
   Container,
   Row,
   Col,
+  Tooltip,
+  OverlayTrigger,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "../DonorForm/DonorForm.css";
@@ -57,6 +59,12 @@ function VolunteerForm(props: any) {
   );
   const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
   const [proceedFlag, setProceedFlag] = useState(false);
+  
+  const daysTooltip = (props: any) => (
+    <Tooltip {...props}>
+      Pick your preferred days! but if you can't decide now then you can leave this blank
+    </Tooltip>
+  );
 
   const proceed = () => {
     if (!isValid) {
@@ -281,7 +289,9 @@ function VolunteerForm(props: any) {
           </div>
 
           <div>
-            <label>Days Available</label>
+          <OverlayTrigger placement="top" overlay={daysTooltip}>
+            <label>Days Available (optional)<sup>(ℹ️)</sup></label>
+            </OverlayTrigger>
             <div className="availablity">
               <Container style={{ textAlign: "center" }}>
                 <Row>
