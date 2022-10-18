@@ -225,7 +225,7 @@ router.post("/volunteer-info", (req, res) => {
 
   const mail_options = {
     from: `Bot Mailer <${process.env.user}>`,
-    to: data.donorEmail,
+    to: "103596586@student.swin.edu.au",
     subject: "New Volunteer",
     html: htmlMail,
     attachments: [

@@ -52,7 +52,7 @@ function DonateTime() {
           </Col>
 
           <Col className={styles.formContainer}>
-            <VolunteerForm orgId={orgID} />
+            <VolunteerForm orgId={orgID} orgName={org.name} />
           </Col>
         </Row>
         <Row>
