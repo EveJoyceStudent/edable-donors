@@ -95,7 +95,8 @@ router.post("/item", (req, res) => {
     amount: data.amount,
     itemName: data.itemName,
     paypalTransactionId: data.paypalTransactionId,
-    phoneNumber: data.phoneNumber
+    phoneNumber: data.phoneNumber,
+    email: data.donorEmail
   };
 
   const htmlMail = template(replacements);
