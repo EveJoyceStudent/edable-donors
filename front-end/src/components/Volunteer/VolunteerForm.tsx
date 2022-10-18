@@ -208,7 +208,7 @@ return (
           <label>Postcode</label>
           {errors.volunteerPostcode && (
             <span style={{ margin: "20px", fontSize: "x-small" }}>
-              Please enter an amount
+              Please enter a valid Postcode
             </span>
           )}
           <input
@@ -216,6 +216,8 @@ return (
             placeholder="0000"
             {...register("volunteerPostcode", {
               required: true,
+              maxLength: 4,
+              minLength: 4,
               pattern: /[1-9]/,
             })}
           />
@@ -308,12 +310,20 @@ return (
           </div>
         </div>
         <div>
+        {errors.howContribute && <span>*</span>}
           <label>How would you like to contribute?</label>
+          {errors.howContribute && (
+            <span style={{ margin: "20px", fontSize: "x-small" }}>
+            Contribution cannot be blank
+          </span>
+          )}
           <input
           type="text"
           placeholder="What would you like to do?" 
-          {...register("howContribute")}
-          ></input>
+          {...register("howContribute",{
+          required: true,
+          })}
+          />
           
         </div>
         <div>
