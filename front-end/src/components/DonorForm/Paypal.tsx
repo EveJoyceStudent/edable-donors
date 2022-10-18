@@ -120,6 +120,7 @@ function Paypal(props: any) {
         donorEmail: props.formData.email,
         orgName: props.orgName,
         paypalTransactionId: paypalId,
+        phoneNumber: props.formData.phone
       })
       .then((response) => {
       })
@@ -138,6 +139,7 @@ function Paypal(props: any) {
         itemName: props.itemName,
         itemOrgName: props.itemOrgName,
         paypalTransactionId: paypalId,
+        phoneNumber: props.formData.phone
       })
       .then((response) => {
       })
