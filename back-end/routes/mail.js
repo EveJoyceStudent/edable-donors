@@ -148,4 +148,105 @@ router.post("/item", (req, res) => {
   console.log(data);
   res.json(data);
 });
+
+router.post("/volunteer-info", (req, res) => {
+  const data = req.body;
+  const date = new Date();
+  const filePath = path.join(__dirname, "../pages/emailTemplateVolunteerInfo.html");
+  const source = fs.readFileSync(filePath, "utf-8").toString();
+  const template = handlebars.compile(source);
+  let days = [];
+  if(data.monday){
+    days.push("Monday");
+  }
+  if(data.tuesday){
+    days.push("Tuesday");
+  }
+  if(data.wednesday){
+    days.push("Wednesday");
+  }
+  if(data.thursday){
+    days.push("Thursday");
+  }
+  if(data.friday){
+    days.push("Friday");
+  }
+  if(data.saturday){
+    days.push("Saturday");
+  }
+  if(data.sunday){
+    days.push("Sunday");
+  }
+  const replacements = {
+    orgName: data.orgName,
+    donationDate: date.toDateString(),
+    name: data.name,
+    organisationFlag: data.organisationFlag,
+    organisationName: data.organisationName,
+    numVolunteers: data.numVolunteers,
+    individualFlag: !(data.organisationFlag),
+    dob:data.dob,
+    phone:data.phone,
+    email:data.email,
+    postcode:data.postcode,
+    hours:data.hours,
+    availablity:days,
+
+    howContribute:data.howContribute,
+    skills:data.skills,
+    comment:data.comment,
+    howHeard:data.howHeard,
+    howHeardOther:data.howHeardOther,
+  };
+
+  const htmlMail = template(replacements);
+
+  const OAuth2_client = new OAuth2(
+    process.env.clientId,
+    process.env.clientSecret,
+    process.env.redirectURL
+  );
+
+  OAuth2_client.setCredentials({ refresh_token: process.env.refreshToken });
+
+  const accessToken = OAuth2_client.getAccessToken();
+
+  const transport = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: process.env.user,
+      clientId: process.env.clientId,
+      clientSecret: process.env.clientSecret,
+      refreshToken: process.env.refreshToken,
+      accessToken: accessToken,
+    },
+  });
+
+  const mail_options = {
+    from: `Bot Mailer <${process.env.user}>`,
+    to: "103596586@student.swin.edu.au",
+    subject: "New Volunteer",
+    html: htmlMail,
+    attachments: [
+      {
+        filename: "logo.jpg",
+        path: `${__dirname}/../assets/logo.png`,
+        cid: "logo1",
+      },
+    ],
+  };
+
+  transport.sendMail(mail_options, function (error, result) {
+    if (error) {
+      console.log("Error: ", error);
+    } else {
+      console.log("Success: ", result);
+    }
+    transport.close();
+  });
+  console.log(data);
+  res.json(data);
+});
+
 module.exports = router;
