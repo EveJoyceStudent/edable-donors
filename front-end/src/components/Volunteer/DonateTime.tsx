@@ -4,12 +4,12 @@ import { db } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import VolunteerForm from "./VolunteerForm";
 import styles from "../Organisation/Organisation.module.css";
-import { Button, Card, Container, Row, Col, ProgressBar } from "react-bootstrap";
-import TasksCollection from "./TasksCollection";
+import { Button, Card, Container, Row, Col } from "react-bootstrap";
 
 function DonateTime() {
   let params = useParams();
   const [org, setOrg] = useState<any>([]);
+  const orgID = params.orgId;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,12 +52,11 @@ function DonateTime() {
           </Col>
 
           <Col className={styles.formContainer}>
-            <VolunteerForm/>
+            <VolunteerForm orgId={orgID} />
           </Col>
         </Row>
         <Row>
           <Col>
-          <TasksCollection/>
           </Col>
         </Row>
       </Container>

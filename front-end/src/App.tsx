@@ -14,7 +14,6 @@ import Cancel from "./components/DonorForm/Cancel";
 import PastDonations from "./components/DonorForm/PastDonations";
 import PastItemDonations from "./components/DonorForm/PastItemDonations";
 import DonateTime from "./components/Volunteer/DonateTime";
-import TaskPage from "./components/Volunteer/TaskPage";
 
 function App() {
   return (
@@ -37,7 +36,6 @@ function App() {
             <Route path="item/:orgID/:itemID" element={<ItemPage />} />
             <Route path="item/:orgID/:itemID" element={<PastItemDonations />} />
             <Route path="volunteer/organisation/:orgId" element={<DonateTime />} />
-            <Route path="volunteer/task-page" element={<TaskPage />} />
 
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
