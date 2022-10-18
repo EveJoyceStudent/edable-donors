@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './fonts/Roboto/Roboto-Medium.ttf';
+import './fonts/Lora/Lora-VariableFont_wght.ttf';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

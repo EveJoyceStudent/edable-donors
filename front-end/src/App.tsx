@@ -14,14 +14,13 @@ import Cancel from "./components/DonorForm/Cancel";
 import PastDonations from "./components/DonorForm/PastDonations";
 import PastItemDonations from "./components/DonorForm/PastItemDonations";
 import DonateTime from "./components/Volunteer/DonateTime";
-import TaskPage from "./components/Volunteer/TaskPage";
 
 function App() {
   return (
     <PayPalScriptProvider
       options={{
         "client-id":
-          "ATT3Tn46NrmHggGqVC4mzWOZWlnbp2ID9DA0yQnhsgqPFIVPPlLhfSI_-atbZc3aN7n_k7wUVTyQJMnI",
+        process.env.REACT_APP_PAYPAL_CLIENT_ID||"ATT3Tn46NrmHggGqVC4mzWOZWlnbp2ID9DA0yQnhsgqPFIVPPlLhfSI_-atbZc3aN7n_k7wUVTyQJMnI",
         currency: "AUD",
       }}
     >
@@ -37,7 +36,6 @@ function App() {
             <Route path="item/:orgID/:itemID" element={<ItemPage />} />
             <Route path="item/:orgID/:itemID" element={<PastItemDonations />} />
             <Route path="volunteer/organisation/:orgId" element={<DonateTime />} />
-            <Route path="volunteer/task-page" element={<TaskPage />} />
 
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit

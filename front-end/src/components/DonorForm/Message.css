@@ -1,8 +1,9 @@
 .banner{
-    height:40vh;
+    height:30vh;
     width:110vw;
     transform:translate(-40px,-40px);
     object-fit: cover;
+    background-color: black;
 }
 .msgContainer{
     width: calc(100vw - 30px);
@@ -41,8 +42,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: #fcfbc7;
-    border-radius: 45px;
+    background-color: white;
     border: 15px solid white;
   }
 

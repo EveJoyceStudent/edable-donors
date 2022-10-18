@@ -63,7 +63,7 @@ function DonorForm(props: any) {
   return (
     <div className="donorInfoContainer">
       <div>
-        <p>Your tax deductible contribution:</p>
+        <p style= {{ color: "#5E17A9" }}>Your tax deductible contribution</p>
         {!proceedFlag && (
           <>
             <div className="presetButtons">
@@ -283,7 +283,7 @@ function DonorForm(props: any) {
                   {!isValid && formAttemptedIncomplete && (
                     <div>Please complete the form.</div>
                   )}
-                  <Button variant="warning" onClick={proceed}>
+                  <Button className="proceedPayBtn" variant="warning" onClick={proceed}>
                     Proceed to Payment
                   </Button>
                 </div>

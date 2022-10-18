@@ -101,7 +101,7 @@ function Paypal(props: any) {
 
   const createSubscriptionContent = (data: any, actions: any) => {
     return actions.subscription.create({
-      plan_id: "P-70L40494657433117MMMU72Q",
+      plan_id: process.env.REACT_APP_PAYPAL_SUBSCRIPTION_PLAN_ID,
       quantity: Math.floor(props.watchPaidAMT),
     });
   };
@@ -114,12 +114,13 @@ function Paypal(props: any) {
   function sendGeneralDonationEmail(paypalId:string) {
     axios
       .post(generalURL, {
-        amount: props.formData.paidAMT,
+        amount: Number(props.formData.paidAMT),
         name: props.formData.name,
         donationType: props.formData.monthly,
         donorEmail: props.formData.email,
         orgName: props.orgName,
         paypalTransactionId: paypalId,
+        phoneNumber: props.formData.phone
       })
       .then((response) => {
       })
@@ -132,12 +133,13 @@ function Paypal(props: any) {
   function sendItemDonationEmail(paypalId:string) {
     axios
       .post(itemURL, {
-        amount: props.formData.paidAMT,
+        amount: Number(props.formData.paidAMT),
         name: props.formData.name,
         donorEmail: props.formData.email,
         itemName: props.itemName,
         itemOrgName: props.itemOrgName,
         paypalTransactionId: paypalId,
+        phoneNumber: props.formData.phone
       })
       .then((response) => {
       })
@@ -185,8 +187,8 @@ function Paypal(props: any) {
           email: props.formData.email,
           phoneNumber: props.formData.phone,
           mailingAddress: "",
-          IsAnon: props.formData.IsAnon,
-          agreeToContact: props.formData.mailingList,
+          IsAnon: Boolean(props.formData.IsAnon),
+          agreeToContact: Boolean(props.formData.mailingList),
           howHeard: props.formData.howHeard,
           howHeardOther: props.formData.howHeardOther ? props.formData.howHeardOther:"",
         }
@@ -249,7 +251,7 @@ function Paypal(props: any) {
                 donorPublicName: props.formData.IsAnon
                   ? "Anonymous"
                   : props.formData.name,
-                amount: props.watchPaidAMT,
+                amount: Number(props.watchPaidAMT),
                 IsRefunded: false,
                 comment: props.formData.comment,
                 donationDate: Timestamp.now(),
@@ -268,8 +270,8 @@ function Paypal(props: any) {
                 email: props.formData.email,
                 phoneNumber: props.formData.phone,
                 mailingAddress: "",
-                IsAnon: props.formData.IsAnon,
-                agreeToContact: props.formData.mailingList,
+                IsAnon: Boolean(props.formData.IsAnon),
+                agreeToContact: Boolean(props.formData.mailingList),
                 howHeard: props.formData.howHeard,
                 howHeardOther: props.formData.howHeardOther ? props.formData.howHeardOther:"",
               }

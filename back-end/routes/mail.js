@@ -28,6 +28,8 @@ router.post("/general", (req, res) => {
     amount: data.amount,
     type: type,
     paypalTransactionId: data.paypalTransactionId,
+    email: data.donorEmail,
+    phoneNumber: data.phoneNumber
   };
 
   const htmlMail = template(replacements);
@@ -93,6 +95,8 @@ router.post("/item", (req, res) => {
     amount: data.amount,
     itemName: data.itemName,
     paypalTransactionId: data.paypalTransactionId,
+    phoneNumber: data.phoneNumber,
+    email: data.donorEmail
   };
 
   const htmlMail = template(replacements);
