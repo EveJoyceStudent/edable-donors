@@ -158,12 +158,23 @@ router.post("/item", (req, res) => {
 router.post("/volunteer-info", (req, res) => {
   const data = req.body;
   const date = new Date();
+
+  // Email template for new volunteer notification to admin //
   const filePath = path.join(
     __dirname,
     "../pages/emailTemplateVolunteerInfo.html"
   );
   const source = fs.readFileSync(filePath, "utf-8").toString();
   const template = handlebars.compile(source);
+
+  // Email template for volunteer confirmation email to volunteer //
+  const filePathReciept = path.join(
+    __dirname,
+    "../pages/emailTemplateVolunteerReceipt.html"
+  );
+  const sourceReciept = fs.readFileSync(filePathReciept, "utf-8").toString();
+  const templateReciept = handlebars.compile(sourceReciept);
+
   let days = [];
   if (data.monday) {
     days.push("Monday");
@@ -207,9 +218,40 @@ router.post("/volunteer-info", (req, res) => {
     howHeard: data.howHeard,
     howHeardOther: data.howHeardOther,
   };
-
+  // preparing email template for admin
   const htmlMail = template(replacements);
 
+  // preparing email template for volunteer
+
+  const htmlMailReciept = templateReciept(replacements);
+
+  const mail_options = {
+    from: `Bot Mailer <${process.env.user}>`,
+    to: "singhagampreet100@gmail.com",
+    subject: "New Volunteer",
+    html: htmlMail,
+    attachments: [
+      {
+        filename: "logo.jpg",
+        path: `${__dirname}/../assets/logo.png`,
+        cid: "logo1",
+      },
+    ],
+  };
+
+  const mail_options_Receipt = {
+    from: `EdAble <${process.env.user}>`,
+    to: data.email,
+    subject: "Volunteer expression of interest",
+    html: htmlMailReciept,
+    attachments: [
+      {
+        filename: "logo.jpg",
+        path: `${__dirname}/../assets/logo.png`,
+        cid: "logo1",
+      },
+    ],
+  };
   const OAuth2_client = new OAuth2(
     process.env.clientId,
     process.env.clientSecret,
@@ -232,20 +274,6 @@ router.post("/volunteer-info", (req, res) => {
     },
   });
 
-  const mail_options = {
-    from: `Bot Mailer <${process.env.user}>`,
-    to: "103596586@student.swin.edu.au",
-    subject: "New Volunteer",
-    html: htmlMail,
-    attachments: [
-      {
-        filename: "logo.jpg",
-        path: `${__dirname}/../assets/logo.png`,
-        cid: "logo1",
-      },
-    ],
-  };
-
   transport.sendMail(mail_options, function (error, result) {
     if (error) {
       console.log("Error: ", error);
@@ -253,34 +281,10 @@ router.post("/volunteer-info", (req, res) => {
       console.log("Success: ", result);
     }
   });
-  console.log(data);
 
   // Volunteer receipt
 
-  filePath = path.join(
-    __dirname,
-    "../pages/emailTemplateVolunteerReceipt.html"
-  );
-  source = fs.readFileSync(filePath, "utf-8").toString();
-  template = handlebars.compile(source);
-
-  htmlMail = template(replacements);
-
-  mail_options = {
-    from: `EdAble <${process.env.user}>`,
-    to: data.email,
-    subject: "Volunteer expression of interest",
-    html: htmlMail,
-    attachments: [
-      {
-        filename: "logo.jpg",
-        path: `${__dirname}/../assets/logo.png`,
-        cid: "logo1",
-      },
-    ],
-  };
-
-  transport.sendMail(mail_options, function (error, result) {
+  transport.sendMail(mail_options_Receipt, function (error, result) {
     if (error) {
       console.log("Error: ", error);
     } else {
@@ -288,7 +292,6 @@ router.post("/volunteer-info", (req, res) => {
     }
     transport.close();
   });
-  console.log(data);
   res.json(data);
 });
 
