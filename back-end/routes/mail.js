@@ -31,7 +31,7 @@ router.post("/general", (req, res) => {
     type: type,
     paypalTransactionId: data.paypalTransactionId,
     email: data.donorEmail,
-    phoneNumber: data.phoneNumber
+    phoneNumber: data.phoneNumber,
   };
 
   const htmlMail = template(replacements);
@@ -100,7 +100,7 @@ router.post("/item", (req, res) => {
     itemName: data.itemName,
     paypalTransactionId: data.paypalTransactionId,
     phoneNumber: data.phoneNumber,
-    email: data.donorEmail
+    email: data.donorEmail,
   };
 
   const htmlMail = template(replacements);
@@ -158,29 +158,32 @@ router.post("/item", (req, res) => {
 router.post("/volunteer-info", (req, res) => {
   const data = req.body;
   const date = new Date();
-  const filePath = path.join(__dirname, "../pages/emailTemplateVolunteerInfo.html");
+  const filePath = path.join(
+    __dirname,
+    "../pages/emailTemplateVolunteerInfo.html"
+  );
   const source = fs.readFileSync(filePath, "utf-8").toString();
   const template = handlebars.compile(source);
   let days = [];
-  if(data.monday){
+  if (data.monday) {
     days.push("Monday");
   }
-  if(data.tuesday){
+  if (data.tuesday) {
     days.push("Tuesday");
   }
-  if(data.wednesday){
+  if (data.wednesday) {
     days.push("Wednesday");
   }
-  if(data.thursday){
+  if (data.thursday) {
     days.push("Thursday");
   }
-  if(data.friday){
+  if (data.friday) {
     days.push("Friday");
   }
-  if(data.saturday){
+  if (data.saturday) {
     days.push("Saturday");
   }
-  if(data.sunday){
+  if (data.sunday) {
     days.push("Sunday");
   }
   const replacements = {
@@ -190,19 +193,19 @@ router.post("/volunteer-info", (req, res) => {
     organisationFlag: data.organisationFlag,
     organisationName: data.organisationName,
     numVolunteers: data.numVolunteers,
-    individualFlag: !(data.organisationFlag),
-    dob:data.dob,
-    phone:data.phone,
-    email:data.email,
-    postcode:data.postcode,
-    hours:data.hours,
-    availablity:days,
+    individualFlag: !data.organisationFlag,
+    dob: data.dob,
+    phone: data.phone,
+    email: data.email,
+    postcode: data.postcode,
+    hours: data.hours,
+    availablity: days,
 
-    howContribute:data.howContribute,
-    skills:data.skills,
-    comment:data.comment,
-    howHeard:data.howHeard,
-    howHeardOther:data.howHeardOther,
+    howContribute: data.howContribute,
+    skills: data.skills,
+    comment: data.comment,
+    howHeard: data.howHeard,
+    howHeardOther: data.howHeardOther,
   };
 
   const htmlMail = template(replacements);
@@ -249,92 +252,22 @@ router.post("/volunteer-info", (req, res) => {
     } else {
       console.log("Success: ", result);
     }
-    transport.close();
   });
   console.log(data);
-  res.json(data);
-});
 
-module.exports = router;
+  // Volunteer receipt
 
-// Volunteer receipt //
-
-router.post("/volunteer-info", (req, res) => {
-  const data = req.body;
-  const date = new Date();
-  const filePath = path.join(__dirname, "../pages/emailTemplateVolunteerReceipt.html");
-  const source = fs.readFileSync(filePath, "utf-8").toString();
-  const template = handlebars.compile(source);
-  let days = [];
-  if(data.monday){
-    days.push("Monday");
-  }
-  if(data.tuesday){
-    days.push("Tuesday");
-  }
-  if(data.wednesday){
-    days.push("Wednesday");
-  }
-  if(data.thursday){
-    days.push("Thursday");
-  }
-  if(data.friday){
-    days.push("Friday");
-  }
-  if(data.saturday){
-    days.push("Saturday");
-  }
-  if(data.sunday){
-    days.push("Sunday");
-  }
-  const replacements = {
-    orgName: data.orgName,
-    donationDate: date.toDateString(),
-    name: data.name,
-    organisationFlag: data.organisationFlag,
-    organisationName: data.organisationName,
-    numVolunteers: data.numVolunteers,
-    individualFlag: !(data.organisationFlag),
-    dob:data.dob,
-    phone:data.phone,
-    email:data.email,
-    postcode:data.postcode,
-    hours:data.hours,
-    availablity:days,
-
-    howContribute:data.howContribute,
-    skills:data.skills,
-    comment:data.comment,
-    howHeard:data.howHeard,
-    howHeardOther:data.howHeardOther,
-  };
-
-  const htmlMail = template(replacements);
-
-  const OAuth2_client = new OAuth2(
-    process.env.clientId,
-    process.env.clientSecret,
-    process.env.redirectURL
+  filePath = path.join(
+    __dirname,
+    "../pages/emailTemplateVolunteerReceipt.html"
   );
+  source = fs.readFileSync(filePath, "utf-8").toString();
+  template = handlebars.compile(source);
 
-  OAuth2_client.setCredentials({ refresh_token: process.env.refreshToken });
+  htmlMail = template(replacements);
 
-  const accessToken = OAuth2_client.getAccessToken();
-
-  const transport = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      type: "OAuth2",
-      user: process.env.user,
-      clientId: process.env.clientId,
-      clientSecret: process.env.clientSecret,
-      refreshToken: process.env.refreshToken,
-      accessToken: accessToken,
-    },
-  });
-
-  const mail_options = {
-    from: `Bot Mailer <${process.env.user}>`,
+  mail_options = {
+    from: `EdAble <${process.env.user}>`,
     to: data.email,
     subject: "Volunteer expression of interest",
     html: htmlMail,
