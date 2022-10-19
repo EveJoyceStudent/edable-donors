@@ -54,9 +54,7 @@ function VolunteerForm(props: any) {
   });
 
   const [showOption, setShowOption] = useState(false);
-  const [formDataSave, setFormDataSave] = useState<VolunteerFormType>(
-    getValues()
-  );
+  
   const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
   const [proceedFlag, setProceedFlag] = useState(false);
   
@@ -70,7 +68,7 @@ function VolunteerForm(props: any) {
     if (!isValid) {
       setFormAttemptedIncomplete(true);
     } else {
-      setFormDataSave(getValues());
+      getValues();
       setProceedFlag(true);
     }
   };
@@ -94,7 +92,9 @@ function VolunteerForm(props: any) {
       volunteerPostcode: getValues().volunteerPostcode,
       volunteerComment: getValues().volunteerComment,
       volunteerHowHeard: getValues().volunteerHowHeard,
+      volunteerHowHeardOther: getValues().volunteerHowHeardOther,
       howContribute: getValues().howContribute,
+      Skills: getValues().Skills,
       Monday: getValues().Monday,
       Tuesday: getValues().Tuesday,
       Wednesday: getValues().Wednesday,
@@ -436,6 +436,7 @@ function VolunteerForm(props: any) {
           >
             {!isValid && formAttemptedIncomplete && (
               <div>Please complete the form.</div>
+              
             )}
 
             <Button variant="warning" onClick={proceed}>
@@ -449,15 +450,16 @@ function VolunteerForm(props: any) {
         {proceedFlag && (
           <>
             <p style={{ fontSize: "1vw" }}>
-              <div>Hi {formDataSave.volunteerName},</div>
-              <div>You're volunteering {formDataSave.volunteerAmount} people</div>
-              {formDataSave.volunteerComment && (
-                <div>{`With comment "${formDataSave.volunteerComment}"`}</div>
+              <div>Hi {getValues().volunteerName},</div>
+              <div>You're volunteering {getValues().volunteerAmount} people</div>
+              {getValues().volunteerComment && (
+                <div>{`With comment "${getValues().volunteerComment}"`}</div>
               )}
-              <div>Email: {formDataSave.volunteerEmail}</div>
-              <div>Phone: {formDataSave.volunteerPhone}</div>
-              <div>You would like to help by {formDataSave.howContribute}</div>
-              <div>Skills: {formDataSave.Skills}</div>
+              <div>Email: {getValues().volunteerEmail}</div>
+              <div>Phone: {getValues().volunteerPhone}</div>
+              <div>You would like to help by {getValues().howContribute}</div>
+              <div>Skills: {getValues().Skills}</div>
+              <div>How you heard about us: {getValues().volunteerHowHeardOther}</div>
             </p>
             <div style={{ minHeight: "150px" }}></div>
 
