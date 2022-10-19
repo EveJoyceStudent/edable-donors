@@ -32,32 +32,58 @@ function Success() {
             src="https://c.tenor.com/04BE-ClaaBAAAAAC/cat-money.gif"
             roundedCircle
           ></Image>
+          {donationIdDisplay !== "" &&
+            <div>
+              <h1 className="msgTitle">Thank you for donating!</h1>
 
-          <h1 className="msgTitle">Thank you for donating!</h1>
-          { donationIdDisplay!=="" &&
-          <h2 className="msgText">
-            Donation Number: {donationIdDisplay}.
-          </h2>
+              <h2 className="msgText">
+                Donation Number: {donationIdDisplay}.
+              </h2>
+              <h2 className="msgText">
+                An email with your receipt will be sent to you.
+              </h2>
+              <h2 className="msgText">
+                If you cannot find the email, please check your spam box.
+              </h2>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Link to="/">
+                  <Button className="msgButton" variant="warning">
+                    <i>Why not donate again?</i>
+                  </Button>
+                </Link>
+              </div>
+            </div>
           }
-          <h2 className="msgText">
-            An email with your receipt will be sent to you.
-          </h2>
-          <h2 className="msgText">
-            If you cannot find the email, please check your spam box.
-          </h2>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Link to="/">
-              <Button className="msgButton" variant="warning">
-                <i>Why not donate again?</i>
-              </Button>
-            </Link>
-          </div>
+          {donationIdDisplay == "" &&
+            <div>
+              <h1 className="msgTitle">Thank you for volunteering!</h1>
+              <h2 className="msgText">
+                An email with your details will be sent to you.
+              </h2>
+              <h2 className="msgText">
+                If you cannot find the email, please check your spam box.
+              </h2>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Link to="/volunteer">
+                  <Button className="msgButton" variant="warning">
+                    <i>Why not volunteer again?</i>
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          }  
         </div>
       </div>
     </div>

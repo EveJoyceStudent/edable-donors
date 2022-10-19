@@ -36,6 +36,7 @@ function App() {
             <Route path="item/:orgID/:itemID" element={<ItemPage />} />
             <Route path="item/:orgID/:itemID" element={<PastItemDonations />} />
             <Route path="volunteer/organisation/:orgId" element={<DonateTime />} />
+            <Route path="volunteer/success" element={<Success />} />
 
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
