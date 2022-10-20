@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
-import { ReactComponent as LandingPageStar } from "../Landing/star.svg";
+import { ReactComponent as InclusionHero } from "../Landing/InclusionHero.svg";
 
 function Volunteer() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -42,17 +42,17 @@ function Volunteer() {
         <div className="header">
           <Container fluid>
             <Row>
-              <Col xs={0} md="auto">
-                <LandingPageStar className="star" />
-              </Col>
               <Col>
                 <h1>EdAble</h1>
-                <h3>
+                <h3 style={{ color: 'white', textAlign: "left"}}>
                   <i>
                     increasing employment opportunities for people with Autism
                     Spectrum Disorder and other Disabilities
                   </i>
                 </h3>
+              </Col>
+              <Col xs={0} md="auto">
+                <InclusionHero className="star" />
               </Col>
             </Row>
           </Container>

@@ -27,12 +27,12 @@ function DonateTime() {
 
   return (
     //   these lines set up the format of the page
-    <div style={{backgroundColor: "#ECFED6", border: "15px solid white", borderRadius: "45px"}}>
+    <div style={{backgroundColor: "black", paddingTop: 30}}>
       <Container fluid>
         <Row style={{marginTop: "15px"}}>
           <Col className={styles.orgsContainer}>
             <Card className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px"}}>
+              <h6 style={{ textAlign: "left", margin: "7px", color: "#FF7000"}}>
                 <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
               </h6>
               <Card.Title style={{fontSize: "2rem"}}>{org.name}</Card.Title>

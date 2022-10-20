@@ -148,7 +148,7 @@ function VolunteerForm(props: any) {
   return (
     <div className="VolunteerInfoContainer">
       <div>
-        <p>I would like to volunteer!</p>
+        <p style= {{ color: "#5E17A9" }}>I would like to volunteer!</p>
         <form>
           <div>
             {errors.volunteerName && <span>*</span>}

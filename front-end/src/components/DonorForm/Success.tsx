@@ -23,7 +23,7 @@ function Success() {
       </div>
       <div
         className="msgContainer"
-        style={{ height: "100vh", transform: "translate(0px,-45vh)" }}
+        style={{ transform: "translate(0px,-45vh)" }}
       >
         <div>
           {/* // insert organisation logo // */}
