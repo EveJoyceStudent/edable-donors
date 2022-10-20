@@ -72,11 +72,11 @@ function VolunteerForm(props: any) {
   };
 
   const volunteerDonate = async () => {
-    // console.log(getValues().volunteerDOB)
+    // console.log(getValues().volunteerHowHeardOther)
     const docRef = doc(
       collection(db, `Organisations/${props.orgId}/VolunteerDonations`)
+      
     );
-
     await setDoc(docRef, {
       volunteerName: getValues().volunteerName,
       volunteerPhone: getValues().volunteerPhone,
@@ -88,7 +88,9 @@ function VolunteerForm(props: any) {
       volunteerPostcode: getValues().volunteerPostcode,
       volunteerComment: getValues().volunteerComment,
       volunteerHowHeard: getValues().volunteerHowHeard,
-      volunteerHowHeardOther: getValues().volunteerHowHeardOther,
+      volunteerHowHeardOther: getValues().volunteerHowHeardOther
+        ?getValues().volunteerHowHeardOther
+        :"",
       howContribute: getValues().howContribute,
       Skills: getValues().Skills,
       Monday: getValues().Monday,
@@ -484,7 +486,7 @@ function VolunteerForm(props: any) {
               }}
             >
               <Button variant="outline-secondary" onClick={returnToForm}>
-                Something looks wrong, edit my donation
+               Something looks wrong, edit my donation
               </Button>
               <Button variant="outline-secondary" onClick={volunteerDonate}>
                 Looks good, send in my application!
