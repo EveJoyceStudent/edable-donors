@@ -9,22 +9,19 @@ type DonationInfoType = {
 
 function Success() {
   let locationData = useLocation().state as DonationInfoType;
-  
+
   const [donationIdDisplay, setDonationIdDisplay] = useState("");
-  
+
   useEffect(() => {
-    if(locationData){setDonationIdDisplay(locationData.donationID);}
+    if (locationData) {
+      setDonationIdDisplay(locationData.donationID);
+    }
   }, [locationData]);
 
   return (
     //   these lines set up the format of the page
     <div className="bg">
-      <div className="banner">
-      </div>
-      <div
-        className="msgContainer"
-        style={{ height: "100vh", transform: "translate(0px,-45vh)" }}
-      >
+      <div className="msgContainer">
         <div>
           {/* // insert organisation logo // */}
           <Image
@@ -35,7 +32,6 @@ function Success() {
           {donationIdDisplay !== "" &&
             <div>
               <h1 className="msgTitle">Thank you for donating!</h1>
-
               <h2 className="msgText">
                 Donation Number: {donationIdDisplay}.
               </h2>
