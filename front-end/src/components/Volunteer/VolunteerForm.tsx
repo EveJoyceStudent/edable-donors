@@ -262,7 +262,6 @@ function VolunteerForm(props: any) {
                 })}
               />
             </div>
-            <hr />
 
             <div className="volunteerHours">
               {errors.volunteerHours && <span>*</span>}
@@ -281,7 +280,23 @@ function VolunteerForm(props: any) {
                 })}
               />
             </div>
-
+            <div>
+              {errors.howContribute && <span>*</span>}
+              <label>How would you like to contribute?</label>
+              {errors.howContribute && (
+                <span style={{ margin: "20px", fontSize: "x-small" }}>
+                  Contribution cannot be blank
+                </span>
+              )}
+              <input
+                type="text"
+                placeholder="What would you like to do?"
+                {...register("howContribute", {
+                  required: true,
+                })}
+              />
+            </div>
+            <hr />
             <div>
               <OverlayTrigger placement="top" overlay={daysTooltip}>
                 <label>
@@ -353,22 +368,7 @@ function VolunteerForm(props: any) {
                 </Container>
               </div>
             </div>
-            <div>
-              {errors.howContribute && <span>*</span>}
-              <label>How would you like to contribute?</label>
-              {errors.howContribute && (
-                <span style={{ margin: "20px", fontSize: "x-small" }}>
-                  Contribution cannot be blank
-                </span>
-              )}
-              <input
-                type="text"
-                placeholder="What would you like to do?"
-                {...register("howContribute", {
-                  required: true,
-                })}
-              />
-            </div>
+
             <div>
               <label>Skills (optional)</label>
               <input
@@ -460,16 +460,21 @@ function VolunteerForm(props: any) {
                   : `request to volunteer has been sent`}{" "}
                 {}
               </div>
-
               {getValues().volunteerComment && (
                 <div>{`With comment "${getValues().volunteerComment}"`}</div>
               )}
+
+            {getValues().Monday && (
+                <div>{`Days can work: ${getValues().Monday}`}</div>
+              )}
+
               <div>Hours: {getValues().volunteerHours}</div>
               <div>Email: {getValues().volunteerEmail}</div>
               <div>Phone: {getValues().volunteerPhone}</div>
               <div>You would like to help by {getValues().howContribute}</div>
             </p>
             <div style={{ minHeight: "150px" }}></div>
+            
 
             <div
               style={{
