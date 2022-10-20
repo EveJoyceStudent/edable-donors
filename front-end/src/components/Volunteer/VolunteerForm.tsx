@@ -11,6 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import "../DonorForm/DonorForm.css";
 import { db } from "../../config/firebase";
+import { Link } from "react-router-dom";
 import {
 
   collection,
@@ -473,9 +474,11 @@ function VolunteerForm(props: any) {
               <Button variant="outline-secondary" onClick={returnToForm}>
                 Something looks wrong, edit my donation
               </Button>
-              <Button variant="outline-secondary" onClick={volunteerDonate}>
-                Looks good, send in my application!
-              </Button>
+              <Link to={'../../success'}>
+                <Button variant="outline-secondary" onClick={volunteerDonate}>
+                  Looks good, send in my application!
+                </Button>
+              </Link>
             </div>
           </>
         )}
