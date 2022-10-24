@@ -206,8 +206,17 @@ function VolunteerForm(props: any) {
               </div>
 
               <div className="DOB">
+              {errors.volunteerDOB && <span>*</span>}
                 <label>Date of Birth</label>
-                <input type="date" {...register("volunteerDOB")} />
+                {errors.volunteerDOB && (
+                <span style={{ margin: "20px", fontSize: "x-small" }}>
+                  Date of Birth cannot be blank
+                </span>
+              )}
+                <input type="date" 
+                {...register("volunteerDOB", {
+                  required: true,
+                })} />
               </div>
             </div>
 
