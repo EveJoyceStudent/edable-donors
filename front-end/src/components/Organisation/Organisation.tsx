@@ -29,10 +29,10 @@ function Organisation() {
     //   these lines set up the format of the page
     <div style={{backgroundColor: "black", paddingTop: 30}}>
       <Container fluid>
-        <Row style={{marginTop: "15px"}}>
+        <Row style={{marginTop: "5px"}}>
           <Col className={styles.orgsContainer}>
             <Card className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px", color: "#FF7000"}}>
+              <h6 style={{ textAlign: "center", margin: "7px", color: "#FF7000"}}>
                 <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
               </h6>
               <Card.Title style={{fontSize: "2rem"}}>{org.name}</Card.Title>

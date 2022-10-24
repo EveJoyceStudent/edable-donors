@@ -30,7 +30,7 @@ code {
     url("./fonts/Lora/Lora-VariableFont_wght.ttf") format("truetype");
 }
 
-/* H1 */
+
 h1 {
   font-family: "Roboto";
   font-style: normal;
@@ -41,7 +41,7 @@ h1 {
   color: #000000;
 }
 
-/* H2 */
+
 h2 {
   font-family: "Lora";
   font-style: normal;
@@ -51,7 +51,7 @@ h2 {
   /* identical to box height, or 128% */
   color: #f1f1f1;
 }
-/* H3 */
+
 h3 {
   font-family: "Lora";
   font-style: normal;
@@ -60,7 +60,7 @@ h3 {
   line-height: 51px;
   color: #c4c4c4;
 }
-/* H4 */
+
 h4 {
   font-family: "Roboto";
   font-style: normal;
@@ -71,7 +71,7 @@ h4 {
   letter-spacing: 0.02em;
   color: #000000;
 }
-/* H5 */
+
 h5 {
   font-family: "Roboto";
   font-style: normal;
@@ -81,7 +81,7 @@ h5 {
   /* identical to box height, or 157% */
   color: #000000;
 }
-/* H6 */
+
 h6 {
   font-family: "Roboto";
   font-style: normal;
@@ -91,7 +91,7 @@ h6 {
   /* identical to box height */
   color: #000000;
 }
-/* body */
+
 body {
   font-family: "Roboto";
   font-style: normal;
