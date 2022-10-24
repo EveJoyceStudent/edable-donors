@@ -20,6 +20,7 @@
     "firebase": "^9.9.3",
     "flaticon": "^0.1.0",
     "font-awesome": "^4.7.0",
+    "iframe-resizer-react": "^1.1.0",
     "navbar": "^2.1.0",
     "postcss": "^8.4.18",
     "react": "^18.2.0",
