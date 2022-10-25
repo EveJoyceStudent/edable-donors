@@ -99,7 +99,7 @@ async function volunteerDonate() {
       ?getValues().volunteerOrgName:"",
       volunteerDOB: getValues().volunteerDOB,
       volunteerAmount: getValues().volunteerAmount
-      ?getValues().volunteerHowHeardOther:"",
+      ?getValues().volunteerAmount:"",
       volunteerHours: getValues().volunteerHours,
       volunteerPostcode: getValues().volunteerPostcode,
       volunteerComment: getValues().volunteerComment,
