@@ -16,18 +16,22 @@
   text-align: center;
   font-size: 80px;
   margin-right: 0px;
+  color: black;
 }
 .msgText {
   text-align: center;
   font-size: 35px;
   padding: 1vh;
   margin-right: 0px;
+  color: black;
 }
 
 .msgButton {
   text-decoration: none;
-  color: black;
-  font-size: 30px;
+  background-color: #FF7000;
+  border-color: #FF7000;
+  color: white;
+  font-size: 20px;
 }
 .msgIcon {
   width: 300px;

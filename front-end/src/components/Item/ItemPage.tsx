@@ -46,20 +46,25 @@ function ItemPage() {
           <Col className={styles.orgsContainer}>
             <Card
               className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px" }}>
+              <h6 style={{ textAlign: "left", margin: "7px", fontSize: "16px", color:"#FF7000" }}>
                 <i>YOUR PARTNERSHIP MEANS THE WORLD TO US</i>
               </h6>
-              <Card.Title>{org.name}</Card.Title>
-              <Card.Subtitle>would love your support for<br /><em>{item.name}</em></Card.Subtitle>
+              <Card.Title style={{ fontSize:"35px" }}>{org.name}</Card.Title>
+              <Card.Subtitle>would love your support for
+                <br />
+                <em style={{ fontSize:"30px" }}>{item.name}</em>
+                </Card.Subtitle>
               <Card.Img variant="top" src={item.img} alt={"Image of " + `${item.name}`} />
               <Card.Body className="pt-0 px-0">
+                <br />
                 <Card.Text className="mb-0">
                   ${item.totalDonationsValue || 0} of $
                   {item.initialPrice}
                 </Card.Text>
+                <br />
                 <ProgressBar
+                  striped
                   className="mb-3"
-                  variant="warning"
                   now={
                     item.totalDonationsValue ? (item.totalDonationsValue / item.initialPrice) * 100 : 0
                   }
