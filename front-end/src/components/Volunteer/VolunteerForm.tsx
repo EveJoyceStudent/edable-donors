@@ -13,7 +13,7 @@ import "../DonorForm/DonorForm.css";
 import { db } from "../../config/firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
 
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 type VolunteerFormType = {
@@ -41,9 +41,6 @@ type VolunteerFormType = {
 };
 
 function VolunteerForm(props: any) {
-  
-  let navigate = useNavigate();
-
   const {
     getValues,
     register,
@@ -85,13 +82,14 @@ function VolunteerForm(props: any) {
     setProceedFlag(false);
   };
 
-async function volunteerDonate() {
-
-    try{
-    // console.log(getValues().volunteerDOB)
-    const docRef = doc(collection(db, `Organisations/${props.orgId}/VolunteerDonations`));
-
-    await setDoc(docRef, ({
+  const volunteerDonate = async () => {
+    // console.log(getValues().volunteerHowHeardOther)
+    const docRef = doc(
+      collection(db, `Organisations/${props.orgId}/VolunteerDonations`)
+      
+    );
+   
+    await setDoc(docRef, {
       volunteerName: getValues().volunteerName,
       volunteerPhone: getValues().volunteerPhone,
       volunteerEmail: getValues().volunteerEmail,
@@ -114,7 +112,7 @@ async function volunteerDonate() {
       Friday: getValues().Friday,
       Saturday: getValues().Saturday,
       Sunday: getValues().Sunday,
-    }));
+    });
 
     const generalURL = `${process.env.REACT_APP_API_URL}mail/volunteer-info`;
     axios
@@ -144,17 +142,10 @@ async function volunteerDonate() {
         howHeard: getValues().volunteerHowHeard,
         howHeardOther: getValues().volunteerHowHeardOther,
       })
-      .then((response) => {
-        navigate('../../success');
-      })
+      .then((response) => {})
       .catch((error) => {
         console.log(error);
       });
-    } catch (e) {
-      console.log("error", e);
-      navigate(`../../volunteererror/${props.orgId}`);
-    }
-
   };
 
   return (
@@ -478,17 +469,18 @@ async function volunteerDonate() {
 
         {proceedFlag && (
           <>
-            <div style={{marginBottom: "10px"}}>
+            <p style={{ fontSize: "1vw" }}>
               <div>Hi {getValues().volunteerName},</div>
 
               <div>
-                {getValues().volunteerOrgName
-                  ? `Your organisation is volunteering${
+                Your{" "}
+                {getValues().isOrg
+                  ? ` organisation is volunteering${
                       getValues().volunteerAmount
                         ? " " + getValues().volunteerAmount + " people"
                         : ""
                     }`
-                  : `You are offering to volunteer`}{" "}
+                  : `request to volunteer has been sent`}{" "}
                 {}
               </div>
               {getValues().volunteerComment && (
@@ -499,7 +491,10 @@ async function volunteerDonate() {
               <div>Email: {getValues().volunteerEmail}</div>
               <div>Phone: {getValues().volunteerPhone}</div>
               <div>You would like to help by {getValues().howContribute}</div>
-            </div>
+            </p>
+            <div style={{ minHeight: "150px" }}></div>
+            
+
             <div
               style={{
                 display: "flex",
@@ -508,11 +503,13 @@ async function volunteerDonate() {
               }}
             >
               <Button variant="outline-secondary" onClick={returnToForm}>
-               Something looks wrong, edit my contribution
+               Something looks wrong, edit my donation
               </Button>
-              <Button className="proceedPayBtn" variant="warning" onClick={volunteerDonate}>
-                Looks good, send in my application!
-              </Button>
+              <Link to={'../../success'}>
+                <Button variant="outline-secondary" onClick={volunteerDonate}>
+                  Looks good, send in my application!
+                </Button>
+              </Link>
             </div>
           </>
         )}
