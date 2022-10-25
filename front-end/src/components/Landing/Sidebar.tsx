@@ -35,7 +35,7 @@ function Sidebar(props: any) {
                 fontSize: "20px",
               }}
             >
-              Social-enterprises supported by EdAble
+              Micro-businesses supported by EdAble
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
