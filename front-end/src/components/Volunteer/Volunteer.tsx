@@ -43,13 +43,6 @@ function Volunteer() {
           <Container fluid>
             <Row>
               <Col>
-                <h1>EdAble</h1>
-                <h3 style={{ color: 'white', textAlign: "left"}}>
-                  <i>
-                    increasing employment opportunities for people with Autism
-                    Spectrum Disorder and other Disabilities
-                  </i>
-                </h3>
               </Col>
               <Col xs={0} md="auto">
                 <InclusionHero className="star" />
@@ -57,7 +50,7 @@ function Volunteer() {
             </Row>
           </Container>
           <br />
-          <p style={{ color: "orange" }}>Volunteer now.</p>
+          <p style={{ color: "orange", paddingBottom:"10px" }}>Volunteer now.</p>
           </div>
           <div className="App" id="outer-container">
             {/* Carousel */}
@@ -70,9 +63,9 @@ function Volunteer() {
                           }}>
                     <Carousel
                       touch={true}
-                      interval={null}
+                      interval={3000}
                       indicators={true}
-                      variant="dark"
+                      variant="light"
                     >
                       {orgList.map((org: any) => (
                         <Carousel.Item
@@ -104,8 +97,8 @@ function Volunteer() {
                                 variant="warning"
                               >
                                 <i className="btnText">
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
-                                  MAKE A CONTRIBUTION!
+                                I want to contribute to <br></br>
+                                <b>{org.data.name}!</b>
                                 </i>
                               </Button>
                             </div>
