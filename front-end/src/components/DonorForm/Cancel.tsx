@@ -7,8 +7,6 @@ function Cancel() {
   let params = useParams();
   return (
     <div className="bg">
-      {/* <div className="banner">
-      </div> */}
       <div className="msgContainer">
         <div>
           <EdAbleStar className="EdAbleStar" />

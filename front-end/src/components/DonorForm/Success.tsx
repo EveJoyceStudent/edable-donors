@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Image, Button } from "react-bootstrap";
 import "./Message.css";
 import { useEffect, useState } from "react";
+import { ReactComponent as EdAbleStar } from "./EdAbleStar.svg";
 
 type DonationInfoType = {
   donationID: string;
@@ -23,24 +24,20 @@ function Success() {
     <div className="bg">
       <div className="msgContainer">
         <div>
-          {/* // insert organisation logo // */}
-          <Image
-            className="msgIcon"
-            src="https://c.tenor.com/04BE-ClaaBAAAAAC/cat-money.gif"
-            roundedCircle
-          ></Image>
-          {donationIdDisplay !== "" &&
+          <EdAbleStar className="EdAbleStar" />
+          {donationIdDisplay !== "" && (
             <div>
-              <h1 className="msgTitle">Thank you for donating!</h1>
-              <h2 className="msgText">
-                Donation Number: {donationIdDisplay}.
-              </h2>
-              <h2 className="msgText">
+              <p className="msgTitle" style={{ fontSize: "calc(5vw-1vw" }}>
+                Thank you for donating!
+              </p>
+              <br />
+              <p className="msgText">Donation Number: {donationIdDisplay}.</p>
+              <br />
+              <p className="msgText">
                 An email with your receipt will be sent to you.
-              </h2>
-              <h2 className="msgText">
+                <br />
                 If you cannot find the email, please check your spam box.
-              </h2>
+              </p>
               <div
                 style={{
                   display: "flex",
@@ -55,16 +52,16 @@ function Success() {
                 </Link>
               </div>
             </div>
-          }
-          {donationIdDisplay == "" &&
+          )}
+          {donationIdDisplay == "" && (
             <div>
-              <h1 className="msgTitle">Thank you for volunteering!</h1>
-              <h2 className="msgText">
+              <p className="msgTitle">Thank you for volunteering!</p>
+              <p className="msgText">
                 An email with your details will be sent to you.
-              </h2>
-              <h2 className="msgText">
+              </p>
+              <p className="msgText">
                 If you cannot find the email, please check your spam box.
-              </h2>
+              </p>
               <div
                 style={{
                   display: "flex",
@@ -79,7 +76,7 @@ function Success() {
                 </Link>
               </div>
             </div>
-          }  
+          )}
         </div>
       </div>
     </div>

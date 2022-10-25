@@ -12,6 +12,7 @@ import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { Link } from "react-router-dom";
 import styles from "./ItemsCollection.module.css";
+import "../Item/ProgressBar.css";
 
 function ItemsCollection(props: any) {
   const [itemList, setItemList] = useState<any>([]);
@@ -113,7 +114,6 @@ function ItemsCollection(props: any) {
                       <Card.Title>
                         <h1 style={{ fontSize: "20px", fontWeight:"500" }}>{item.data.name}</h1>
                         <br />
-                        {Filter(item.data.orgID)}
                       </Card.Title>
                   </div>
                   <div style={{ display: "flex" }}>
