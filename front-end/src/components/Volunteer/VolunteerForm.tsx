@@ -13,7 +13,7 @@ import "../DonorForm/DonorForm.css";
 import { db } from "../../config/firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
 
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 type VolunteerFormType = {
@@ -41,6 +41,9 @@ type VolunteerFormType = {
 };
 
 function VolunteerForm(props: any) {
+  
+  let navigate = useNavigate();
+
   const {
     getValues,
     register,
@@ -74,13 +77,16 @@ function VolunteerForm(props: any) {
     setProceedFlag(false);
   };
 
-  const volunteerDonate = async () => {
-    // console.log(getValues().volunteerHowHeardOther)
-    const docRef = doc(
-      collection(db, `Organisations/${props.orgId}/VolunteerDonations`)
-      
-    );
-    await setDoc(docRef, {
+  async function volunteerDonate() {
+
+    try{
+    // console.log(getValues().volunteerDOB)
+    const docRef = doc(collection(db, `Organisations/${props.orgId}/VolunteerDonations`));
+
+    throw new Error("test");
+
+    await setDoc(docRef, ({
+
       volunteerName: getValues().volunteerName,
       volunteerPhone: getValues().volunteerPhone,
       volunteerEmail: getValues().volunteerEmail,
@@ -103,7 +109,7 @@ function VolunteerForm(props: any) {
       Friday: getValues().Friday,
       Saturday: getValues().Saturday,
       Sunday: getValues().Sunday,
-    });
+    }));
 
     const generalURL = `${process.env.REACT_APP_API_URL}mail/volunteer-info`;
     axios
@@ -133,10 +139,17 @@ function VolunteerForm(props: any) {
         howHeard: getValues().volunteerHowHeard,
         howHeardOther: getValues().volunteerHowHeardOther,
       })
-      .then((response) => {})
+      .then((response) => {
+        navigate('../../success');
+      })
       .catch((error) => {
         console.log(error);
       });
+    } catch (e) {
+      console.log("error", e);
+      navigate(`../../volunteererror/${props.orgId}`);
+    }
+
   };
 
   return (
@@ -451,7 +464,7 @@ function VolunteerForm(props: any) {
 
         {proceedFlag && (
           <>
-            <p style={{ fontSize: "1vw" }}>
+            <div>
               <div>Hi {getValues().volunteerName},</div>
 
               <div>
@@ -477,7 +490,7 @@ function VolunteerForm(props: any) {
               <div>Email: {getValues().volunteerEmail}</div>
               <div>Phone: {getValues().volunteerPhone}</div>
               <div>You would like to help by {getValues().howContribute}</div>
-            </p>
+            </div>
             <div style={{ minHeight: "150px" }}></div>
             
 
@@ -491,11 +504,9 @@ function VolunteerForm(props: any) {
               <Button variant="outline-secondary" onClick={returnToForm}>
                Something looks wrong, edit my donation
               </Button>
-              <Link to={'../../success'}>
-                <Button variant="outline-secondary" onClick={volunteerDonate}>
-                  Looks good, send in my application!
-                </Button>
-              </Link>
+              <Button variant="outline-secondary" onClick={volunteerDonate}>
+                Looks good, send in my application!
+              </Button>
             </div>
           </>
         )}
