@@ -74,7 +74,7 @@ function Landing() {
                 <div className="carouselContainer">
                   <Carousel
                     touch={true}
-                    interval={2500}
+                    interval={3000}
                     indicators={true}
                     variant="light"
                   >

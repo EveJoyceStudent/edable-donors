@@ -156,7 +156,6 @@ async function volunteerDonate() {
       console.log("error", e);
       navigate(`../../volunteererror/${props.orgId}`);
     }
-
   };
 
   return (
