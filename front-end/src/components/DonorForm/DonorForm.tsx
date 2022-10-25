@@ -77,7 +77,7 @@ function DonorForm(props: any) {
                 <button
                   type="button"
                   onClick={() => {
-                    setValue("paidAMT", 5);
+                    setValue("paidAMT", 5, { shouldValidate: true });
                   }}
                 >
                   $5
@@ -85,7 +85,7 @@ function DonorForm(props: any) {
                 <button
                   type="button"
                   onClick={() => {
-                    setValue("paidAMT", 10);
+                    setValue("paidAMT", 10, { shouldValidate: true });
                   }}
                 >
                   $10
@@ -93,7 +93,7 @@ function DonorForm(props: any) {
                 <button
                   type="button"
                   onClick={() => {
-                    setValue("paidAMT", 20);
+                    setValue("paidAMT", 20, { shouldValidate: true });
                   }}
                 >
                   $20
@@ -104,7 +104,7 @@ function DonorForm(props: any) {
                     <button
                       type="button"
                       onClick={() => {
-                        setValue("paidAMT", props.itemAmount);
+                        setValue("paidAMT", props.itemAmount, { shouldValidate: true });
                       }}
                     >
                       Full Amount

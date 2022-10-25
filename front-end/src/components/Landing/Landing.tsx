@@ -46,6 +46,7 @@ function Landing() {
         <div className="header">
           <Container fluid>
             <Row>
+              <Col></Col>
               <Col xs={0} md="auto">
                 <InclusionHero className="star" />
               </Col>
@@ -60,7 +61,7 @@ function Landing() {
             </Row>
           </Container>
           <br />
-          <p style={{ color: "orange" }}>
+          <p style={{ color: "orange", paddingBottom:"10px" }}>
             By making a tax deductable donation to EdAble, you will contribute
             to...
           </p>
