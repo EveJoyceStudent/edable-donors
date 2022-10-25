@@ -95,7 +95,8 @@ async function volunteerDonate() {
       volunteerName: getValues().volunteerName,
       volunteerPhone: getValues().volunteerPhone,
       volunteerEmail: getValues().volunteerEmail,
-      volunteerOrgName: getValues().volunteerOrgName,
+      volunteerOrgName: getValues().volunteerOrgName
+      ?getValues().volunteerOrgName:"",
       volunteerDOB: getValues().volunteerDOB,
       volunteerAmount: getValues().volunteerAmount,
       volunteerHours: getValues().volunteerHours,
