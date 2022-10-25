@@ -100,8 +100,6 @@ function ItemsCollection(props: any) {
               >
                 <Card.Body>
                   <Card.Title>
-                    {item.data.name}
-                    <br></br>
                     {item.orgName}
                   </Card.Title>
                   <div style={{ textAlign: "center" }}>

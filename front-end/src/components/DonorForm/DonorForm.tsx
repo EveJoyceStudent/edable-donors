@@ -32,7 +32,7 @@ function DonorForm(props: any) {
     </Tooltip>
   );
   const amountTooltip = (props: any) => (
-    <Tooltip {...props}>All donations made are in AUD</Tooltip>
+    <Tooltip {...props}>All donations made are in AUD and must be a whole number amount</Tooltip>
   );
 
   const {
@@ -134,8 +134,9 @@ function DonorForm(props: any) {
                     type="number"
                     placeholder="Enter an amount"
                     {...register("paidAMT", {
+                      min: 1,
                       required: true,
-                      pattern: /[1-9]/,
+                      pattern:/^[-\d]\d*$/
                     })}
                   />
                 </div>
@@ -294,7 +295,7 @@ function DonorForm(props: any) {
 
         {proceedFlag && (
           <>
-            <p style={{ fontSize: "1vw" }}>
+            <div>
               <div>Hi {formDataSave.name},</div>
               <div>
                 You're{" "}
@@ -312,7 +313,7 @@ function DonorForm(props: any) {
               )}
               <div>Email: {formDataSave.email}</div>
               <div>Phone: {formDataSave.phone}</div>
-            </p>
+            </div>
             <div style={{ minHeight: "150px" }}>
               <Paypal
                 formData={formDataSave}
