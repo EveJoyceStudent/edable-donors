@@ -6,7 +6,6 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Base from "./components/Base";
 import Landing from "./components/Landing/Landing";
 import Volunteer from "./components/Volunteer/Volunteer";
-import VolunteerError from "./components/Volunteer/VolunteerError";
 import Default from "./components/Default";
 import Organisation from "./components/Organisation/Organisation";
 import ItemPage from "./components/Item/ItemPage";
@@ -33,7 +32,6 @@ function App() {
             <Route path="success" element={<Success />} />
             <Route path="organisation/:orgId" element={<Organisation />} />
             <Route path="cancel/:orgId" element={<Cancel />} />
-            <Route path="volunteererror/:orgId" element={<VolunteerError />} />
             <Route path="organisation/:orgId" element={<PastDonations />} />
             <Route path="item/:orgID/:itemID" element={<ItemPage />} />
             <Route path="item/:orgID/:itemID" element={<PastItemDonations />} />
