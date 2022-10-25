@@ -464,26 +464,21 @@ function VolunteerForm(props: any) {
 
         {proceedFlag && (
           <>
-            <div>
+            <div style={{marginBottom: "10px"}}>
               <div>Hi {getValues().volunteerName},</div>
 
               <div>
-                Your{" "}
                 {getValues().volunteerOrgName
-                  ? ` organisation is volunteering${
+                  ? `Your organisation is volunteering${
                       getValues().volunteerAmount
                         ? " " + getValues().volunteerAmount + " people"
                         : ""
                     }`
-                  : `request to volunteer has been sent`}{" "}
+                  : `You are offering to volunteer`}{" "}
                 {}
               </div>
               {getValues().volunteerComment && (
                 <div>{`With comment "${getValues().volunteerComment}"`}</div>
-              )}
-
-            {getValues().Monday && (
-                <div>{`Days can work: ${getValues().Monday}`}</div>
               )}
 
               <div>Hours: {getValues().volunteerHours}</div>
@@ -491,9 +486,6 @@ function VolunteerForm(props: any) {
               <div>Phone: {getValues().volunteerPhone}</div>
               <div>You would like to help by {getValues().howContribute}</div>
             </div>
-            <div style={{ minHeight: "150px" }}></div>
-            
-
             <div
               style={{
                 display: "flex",
@@ -502,9 +494,9 @@ function VolunteerForm(props: any) {
               }}
             >
               <Button variant="outline-secondary" onClick={returnToForm}>
-               Something looks wrong, edit my donation
+               Something looks wrong, edit my contribution
               </Button>
-              <Button variant="outline-secondary" onClick={volunteerDonate}>
+              <Button className="proceedPayBtn" variant="warning" onClick={volunteerDonate}>
                 Looks good, send in my application!
               </Button>
             </div>
