@@ -80,6 +80,7 @@ function VolunteerForm(props: any) {
       collection(db, `Organisations/${props.orgId}/VolunteerDonations`)
       
     );
+   
     await setDoc(docRef, {
       volunteerName: getValues().volunteerName,
       volunteerPhone: getValues().volunteerPhone,
@@ -173,7 +174,8 @@ function VolunteerForm(props: any) {
               />
               <div className="volunteerOrgInfo">
                 <div>
-                  <label>Name of Organisation</label>
+                  <label>Name of Organisation
+                  </label>
                   {/* <span style={{ margin: "20px", fontSize: "x-small" }}>
                 Name cannot be blank
               </span> */}
@@ -465,7 +467,7 @@ function VolunteerForm(props: any) {
 
               <div>
                 Your{" "}
-                {getValues().volunteerOrgName
+                {getValues().isOrg
                   ? ` organisation is volunteering${
                       getValues().volunteerAmount
                         ? " " + getValues().volunteerAmount + " people"
@@ -476,10 +478,6 @@ function VolunteerForm(props: any) {
               </div>
               {getValues().volunteerComment && (
                 <div>{`With comment "${getValues().volunteerComment}"`}</div>
-              )}
-
-            {getValues().Monday && (
-                <div>{`Days can work: ${getValues().Monday}`}</div>
               )}
 
               <div>Hours: {getValues().volunteerHours}</div>
