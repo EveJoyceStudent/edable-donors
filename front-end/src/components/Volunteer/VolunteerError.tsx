@@ -23,9 +23,9 @@ function VolunteerError() {
               </Button>
             </Link>
             &nbsp;&nbsp;or&nbsp;&nbsp;
-            <Link to="/">
+            <Link to="/volunteer">
               <Button className="msgButton" variant="warning">
-                <i>Return to Donation page</i>
+                <i>Return to Volunteer page</i>
               </Button>
             </Link>
           </h1>
