@@ -83,8 +83,6 @@ function VolunteerForm(props: any) {
     // console.log(getValues().volunteerDOB)
     const docRef = doc(collection(db, `Organisations/${props.orgId}/VolunteerDonations`));
 
-    throw new Error("test");
-
     await setDoc(docRef, ({
 
       volunteerName: getValues().volunteerName,
