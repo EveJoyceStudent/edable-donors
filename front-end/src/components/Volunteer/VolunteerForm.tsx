@@ -47,11 +47,14 @@ function VolunteerForm(props: any) {
   const {
     getValues,
     register,
+    watch,
 
     formState: { errors, isValid },
   } = useForm<VolunteerFormType>({
     mode: "onChange",
   });
+
+  const isOrgChecked=watch("isOrg");
 
   const [showOption, setShowOption] = useState(false);
 
@@ -64,6 +67,11 @@ function VolunteerForm(props: any) {
       this blank
     </Tooltip>
   );
+    const volunteerAmountTooltip = (props:any) => (
+    <Tooltip {...props}>
+      Enter the amount of volunteers in your organisation! but if you can't decide now then you can leave this blank
+    </Tooltip>
+    );
 
   const proceed = () => {
     if (!isValid) {
@@ -77,14 +85,13 @@ function VolunteerForm(props: any) {
     setProceedFlag(false);
   };
 
-  async function volunteerDonate() {
+async function volunteerDonate() {
 
     try{
     // console.log(getValues().volunteerDOB)
     const docRef = doc(collection(db, `Organisations/${props.orgId}/VolunteerDonations`));
 
     await setDoc(docRef, ({
-
       volunteerName: getValues().volunteerName,
       volunteerPhone: getValues().volunteerPhone,
       volunteerEmail: getValues().volunteerEmail,
@@ -182,43 +189,52 @@ function VolunteerForm(props: any) {
                 value="yes"
                 {...register("isOrg")}
               />
+                  {isOrgChecked && 
               <div className="volunteerOrgInfo">
                 <div>
+                  {errors.volunteerOrgName && <span>*</span>}
                   <label>Name of Organisation</label>
-                  {/* <span style={{ margin: "20px", fontSize: "x-small" }}>
-                Name cannot be blank
-              </span> */}
-                  {/* )} */}
+                  {errors.volunteerOrgName && (
+                    <span style={{ margin: "20px", fontSize: "x-small" }}>
+                Organisation name cannot be blank
+              </span> 
+                  )}
                   <input
                     type="text"
                     placeholder="Name of Organisation"
                     {...register("volunteerOrgName", {
                       pattern: /^[a-zA-Z0-9]/,
+                      required:true,
                     })}
                   />
                 </div>
 
                 <div>
-                  {/* {errors.volunteerVolunteerAmount && <span>*</span>} */}
-                  <label>Number of Volunteers</label>
-                  {/* {errors.volunteerVolunteerAmount && ( */}
-                  {/* <span style={{ margin: "20px", fontSize: "x-small" }}>
-                Number of volunteers cannot be blank
-              </span> */}
-                  {/* )} */}
+                <OverlayTrigger placement="top" overlay={volunteerAmountTooltip}>
+                  <label>Number of Volunteers (optional)<sup>(ℹ️)</sup></label>  
+                  </OverlayTrigger>
                   <input
                     type="number"
                     placeholder="Enter an amount"
                     {...register("volunteerAmount", {
                       pattern: /[1-9]/,
                     })}
-                  />
+                    />
                 </div>
               </div>
-
-              <div className="DOB">
+              }
+              <div>
+              {errors.volunteerDOB && <span>*</span>}
                 <label>Date of Birth</label>
-                <input type="date" {...register("volunteerDOB")} />
+                {errors.volunteerDOB && (
+                <span style={{ margin: "20px", fontSize: "x-small" }}>
+                  Date of Birth cannot be blank
+                </span>
+              )}
+                <input type="date" 
+                {...register("volunteerDOB", {
+                  required: true,
+                })} />
               </div>
             </div>
 
