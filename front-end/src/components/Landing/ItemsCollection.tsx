@@ -98,8 +98,6 @@ function ItemsCollection(props: any) {
               >
                 <Card.Body>
                   <Card.Title>
-                    {item.data.name}
-                    <br></br>
                     {item.orgName}
                   </Card.Title>
                   <div style={{ textAlign: "center" }}>
@@ -108,7 +106,10 @@ function ItemsCollection(props: any) {
                       variant="top"
                       src={item.data.img}
                       alt={"Image of " + `${item.data.name}`}
-                    />
+                      />
+                      <Card.Title>
+                        <h1 style={{ fontSize: "20px" }}>{item.data.name}</h1>
+                      </Card.Title>
                   </div>
                   <div style={{ display: "flex" }}>
                     <label style={{ fontSize: "12px" }}>
