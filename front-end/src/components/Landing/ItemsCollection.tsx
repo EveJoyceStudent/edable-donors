@@ -14,23 +14,6 @@ import { Link } from "react-router-dom";
 import styles from "./ItemsCollection.module.css";
 
 function ItemsCollection(props: any) {
-  function GetOrgs() {
-    const [initialOrgList, setOrgList] = useState<any>([]);
-    useEffect(() => {
-      setOrgList(props.orgList);
-    }, []);
-    return [initialOrgList];
-  }
-  ///Searches for the organanisation's name through item's orgID
-  const [initialOrgList] = GetOrgs();
-  function Filter(value: string) {
-    for (let i = 0; i < initialOrgList.length; i++) {
-      if (initialOrgList[i].id == value) {
-        return initialOrgList[i].data.name;
-      }
-    }
-  }
-
   const [itemList, setItemList] = useState<any>([]);
   const [search, setSearch] = useState<string>("");
 
@@ -50,13 +33,33 @@ function ItemsCollection(props: any) {
       );
     });
   }, []);
+
+  function mergeLists() {
+    const mergeList: any = [];
+    itemList.map((item: any) => {
+      props.orgList.map((org: any) => {
+        if (item.parentDoc === org.id) {
+          if (item.data.activeStatus === true) {
+            mergeList.push({
+              ...item,
+              orgName: org.data.name,
+              orgActiveStatus: org.data.activeStatus,
+            });
+          }
+        }
+      });
+    });
+    return mergeList;
+  }
+
+  const mergeList = mergeLists();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-  const filteredItems = itemList.filter((item: any) =>
+  const filteredItems = mergeList.filter((item: any) =>
     item.data.name.toLowerCase().includes(search.toLowerCase())
   );
-
   return (
     <>
       <div className={styles.containerDiv}>
@@ -94,6 +97,11 @@ function ItemsCollection(props: any) {
                 to={`item/${item.parentDoc}/${item.id}`}
               >
                 <Card.Body>
+                  <Card.Title>
+                    {item.data.name}
+                    <br></br>
+                    {item.orgName}
+                  </Card.Title>
                   <div style={{ textAlign: "center" }}>
                     <Card.Img
                       className={styles.itemImg}

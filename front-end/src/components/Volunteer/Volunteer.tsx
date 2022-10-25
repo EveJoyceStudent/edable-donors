@@ -5,6 +5,7 @@ import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
 import { ReactComponent as LandingPageStar } from "../Landing/star.svg";
+// import Sidebar from "../Landing/Sidebar";
 
 function Volunteer() {
   const [orgList, setOrgList] = useState<any>([]);
