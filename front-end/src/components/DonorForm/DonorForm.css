@@ -85,15 +85,15 @@ input[type='submit']:hover {
     padding-top: 30px;
   }
 }
-.volunteerOrgInfo{
+/* .volunteerOrgInfo{
   display: none;
-}
+} */
 .DOB{
   display: block;
 }
-#isOrg:checked + .volunteerOrgInfo {
+/* #isOrg:checked + .volunteerOrgInfo {
   display: block;
-}
+} */
 #isOrg:checked ~ .DOB {
   display: none;
 }
