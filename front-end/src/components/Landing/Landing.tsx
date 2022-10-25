@@ -46,83 +46,80 @@ function Landing() {
         <div className="header">
           <Container fluid>
             <Row>
-              <Col>
-                {/* <h1 style={{ color:'white'}}>EdAble</h1> */}
-                <h3 style={{ color: 'white', textAlign: "left"}}>
-                  <i>
-                    increasing employment opportunities for people with Autism
-                    Spectrum Disorder and other Disabilities
-                  </i>
-                </h3>
-              </Col>
               <Col xs={0} md="auto">
                 <InclusionHero className="star" />
               </Col>
+              {/* <Col>
+                <h3 style={{ color: "white", textAlign: "right"}}>
+                  <i>
+                    Increasing employment opportunities for people with Autism
+                    Spectrum Disorder and other disabilities
+                  </i>
+                </h3>
+              </Col> */}
             </Row>
           </Container>
           <br />
-          <p style={{ color: 'orange'}}>
+          <p style={{ color: "orange" }}>
             By making a tax deductable donation to EdAble, you will contribute
             to...
           </p>
-          </div>
-          <div className="App" id="outer-container">
-            {/* Carousel */}
-            <Container>
-              <Row>
-                <Col>
-                  <div className="carouselContainer">
-                    <Carousel
-                      touch={true}
-                      interval={2500}
-                      indicators={true}
-                      variant="light"
-                    >
-                      {orgList.map((org: any) => (
-                        <Carousel.Item
-                          key={org.id.toString()}
+        </div>
+        <div className="App" id="outer-container">
+          {/* Carousel */}
+          <Container>
+            <Row>
+              <Col>
+                <div className="carouselContainer">
+                  <Carousel
+                    touch={true}
+                    interval={2500}
+                    indicators={true}
+                    variant="light"
+                  >
+                    {orgList.map((org: any) => (
+                      <Carousel.Item
+                        key={org.id.toString()}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      >
+                        <Link
+                          to={`organisation/${org.id}`}
                           style={{
-                            textAlign: "center",
+                            textDecoration: "none",
+                            color: "black",
                           }}
                         >
-                          <Link
-                            to={`organisation/${org.id}`}
-                            style={{
-                              textDecoration: "none",
-                              color: "black",
-                            }}
-                          >
-                            {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
-                            <div className="carousel-contents">
-                              <h2 style={{ textAlign: "center" }}>
-                                {org.data.name}
-                              </h2>
-                              <img
-                                className="imgCarousel"
-                                src={org.data.img}
-                                alt={`${org.data.name}` + "'s logo"}
-                              />
-                              <p className="orgSummary">{org.data.summary}</p>
-                              <Button
-                                className="btnContribute"
-                                variant="warning"
-                              >
-                                <i className="btnText">
-                                  I want to contribute to <br></br>
-                                  <b>{org.data.name}!</b>
-                                </i>
-                              </Button>
-                            </div>
-                          </Link>
-                        </Carousel.Item>
-                      ))}
-                    </Carousel>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </div>
-        
+                          {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
+                          <div className="carousel-contents">
+                            <h2 style={{ textAlign: "center" }}>
+                              {org.data.name}
+                            </h2>
+                            <img
+                              className="imgCarousel"
+                              src={org.data.img}
+                              alt={`${org.data.name}` + "'s logo"}
+                            />
+                            <p className="orgSummary">{org.data.summary}</p>
+
+                            <Button className="btnContribute" variant="warning">
+                              <i className="btnText">
+                                I want to contribute to <br></br>
+                                <b>{org.data.name}!</b>
+                              </i>
+                            </Button>
+                          </div>
+                        </Link>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+
         <ItemsCollection orgList={orgList} />
       </div>
     </>

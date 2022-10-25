@@ -108,7 +108,12 @@ function ItemsCollection(props: any) {
                       variant="top"
                       src={item.data.img}
                       alt={"Image of " + `${item.data.name}`}
-                    />
+                      />
+                      <Card.Title>
+                        <h1 style={{ fontSize: "20px" }}>{item.data.name}</h1>
+                        <br></br>
+                        {Filter(item.data.orgID)}
+                      </Card.Title>
                   </div>
                   <div style={{ display: "flex" }}>
                     <label style={{ fontSize: "12px" }}>
