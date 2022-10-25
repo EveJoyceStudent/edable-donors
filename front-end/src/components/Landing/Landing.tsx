@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
-import { ReactComponent as LandingPageStar } from "./star.svg";
+import { ReactComponent as InclusionHero } from "./InclusionHero.svg";
 
 import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
@@ -46,82 +46,81 @@ function Landing() {
         <div className="header">
           <Container fluid>
             <Row>
+              <Col></Col>
               <Col xs={0} md="auto">
-                <LandingPageStar className="star" />
+                <InclusionHero className="star" />
               </Col>
-              <Col>
-                <h1>EdAble</h1>
-                <h3>
+              {/* <Col>
+                <h3 style={{ color: "white", textAlign: "right"}}>
                   <i>
-                    increasing employment opportunities for people with Autism
-                    Spectrum Disorder and other Disabilities
+                    Increasing employment opportunities for people with Autism
+                    Spectrum Disorder and other disabilities
                   </i>
                 </h3>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
           <br />
-          <p>
+          <p style={{ color: "orange", paddingBottom:"10px" }}>
             By making a tax deductable donation to EdAble, you will contribute
             to...
           </p>
-          <div className="App" id="outer-container">
-            {/* Carousel */}
-            <Container>
-              <Row>
-                <Col>
-                  <div className="carouselContainer">
-                    <Carousel
-                      touch={true}
-                      interval={null}
-                      indicators={true}
-                      variant="dark"
-                    >
-                      {orgList.map((org: any) => (
-                        <Carousel.Item
-                          key={org.id.toString()}
+        </div>
+        <div className="App" id="outer-container">
+          {/* Carousel */}
+          <Container>
+            <Row>
+              <Col>
+                <div className="carouselContainer">
+                  <Carousel
+                    touch={true}
+                    interval={3000}
+                    indicators={true}
+                    variant="light"
+                  >
+                    {orgList.map((org: any) => (
+                      <Carousel.Item
+                        key={org.id.toString()}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      >
+                        <Link
+                          to={`organisation/${org.id}`}
                           style={{
-                            textAlign: "center",
+                            textDecoration: "none",
+                            color: "black",
                           }}
                         >
-                          <Link
-                            to={`organisation/${org.id}`}
-                            style={{
-                              textDecoration: "none",
-                              color: "black",
-                            }}
-                          >
-                            {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
-                            <div className="carousel-contents">
-                              <h2 style={{ textAlign: "center" }}>
-                                {org.data.name}
-                              </h2>
-                              <img
-                                className="imgCarousel"
-                                src={org.data.img}
-                                alt={`${org.data.name}` + "'s logo"}
-                              />
-                              <p className="orgSummary">{org.data.summary}</p>
-                              <Button
-                                className="btnContribute"
-                                variant="warning"
-                              >
-                                <i className="btnText">
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO
-                                  MAKE A CONTRIBUTION!
-                                </i>
-                              </Button>
-                            </div>
-                          </Link>
-                        </Carousel.Item>
-                      ))}
-                    </Carousel>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+                          {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
+                          <div className="carousel-contents">
+                            <h2 style={{ textAlign: "center" }}>
+                              {org.data.name}
+                            </h2>
+                            <img
+                              className="imgCarousel"
+                              src={org.data.img}
+                              alt={`${org.data.name}` + "'s logo"}
+                            />
+                            <p className="orgSummary">{org.data.summary}</p>
+
+                            <Button className="btnContribute" variant="warning">
+                              <i className="btnText">
+                                I want to contribute to <br></br>
+                                <b>{org.data.name}!</b>
+                              </i>
+                            </Button>
+                          </div>
+                        </Link>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                </div>
+              </Col>
+            </Row>
+          </Container>
         </div>
+
         <ItemsCollection orgList={orgList} />
       </div>
     </>

@@ -11,6 +11,7 @@
 }
 
 .orgInfo {
+  color: white;
   width: 18rem;
   text-align: center;
   min-width: 500px;
@@ -41,6 +42,14 @@
   align-items: center;
   justify-content: center;
 }
+
+.goBackBtn {
+  color:white;
+  background-color: #FF7000;
+  border-color: #FF7000;
+}
+
+
 
 @media screen and (max-width: 1100px) {
     .orgsContainer{

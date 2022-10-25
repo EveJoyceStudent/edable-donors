@@ -6,6 +6,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Base from "./components/Base";
 import Landing from "./components/Landing/Landing";
 import Volunteer from "./components/Volunteer/Volunteer";
+import VolunteerError from "./components/Volunteer/VolunteerError";
 import Default from "./components/Default";
 import Organisation from "./components/Organisation/Organisation";
 import ItemPage from "./components/Item/ItemPage";
@@ -14,14 +15,13 @@ import Cancel from "./components/DonorForm/Cancel";
 import PastDonations from "./components/DonorForm/PastDonations";
 import PastItemDonations from "./components/DonorForm/PastItemDonations";
 import DonateTime from "./components/Volunteer/DonateTime";
-import TaskPage from "./components/Volunteer/TaskPage";
 
 function App() {
   return (
     <PayPalScriptProvider
       options={{
         "client-id":
-          "ATT3Tn46NrmHggGqVC4mzWOZWlnbp2ID9DA0yQnhsgqPFIVPPlLhfSI_-atbZc3aN7n_k7wUVTyQJMnI",
+        process.env.REACT_APP_PAYPAL_CLIENT_ID||"ATT3Tn46NrmHggGqVC4mzWOZWlnbp2ID9DA0yQnhsgqPFIVPPlLhfSI_-atbZc3aN7n_k7wUVTyQJMnI",
         currency: "AUD",
       }}
     >
@@ -33,11 +33,12 @@ function App() {
             <Route path="success" element={<Success />} />
             <Route path="organisation/:orgId" element={<Organisation />} />
             <Route path="cancel/:orgId" element={<Cancel />} />
+            <Route path="volunteererror/:orgId" element={<VolunteerError />} />
             <Route path="organisation/:orgId" element={<PastDonations />} />
             <Route path="item/:orgID/:itemID" element={<ItemPage />} />
             <Route path="item/:orgID/:itemID" element={<PastItemDonations />} />
             <Route path="volunteer/organisation/:orgId" element={<DonateTime />} />
-            <Route path="volunteer/task-page" element={<TaskPage />} />
+            <Route path="volunteer/success" element={<Success />} />
 
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit

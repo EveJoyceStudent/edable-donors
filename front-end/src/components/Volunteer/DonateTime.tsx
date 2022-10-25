@@ -4,12 +4,12 @@ import { db } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import VolunteerForm from "./VolunteerForm";
 import styles from "../Organisation/Organisation.module.css";
-import { Button, Card, Container, Row, Col, ProgressBar } from "react-bootstrap";
-import TasksCollection from "./TasksCollection";
+import { Button, Card, Container, Row, Col } from "react-bootstrap";
 
 function DonateTime() {
   let params = useParams();
   const [org, setOrg] = useState<any>([]);
+  const orgID = params.orgId;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,12 +27,12 @@ function DonateTime() {
 
   return (
     //   these lines set up the format of the page
-    <div style={{backgroundColor: "#ECFED6", border: "15px solid white", borderRadius: "45px"}}>
+    <div style={{backgroundColor: "black", paddingTop: 30}}>
       <Container fluid>
         <Row style={{marginTop: "15px"}}>
           <Col className={styles.orgsContainer}>
             <Card className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px"}}>
+              <h6 style={{ textAlign: "left", margin: "7px", color: "#FF7000"}}>
                 <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
               </h6>
               <Card.Title style={{fontSize: "2rem"}}>{org.name}</Card.Title>
@@ -52,12 +52,11 @@ function DonateTime() {
           </Col>
 
           <Col className={styles.formContainer}>
-            <VolunteerForm/>
+            <VolunteerForm orgId={orgID} orgName={org.name} />
           </Col>
         </Row>
         <Row>
           <Col>
-          <TasksCollection/>
           </Col>
         </Row>
       </Container>

@@ -12,25 +12,9 @@ import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { Link } from "react-router-dom";
 import styles from "./ItemsCollection.module.css";
+import "../Item/ProgressBar.css";
 
 function ItemsCollection(props: any) {
-  function GetOrgs() {
-    const [initialOrgList, setOrgList] = useState<any>([]);
-    useEffect(() => {
-      setOrgList(props.orgList);
-    }, []);
-    return [initialOrgList];
-  }
-  ///Searches for the organanisation's name through item's orgID
-  const [initialOrgList] = GetOrgs();
-  function Filter(value: string) {
-    for (let i = 0; i < initialOrgList.length; i++) {
-      if (initialOrgList[i].id == value) {
-        return initialOrgList[i].data.name;
-      }
-    }
-  }
-
   const [itemList, setItemList] = useState<any>([]);
   const [search, setSearch] = useState<string>("");
 
@@ -50,13 +34,33 @@ function ItemsCollection(props: any) {
       );
     });
   }, []);
+
+  function mergeLists() {
+    const mergeList: any = [];
+    itemList.map((item: any) => {
+      props.orgList.map((org: any) => {
+        if (item.parentDoc === org.id) {
+          if (item.data.activeStatus === true) {
+            mergeList.push({
+              ...item,
+              orgName: org.data.name,
+              orgActiveStatus: org.data.activeStatus,
+            });
+          }
+        }
+      });
+    });
+    return mergeList;
+  }
+
+  const mergeList = mergeLists();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-  const filteredItems = itemList.filter((item: any) =>
+  const filteredItems = mergeList.filter((item: any) =>
     item.data.name.toLowerCase().includes(search.toLowerCase())
   );
-
   return (
     <>
       <div className={styles.containerDiv}>
@@ -72,6 +76,7 @@ function ItemsCollection(props: any) {
           }}
         >
           <input
+           style={{ fontSize: "18px" }}
             className={styles.input}
             type="text"
             onChange={handleChange}
@@ -95,9 +100,7 @@ function ItemsCollection(props: any) {
               >
                 <Card.Body>
                   <Card.Title>
-                    {item.data.name}
-                    <br></br>
-                    {Filter(item.data.orgID)}
+                    {item.orgName}
                   </Card.Title>
                   <div style={{ textAlign: "center" }}>
                     <Card.Img
@@ -105,16 +108,20 @@ function ItemsCollection(props: any) {
                       variant="top"
                       src={item.data.img}
                       alt={"Image of " + `${item.data.name}`}
-                    />
+                      />
+                      <Card.Title>
+                        <h1 style={{ fontSize: "20px", fontWeight:"500" }}>{item.data.name}</h1>
+                        <br />
+                      </Card.Title>
                   </div>
                   <div style={{ display: "flex" }}>
-                    <label style={{ fontSize: "12px" }}>
+                    <label className="dollarAmt" style={{ fontSize: "20px", width:"100%", textAlign:"center" }}>
                       ${item.data.totalDonationsValue || 0} of $
                       {item.data.initialPrice}
                     </label>
                   </div>
                   <ProgressBar
-                    variant="warning"
+                    striped
                     now={
                       item.data.totalDonationsValue
                         ? (item.data.totalDonationsValue /
@@ -127,7 +134,7 @@ function ItemsCollection(props: any) {
                         100
                     )}%`}
                   />
-                  <Card.Text>{item.data.summary}</Card.Text>
+                  <Card.Text style={{ fontSize:"17px"}}>{item.data.summary}</Card.Text>
                 </Card.Body>
               </Link>
             </Card>

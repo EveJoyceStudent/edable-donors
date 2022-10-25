@@ -40,27 +40,31 @@ function ItemPage() {
   }, [])
 
   return (
-    <div style={{ backgroundColor: "#ECFED6", border: "15px solid white", borderRadius: "45px" }}>
+    <div style={{ backgroundColor: "black", paddingTop: 10 }}>
       <Container fluid>
         <Row style={{ marginTop: "15px" }}>
           <Col className={styles.orgsContainer}>
             <Card
               className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px" }}>
+              <h6 style={{ textAlign: "left", margin: "7px", fontSize: "16px", color:"#FF7000" }}>
                 <i>YOUR PARTNERSHIP MEANS THE WORLD TO US</i>
               </h6>
-              <Card.Title>{org.name}</Card.Title>
-              <Card.Subtitle>would love your support for<br /><em>{item.name}</em></Card.Subtitle>
+              <Card.Title style={{ fontSize:"35px" }}>{org.name}</Card.Title>
+              <Card.Subtitle>would love your support for
+                <br />
+                <em style={{ fontSize:"30px" }}>{item.name}</em>
+                </Card.Subtitle>
               <Card.Img variant="top" src={item.img} alt={"Image of " + `${item.name}`} />
               <Card.Body className="pt-0 px-0">
+                <br />
                 <Card.Text className="mb-0">
                   ${item.totalDonationsValue || 0} of $
                   {item.initialPrice}
                 </Card.Text>
+                <br />
                 <ProgressBar
-                  className="mb-3"
                   striped
-                  variant="danger"
+                  className="mb-3"
                   now={
                     item.totalDonationsValue ? (item.totalDonationsValue / item.initialPrice) * 100 : 0
                   }
@@ -72,7 +76,7 @@ function ItemPage() {
                 {org.website && <Card.Text> Check out the <a href={org.website}>{`${org.name}`} website</a></Card.Text>}
               </Card.Body>
               <Link to="/">
-                <Button variant="warning">Go back</Button>
+                <Button className="goBackBtn" variant="warning">Go back</Button>
               </Link>
             </Card>
           </Col>

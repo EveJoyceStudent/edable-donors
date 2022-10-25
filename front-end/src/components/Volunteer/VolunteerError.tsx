@@ -1,9 +1,9 @@
 import { Button, Image } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import "./Message.css";
-import { ReactComponent as EdAbleStar } from "./EdAbleStar.svg";
+import "../DonorForm/Message.css";
+import { ReactComponent as EdAbleStar } from "../DonorForm/EdAbleStar.svg";
 
-function Cancel() {
+function VolunteerError() {
   let params = useParams();
   return (
     <div className="bg">
@@ -16,15 +16,15 @@ function Cancel() {
             Would you like to...
           </p>
           <br />
-          <Link to={`../../organisation/${params.orgId}`}>
+          <Link to={`../../volunteer/organisation/${params.orgId}`}>
             <Button className="msgButton" variant="warning">
               <i>Try Again</i>
             </Button>
           </Link>
           &nbsp;&nbsp;or&nbsp;&nbsp;
-          <Link to="/">
+          <Link to="/volunteer">
             <Button className="msgButton" variant="warning">
-              <i>Return to Donation page</i>
+              <i>Return to Volunteer page</i>
             </Button>
           </Link>
         </div>
@@ -33,4 +33,4 @@ function Cancel() {
   );
 }
 
-export default Cancel;
+export default VolunteerError;

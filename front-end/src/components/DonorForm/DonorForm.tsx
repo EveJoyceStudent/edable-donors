@@ -32,7 +32,7 @@ function DonorForm(props: any) {
     </Tooltip>
   );
   const amountTooltip = (props: any) => (
-    <Tooltip {...props}>All donations made are in AUD</Tooltip>
+    <Tooltip {...props}>All donations made are in AUD and must be a whole number amount</Tooltip>
   );
 
   const {
@@ -63,7 +63,7 @@ function DonorForm(props: any) {
   return (
     <div className="donorInfoContainer">
       <div>
-        <p>Your tax deductible contribution:</p>
+        <p style= {{ color: "#5E17A9" }}>Your tax deductible contribution</p>
         {!proceedFlag && (
           <>
             <div className="presetButtons">
@@ -77,7 +77,7 @@ function DonorForm(props: any) {
                 <button
                   type="button"
                   onClick={() => {
-                    setValue("paidAMT", 5);
+                    setValue("paidAMT", 5, { shouldValidate: true });
                   }}
                 >
                   $5
@@ -85,7 +85,7 @@ function DonorForm(props: any) {
                 <button
                   type="button"
                   onClick={() => {
-                    setValue("paidAMT", 10);
+                    setValue("paidAMT", 10, { shouldValidate: true });
                   }}
                 >
                   $10
@@ -93,7 +93,7 @@ function DonorForm(props: any) {
                 <button
                   type="button"
                   onClick={() => {
-                    setValue("paidAMT", 20);
+                    setValue("paidAMT", 20, { shouldValidate: true });
                   }}
                 >
                   $20
@@ -104,7 +104,7 @@ function DonorForm(props: any) {
                     <button
                       type="button"
                       onClick={() => {
-                        setValue("paidAMT", props.itemAmount);
+                        setValue("paidAMT", props.itemAmount, { shouldValidate: true });
                       }}
                     >
                       Full Amount
@@ -134,8 +134,9 @@ function DonorForm(props: any) {
                     type="number"
                     placeholder="Enter an amount"
                     {...register("paidAMT", {
+                      min: 1,
                       required: true,
-                      pattern: /[1-9]/,
+                      pattern:/^[-\d]\d*$/
                     })}
                   />
                 </div>
@@ -283,7 +284,7 @@ function DonorForm(props: any) {
                   {!isValid && formAttemptedIncomplete && (
                     <div>Please complete the form.</div>
                   )}
-                  <Button variant="warning" onClick={proceed}>
+                  <Button className="proceedPayBtn" variant="warning" onClick={proceed}>
                     Proceed to Payment
                   </Button>
                 </div>
@@ -294,7 +295,7 @@ function DonorForm(props: any) {
 
         {proceedFlag && (
           <>
-            <p style={{ fontSize: "1vw" }}>
+            <div>
               <div>Hi {formDataSave.name},</div>
               <div>
                 You're{" "}
@@ -312,7 +313,7 @@ function DonorForm(props: any) {
               )}
               <div>Email: {formDataSave.email}</div>
               <div>Phone: {formDataSave.phone}</div>
-            </p>
+            </div>
             <div style={{ minHeight: "150px" }}>
               <Paypal
                 formData={formDataSave}

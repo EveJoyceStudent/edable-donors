@@ -4,12 +4,7 @@ import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
-import { ReactComponent as LandingPageStar } from "../Landing/star.svg";
-
-import Sidebar from "../Landing/Sidebar";
-import ItemsCollection from "../Landing/ItemsCollection";
-import Organisation from "../Organisation/Organisation";
-import TasksCollection from "./TasksCollection";
+import { ReactComponent as InclusionHero } from "../Landing/InclusionHero.svg";
 
 function Volunteer() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -40,42 +35,37 @@ function Volunteer() {
     <>
       <div className="landing">
         {/* Burger menu */}
-        <div className="navBarContainer">
+        {/* <div className="navBarContainer">
           <Sidebar />
-        </div>
+        </div> */}
 
         <div className="header">
           <Container fluid>
             <Row>
-              <Col xs={0} md="auto">
-                <LandingPageStar className="star" />
-              </Col>
               <Col>
-                <h1>EdAble</h1>
-                <h3>
-                  <i>
-                    increasing employment opportunities for people with Autism
-                    Spectrum Disorder and other Disabilities
-                  </i>
-                </h3>
+              </Col>
+              <Col xs={0} md="auto">
+                <InclusionHero className="star" />
               </Col>
             </Row>
           </Container>
           <br />
-          <p>
-            Volunteer now.
-          </p>
+          <p style={{ color: "orange", paddingBottom:"10px" }}>Volunteer now.</p>
+          </div>
           <div className="App" id="outer-container">
             {/* Carousel */}
             <Container>
               <Row>
                 <Col>
-                  <div className="carouselContainer">
+                  <div className="carouselContainer"
+                          style={{
+                            paddingBottom: "20px",
+                          }}>
                     <Carousel
                       touch={true}
-                      interval={null}
+                      interval={3000}
                       indicators={true}
-                      variant="dark"
+                      variant="light"
                     >
                       {orgList.map((org: any) => (
                         <Carousel.Item
@@ -84,7 +74,8 @@ function Volunteer() {
                             textAlign: "center",
                           }}
                         >
-                          <Link to={`/volunteer/organisation/${org.id}`}
+                          <Link
+                            to={`/volunteer/organisation/${org.id}`}
                             style={{
                               textDecoration: "none",
                               color: "black",
@@ -95,37 +86,32 @@ function Volunteer() {
                               <h2 style={{ textAlign: "center" }}>
                                 {org.data.name}
                               </h2>
-                              <img className="imgCarousel"
+                              <img
+                                className="imgCarousel"
                                 src={org.data.img}
                                 alt={`${org.data.name}` + "'s logo"}
                               />
-                              <p className="orgSummary">
-                                {org.data.summary}
-                              </p>
+                              <p className="orgSummary">{org.data.summary}</p>
                               <Button
                                 className="btnContribute"
                                 variant="warning"
                               >
                                 <i className="btnText">
-                                  COUNT ME IN AS A PARTNER!<br></br>I WANT TO MAKE
-                                  A CONTRIBUTION!
+                                I want to contribute to <br></br>
+                                <b>{org.data.name}!</b>
                                 </i>
                               </Button>
                             </div>
                           </Link>
-
                         </Carousel.Item>
                       ))}
                     </Carousel>
                   </div>
                 </Col>
               </Row>
-              <Row>
-                <TasksCollection/>
-              </Row>
             </Container>
           </div>
-        </div>
+
       </div>
     </>
   );

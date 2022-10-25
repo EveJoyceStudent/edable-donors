@@ -27,12 +27,12 @@ function Organisation() {
 
   return (
     //   these lines set up the format of the page
-    <div style={{backgroundColor: "#ECFED6", border: "15px solid white", borderRadius: "45px"}}>
+    <div style={{backgroundColor: "black", paddingTop: 30}}>
       <Container fluid>
-        <Row style={{marginTop: "15px"}}>
+        <Row style={{marginTop: "5px"}}>
           <Col className={styles.orgsContainer}>
             <Card className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px"}}>
+              <h6 style={{ textAlign: "center", margin: "7px", color: "#FF7000"}}>
                 <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
               </h6>
               <Card.Title style={{fontSize: "2rem"}}>{org.name}</Card.Title>
@@ -46,7 +46,7 @@ function Organisation() {
                 </Card.Text>}
               </Card.Body>
               <Link to="/">
-                <Button variant="warning">Go back</Button>
+                <Button className="goBackBtn" variant="warning">Go back</Button>
               </Link>
             </Card>
           </Col>
