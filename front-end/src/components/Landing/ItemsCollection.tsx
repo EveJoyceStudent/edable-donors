@@ -75,6 +75,7 @@ function ItemsCollection(props: any) {
           }}
         >
           <input
+           style={{ fontSize: "18px" }}
             className={styles.input}
             type="text"
             onChange={handleChange}
@@ -110,19 +111,19 @@ function ItemsCollection(props: any) {
                       alt={"Image of " + `${item.data.name}`}
                       />
                       <Card.Title>
-                        <h1 style={{ fontSize: "20px" }}>{item.data.name}</h1>
-                        <br></br>
+                        <h1 style={{ fontSize: "20px", fontWeight:"500" }}>{item.data.name}</h1>
+                        <br />
                         {Filter(item.data.orgID)}
                       </Card.Title>
                   </div>
                   <div style={{ display: "flex" }}>
-                    <label style={{ fontSize: "12px" }}>
+                    <label className="dollarAmt" style={{ fontSize: "20px", width:"100%", textAlign:"center" }}>
                       ${item.data.totalDonationsValue || 0} of $
                       {item.data.initialPrice}
                     </label>
                   </div>
                   <ProgressBar
-                    variant="warning"
+                    striped
                     now={
                       item.data.totalDonationsValue
                         ? (item.data.totalDonationsValue /
@@ -135,7 +136,7 @@ function ItemsCollection(props: any) {
                         100
                     )}%`}
                   />
-                  <Card.Text>{item.data.summary}</Card.Text>
+                  <Card.Text style={{ fontSize:"17px"}}>{item.data.summary}</Card.Text>
                 </Card.Body>
               </Link>
             </Card>
