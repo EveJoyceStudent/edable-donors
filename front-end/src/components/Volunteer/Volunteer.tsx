@@ -57,13 +57,17 @@ function Volunteer() {
             </Row>
           </Container>
           <br />
-          <p>Volunteer now.</p>
+          <p style={{ color: "orange" }}>Volunteer now.</p>
+          </div>
           <div className="App" id="outer-container">
             {/* Carousel */}
             <Container>
               <Row>
                 <Col>
-                  <div className="carouselContainer">
+                  <div className="carouselContainer"
+                          style={{
+                            paddingBottom: "20px",
+                          }}>
                     <Carousel
                       touch={true}
                       interval={null}
@@ -114,7 +118,7 @@ function Volunteer() {
               </Row>
             </Container>
           </div>
-        </div>
+
       </div>
     </>
   );
