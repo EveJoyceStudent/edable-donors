@@ -227,7 +227,7 @@ router.post("/volunteer-info", (req, res) => {
 
   const mail_options = {
     from: `EdAble Donations <${process.env.user}>`,
-    to: "edable.info@gmail.com",
+    to: `${process.env.user}`,
     subject: "New Volunteer",
     html: htmlMail,
     attachments: [
