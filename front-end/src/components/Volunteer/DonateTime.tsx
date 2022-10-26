@@ -42,7 +42,7 @@ function DonateTime() {
                   {org.website &&
                 <Card.Text className={styles.orgDescription}>
                   {" "}
-                  Check out the <a href={org.website}>{`${org.name}`} website</a>
+                  Check out the <a href={org.website} target="_blank">{`${org.name}`} website</a>
                 </Card.Text>}
               </Card.Body>
               <Link to="/volunteer">
