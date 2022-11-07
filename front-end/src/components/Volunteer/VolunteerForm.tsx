@@ -87,7 +87,7 @@ function VolunteerForm(props: any) {
 
   async function volunteerDonate() {
     try {
-      axios.post(`${process.env.REACT_APP_API_URL}/donations/volunteer`, {
+      axios.post(`${process.env.REACT_APP_API_URL}donations/volunteer`, {
         orgID: props.orgId,
         volunteerName: getValues().volunteerName,
         volunteerPhone: getValues().volunteerPhone,
