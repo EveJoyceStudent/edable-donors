@@ -149,7 +149,7 @@ function Paypal(props: any) {
     paypalId: string
   ) => {
     const donationPost = await axios.post(
-      `${process.env.REACT_APP_API_URL}/donations/general`,
+      `${process.env.REACT_APP_API_URL}donations/general`,
       {
         orgID: props.org,
         donorPublicName: props.formData.IsAnon
@@ -228,7 +228,7 @@ function Paypal(props: any) {
             }
             // update publicly accessible donation data
             const itemDonation = axios.post(
-              `${process.env.REACT_APP_API_URL}/donations/item`,
+              `${process.env.REACT_APP_API_URL}donations/item`,
               {
                 donorPublicName: props.formData.IsAnon
                   ? "Anonymous"
