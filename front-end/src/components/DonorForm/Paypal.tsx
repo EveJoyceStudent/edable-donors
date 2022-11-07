@@ -148,12 +148,10 @@ function Paypal(props: any) {
     subscription: boolean,
     paypalId: string
   ) => {
-    await runTransaction(db, async (transaction) => {
-      // update publicly accessible donation data
-      const newDonationRef = doc(
-        collection(db, `Organisations/${props.org}/GeneralDonations`)
-      );
-      transaction.set(newDonationRef, {
+    const donationPost = await axios.post(
+      `${process.env.REACT_APP_API_URL}donations/general`,
+      {
+        orgID: props.org,
         donorPublicName: props.formData.IsAnon
           ? "Anonymous"
           : props.formData.name,
@@ -162,49 +160,22 @@ function Paypal(props: any) {
         IsSubscribed: subscription,
         comment: props.formData.comment,
         donationDate: Timestamp.now(),
-      });
-      // const orgRef = await addDoc(
-      //   collection(db, `Organisations/${props.org}/GeneralDonations`),
-      //   {
-      //     donorPublicName: props.formData.IsAnon
-      //       ? "Anonymous"
-      //       : props.formData.name,
-      //     amount: props.watchPaidAMT,
-      //     IsRefunded: false,
-      //     IsSubscribed: subscription,
-      //     comment: props.formData.comment,
-      //     donationDate: Timestamp.now(),
-      //   }
-      // );
-      // update private donation data
-      transaction.set(
-        doc(
-          db,
-          `Organisations/${props.org}/GeneralDonations/${newDonationRef.id}/Private`,
-          "Private"
-        ),
-        {
-          paypalTransactionId: paypalId,
-          name: props.formData.name,
-          email: props.formData.email,
-          phoneNumber: props.formData.phone,
-          mailingAddress: "",
-          IsAnon: Boolean(props.formData.IsAnon),
-          agreeToContact: Boolean(props.formData.mailingList),
-          howHeard: props.formData.howHeard,
-          howHeardOther: props.formData.howHeardOther
-            ? props.formData.howHeardOther
-            : "",
-        }
-      );
-      // update donation summaries
-      transaction.update(doc(db, `Organisations/${props.org}`), {
-        totalDonationCount: increment(1),
-        totalGeneralDonationsCount: increment(1),
-        totalDonationsValue: increment(Number(props.watchPaidAMT)),
-        totalGeneralDonationsValue: increment(Number(props.watchPaidAMT)),
-      });
-    });
+        paypalTransactionId: paypalId,
+        name: props.formData.name,
+        email: props.formData.email,
+        phoneNumber: props.formData.phone,
+        mailingAddress: "",
+        IsAnon: Boolean(props.formData.IsAnon),
+        agreeToContact: Boolean(props.formData.mailingList),
+        howHeard: props.formData.howHeard,
+        howHeardOther: props.formData.howHeardOther
+          ? props.formData.howHeardOther
+          : "",
+        totalDonationsValue: Number(props.watchPaidAMT),
+        totalGeneralDonationsValue: Number(props.watchPaidAMT),
+      }
+    );
+
     sendGeneralDonationEmail(paypalId);
   };
 
@@ -256,29 +227,16 @@ function Paypal(props: any) {
               dateCompletedUpdate = Timestamp.now();
             }
             // update publicly accessible donation data
-            const newDonationRef = doc(
-              collection(
-                db,
-                `Organisations/${props.org}/Items/${props.item}/ItemsDonations`
-              )
-            );
-            transaction.set(newDonationRef, {
-              donorPublicName: props.formData.IsAnon
-                ? "Anonymous"
-                : props.formData.name,
-              amount: Number(props.watchPaidAMT),
-              IsRefunded: false,
-              comment: props.formData.comment,
-              donationDate: Timestamp.now(),
-            });
-            // update private donation data
-            transaction.set(
-              doc(
-                db,
-                `Organisations/${props.org}/Items/${props.item}/ItemsDonations/${newDonationRef.id}/Private`,
-                "Private"
-              ),
+            const itemDonation = axios.post(
+              `${process.env.REACT_APP_API_URL}donations/item`,
               {
+                donorPublicName: props.formData.IsAnon
+                  ? "Anonymous"
+                  : props.formData.name,
+                amount: Number(props.watchPaidAMT),
+                IsRefunded: false,
+                comment: props.formData.comment,
+                donationDate: Timestamp.now(),
                 paypalTransactionId:
                   details.purchase_units[0].payments.captures[0].id,
                 name: props.formData.name,
@@ -291,35 +249,26 @@ function Paypal(props: any) {
                 howHeardOther: props.formData.howHeardOther
                   ? props.formData.howHeardOther
                   : "",
-              }
-            );
-
-            // update donation summaries
-
-            transaction.update(
-              doc(db, `Organisations/${props.org}/Items/${props.item}`),
-              {
-                totalDonationCount: increment(1),
-                totalDonationsValue: increment(Number(props.watchPaidAMT)),
+                totalDonationsValue: Number(props.watchPaidAMT),
                 activeStatus: activeStatusUpdate,
                 dateCompleted: dateCompletedUpdate,
+                itemID: props.item,
+                orgID: props.org,
+                initialPrice: itemSummary.data()!.initialPrice,
+                totalItemDonations: itemSummary.data()!.totalDonationsValue,
               }
             );
-            transaction.update(doc(db, `Organisations/${props.org}`), {
-              totalDonationCount: increment(1),
-              totalItemDonationsCount: increment(1),
-              totalDonationsValue: increment(Number(props.watchPaidAMT)),
-              totalItemDonationsValue: increment(Number(props.watchPaidAMT)),
-            });
-          });
-          sendItemDonationEmail(
-            details.purchase_units[0].payments.captures[0].id
-          );
+            console.log(itemDonation);
 
-          paypalDisabledNavigate(
-            "../../success",
-            details.purchase_units[0].payments.captures[0].id
-          );
+            sendItemDonationEmail(
+              details.purchase_units[0].payments.captures[0].id
+            );
+
+            paypalDisabledNavigate(
+              "../../success",
+              details.purchase_units[0].payments.captures[0].id
+            );
+          });
         } catch (e) {
           console.log("error", e);
           throw new Error("approval error");

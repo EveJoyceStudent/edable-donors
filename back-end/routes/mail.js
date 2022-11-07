@@ -10,7 +10,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // General donation receipt //
-
 router.post("/general", (req, res) => {
   const data = req.body;
   const date = new Date();
