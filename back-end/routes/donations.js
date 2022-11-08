@@ -165,6 +165,7 @@ router.post("/volunteer", async (req, res) => {
       Friday: data.Friday,
       Saturday: data.Saturday,
       Sunday: data.Sunday,
+      creationDate: admin.firestore.Timestamp.fromDate(new Date()),
     });
   } catch (e) {
     res.status(400).send(e);
