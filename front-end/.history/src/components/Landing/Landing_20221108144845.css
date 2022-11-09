@@ -1,0 +1,145 @@
+.carousel-control-next,
+.carousel-control-prev {
+  width: 10%;
+}
+
+.landing {
+  max-width: 1000px;
+
+  margin: 0px auto 90px;
+}
+
+.title {
+  font-size: 20px;
+  font-family: sans-serif;
+  height: auto;
+  margin-bottom: 0px;
+}
+
+.col {
+  padding: 0;
+}
+
+.navBarContainer {
+  margin-left: 30px;
+  margin-top: 10px;
+  position: absolute;
+  color: white;
+}
+
+.carousel {
+  /* margin: 3px; */
+  /* border-radius: 30px; */
+
+  color: white;
+  /* height: ; */
+}
+
+.carousel-contents {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: flex-end;
+
+  color: white;
+  height: 500px;
+}
+
+.carousel-indicators {
+  margin-bottom: 10px;
+}
+
+.carousel-contents-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  margin-bottom: 30px;
+}
+
+.caroursel-text {
+  padding: 0px 25px;
+  height: 160px;
+  background-color: #333333;
+}
+
+.btnContribute {
+  background-color: #e50040;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 15px;
+}
+
+.btnContribute span {
+  margin-left: 3px;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+}
+
+.btnContribute div {
+  width: 300px;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.btnContribute:hover {
+  background-color: #d4033e;
+  color: white;
+}
+
+.orgSummary {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.imgCarousel {
+  width: 100%;
+  height: 600px;
+}
+
+@media (max-width: 1040px) {
+  .landing {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .title {
+    font-size: 28px !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .carousel-contents-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-self: unset;
+    gap: 0px;
+  }
+}
+
+@media (max-width: 500px) {
+  .btnContribute div {
+    width: 100%;
+  }
+}
+/* #carousel-indicators {
+    color:rgb(17, 0, 61)
+} */
+
+/* Button {
+  font-size: x-small;
+
+
+
+
+   <img
+                              className="imgCarousel"
+                              src={org.data.img}
+                              alt={`${org.data.name}` + "'s logo"}
+                            />
+} */

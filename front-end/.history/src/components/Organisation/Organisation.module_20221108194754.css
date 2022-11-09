@@ -1,0 +1,273 @@
+.body {
+  background-color: black;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+.section {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.orgName {
+  font-family: "black_stonealternative";
+  margin-left: 0px;
+  margin-right: 0px;
+  font-size: 55px;
+  font-weight: 100;
+  color: #5e17a9;
+}
+
+.line {
+  margin: 20px 0 30px;
+  height: 3px;
+  width: 70px;
+  background-color: #511493;
+}
+
+.itemName {
+  font-size: 32px;
+  color: black;
+  font-family: sans-serif;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.itemImg {
+  margin-bottom: 20px;
+}
+
+.sideIdmage {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemName span {
+  color: #511493;
+  font-size: 33px;
+}
+
+.des {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 25px;
+  color: #333333;
+}
+.mainContent {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 80px;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  color: white;
+
+  border-radius: 3px !important;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0 15px;
+}
+
+a {
+  text-decoration: none !important;
+}
+.websiteBtn {
+  height: 40px;
+
+  border-radius: 3px !important;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 10px 15px;
+
+  color: white;
+  background-color: #511493;
+}
+.btn:hover {
+  color: white;
+}
+
+.goBack {
+  background-color: #e50040;
+}
+
+.goBack:hover {
+  background-color: #f16800;
+}
+
+.orgImg {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.website {
+  padding: 30px;
+  margin-top: 10px;
+  background: linear-gradient(58.89deg, #5e17a9 31.3%, #e50040 67.75%);
+  color: white;
+}
+
+.website div {
+  margin-top: 10px;
+}
+.website a {
+  background-color: #e50040;
+  width: 100%;
+  color: white;
+  border-radius: 3px !important;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 10px 15px;
+}
+
+.header {
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+
+  align-items: center;
+}
+
+h6 {
+  margin-top: 30px;
+  font-size: 33px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+h6 div {
+  font-family: "black_stonealternative";
+  margin-top: 30px;
+  color: #5e17a9;
+  font-size: 55px;
+  letter-spacing: 1px;
+  font-weight: 100;
+}
+
+.orgDescription {
+  margin-top: 20px;
+  font-size: 16;
+}
+
+.formCon {
+  margin-top: 20px;
+}
+
+.btnPurple {
+  background-color: #511493;
+}
+.topItem {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.backButton {
+  margin-top: 30px;
+  color: white;
+  border-radius: 3px;
+  background-color: #e50040;
+  border: none;
+}
+
+.backButton:hover {
+  color: white;
+
+  background-color: #d4033e;
+}
+
+.topButton:hover {
+  background-color: #f16800;
+}
+
+.card {
+  border-radius: 3px;
+  border: none;
+
+  background-color: #f4f4f4;
+}
+
+.card img {
+  width: 100%;
+}
+
+.cardContent {
+  padding: 20px;
+}
+
+.cardTitle {
+  font-size: 18px;
+  color: black;
+  font-family: sans-serif;
+  height: auto;
+  line-height: 25px;
+}
+
+.cardDes {
+  margin-top: 0px;
+  color: rgb(29, 29, 29);
+  font-size: 16px;
+  letter-spacing: 0.1px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+@media (max-width: 1040px) {
+  .section {
+    padding: 0 20px;
+  }
+}
+@media (max-width: 700px) {
+  .content {
+    padding: 0 20px 50px;
+  }
+  .formContainer {
+    padding: 30px 20px;
+  }
+  .topItem {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .mainContent {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  
+
+@media (max-width: 500px) {
+  label {
+    font-size: 10px;
+  }
+
+  h6 {
+    font-size: 25px;
+  }
+  h6 span {
+    font-size: 40px;
+  }
+  .btn {
+    font-size: 12px;
+  }
+}

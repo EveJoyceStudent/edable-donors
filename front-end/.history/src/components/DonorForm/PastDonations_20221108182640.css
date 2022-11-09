@@ -1,0 +1,32 @@
+.donationContainer {
+  max-height: 200px;
+  overflow: scroll;
+  /* border-radius: 20px; */
+  /* box-shadow: 4px 4px 21px -4px #3F3F3F; */
+  background-image: linear-gradient(58.89deg, #5e17a9 49.04%, #114fee 80.56%);
+}
+.donationTitle {
+  color: #fed23d;
+  font-weight: 100;
+  margin-bottom: 30px;
+  font-size: 55px;
+  font-family: "black_stonealternative";
+}
+.donationInfo {
+  color: white;
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 600;
+  text-align: left;
+  font-family: sans-serif;
+}
+
+.donationInfo span {
+  color: white;
+  margin-top: 3px;
+  font-size: 16px;
+}
+
+.conPadding {
+  padding: 40px;
+}
