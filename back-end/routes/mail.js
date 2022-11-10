@@ -36,12 +36,12 @@ router.post("/general", (req, res) => {
   const htmlMail = template(replacements);
 
   const OAuth2_client = new OAuth2(
-    process.env.clientId,
-    process.env.clientSecret,
-    process.env.redirectURL
+    process.env.CLIENTID,
+    process.env.CLIENTSECRET,
+    process.env.REDIRECTURL
   );
 
-  OAuth2_client.setCredentials({ refresh_token: process.env.refreshToken });
+  OAuth2_client.setCredentials({ refresh_token: process.env.REFRESHTOKEN });
 
   const accessToken = OAuth2_client.getAccessToken();
 
@@ -49,16 +49,16 @@ router.post("/general", (req, res) => {
     service: "gmail",
     auth: {
       type: "OAuth2",
-      user: process.env.user,
-      clientId: process.env.clientId,
-      clientSecret: process.env.clientSecret,
-      refreshToken: process.env.refreshToken,
+      user: process.env.USER,
+      clientId: process.env.CLIENTID,
+      clientSecret: process.env.CLIENTSECRET,
+      refreshToken: process.env.REFRESHTOKEN,
       accessToken: accessToken,
     },
   });
 
   const mail_options = {
-    from: `EdAble Donations <${process.env.user}>`,
+    from: `EdAble Donations <${process.env.USER}>`,
     to: data.donorEmail,
     subject: "Donation Receipt",
     html: htmlMail,
@@ -105,12 +105,12 @@ router.post("/item", (req, res) => {
   const htmlMail = template(replacements);
 
   const OAuth2_client = new OAuth2(
-    process.env.clientId,
-    process.env.clientSecret,
-    process.env.redirectURL
+    process.env.CLIENTID,
+    process.env.CLIENTSECRET,
+    process.env.REDIRECTURL
   );
 
-  OAuth2_client.setCredentials({ refresh_token: process.env.refreshToken });
+  OAuth2_client.setCredentials({ refresh_token: process.env.REFRESHTOKEN });
 
   const accessToken = OAuth2_client.getAccessToken();
 
@@ -118,16 +118,16 @@ router.post("/item", (req, res) => {
     service: "gmail",
     auth: {
       type: "OAuth2",
-      user: process.env.user,
-      clientId: process.env.clientId,
-      clientSecret: process.env.clientSecret,
-      refreshToken: process.env.refreshToken,
+      user: process.env.USER,
+      clientId: process.env.CLIENTID,
+      clientSecret: process.env.CLIENTSECRET,
+      refreshToken: process.env.REFRESHTOKEN,
       accessToken: accessToken,
     },
   });
 
   const mail_options = {
-    from: `EdAble Donations <${process.env.user}>`,
+    from: `EdAble Donations <${process.env.USER}>`,
     to: data.donorEmail,
     subject: "Donation Receipt",
     html: htmlMail,
@@ -225,8 +225,8 @@ router.post("/volunteer-info", (req, res) => {
   const htmlMailReciept = templateReciept(replacements);
 
   const mail_options = {
-    from: `EdAble Donations <${process.env.user}>`,
-    to: `${process.env.user}`,
+    from: `EdAble Donations <${process.env.USER}>`,
+    to: `${process.env.USER}`,
     subject: "New Volunteer",
     html: htmlMail,
     attachments: [
@@ -239,7 +239,7 @@ router.post("/volunteer-info", (req, res) => {
   };
 
   const mail_options_Receipt = {
-    from: `EdAble Donations<${process.env.user}>`,
+    from: `EdAble Donations<${process.env.USER}>`,
     to: data.email,
     subject: "Volunteer expression of interest",
     html: htmlMailReciept,
@@ -252,12 +252,12 @@ router.post("/volunteer-info", (req, res) => {
     ],
   };
   const OAuth2_client = new OAuth2(
-    process.env.clientId,
-    process.env.clientSecret,
-    process.env.redirectURL
+    process.env.CLIENTID,
+    process.env.CLIENTSECRET,
+    process.env.REDIRECTURL
   );
 
-  OAuth2_client.setCredentials({ refresh_token: process.env.refreshToken });
+  OAuth2_client.setCredentials({ refresh_token: process.env.REFRESHTOKEN });
 
   const accessToken = OAuth2_client.getAccessToken();
 
@@ -265,10 +265,10 @@ router.post("/volunteer-info", (req, res) => {
     service: "gmail",
     auth: {
       type: "OAuth2",
-      user: process.env.user,
-      clientId: process.env.clientId,
-      clientSecret: process.env.clientSecret,
-      refreshToken: process.env.refreshToken,
+      user: process.env.USER,
+      clientId: process.env.CLIENTID,
+      clientSecret: process.env.CLIENTSECRET,
+      refreshToken: process.env.REFRESHTOKEN,
       accessToken: accessToken,
     },
   });
