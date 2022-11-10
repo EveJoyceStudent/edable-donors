@@ -40,79 +40,65 @@ function Volunteer() {
           <Sidebar orgList={orgList} />
         </div>
 
-        <div className="header">
-          <Container fluid>
+        <div className="App" id="outer-container">
+          {/* Carousel */}
+          <div className="slideshowCon">
             <Row>
               <Col>
-              </Col>
-              <Col xs={0} md="auto">
-                <InclusionHero className="star" />
-              </Col>
-            </Row>
-          </Container>
-          <br />
-          <p style={{ color: "orange", paddingBottom:"10px" }}>Volunteer now.</p>
-          </div>
-          <div className="App" id="outer-container">
-            {/* Carousel */}
-            <Container>
-              <Row>
-                <Col>
-                  <div className="carouselContainer"
+                <div className="carouselContainer">
+                  <Carousel
+                    touch={true}
+                    interval={4000}
+                    indicators={true}
+                    variant="light"
+                  >
+                    {orgList.map((org: any) => (
+                      <Carousel.Item
+                        key={org.id.toString()}
+                        style={{
+                          textAlign: "left",
+                        }}
+                      >
+                        <Link
+                          to={`/volunteer/organisation/${org.id}`}
                           style={{
-                            paddingBottom: "20px",
-                          }}>
-                    <Carousel
-                      touch={true}
-                      interval={3000}
-                      indicators={true}
-                      variant="light"
-                    >
-                      {orgList.map((org: any) => (
-                        <Carousel.Item
-                          key={org.id.toString()}
-                          style={{
-                            textAlign: "center",
+                            textDecoration: "none",
+                            color: "black",
                           }}
                         >
-                          <Link
-                            to={`/volunteer/organisation/${org.id}`}
-                            style={{
-                              textDecoration: "none",
-                              color: "black",
-                            }}
-                          >
-                            {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
-                            <div className="carousel-contents">
-                              <h2 style={{ textAlign: "center" }}>
-                                {org.data.name}
-                              </h2>
-                              <img
-                                className="imgCarousel"
-                                src={org.data.img}
-                                alt={`${org.data.name}` + "'s logo"}
-                              />
-                              <p className="orgSummary">{org.data.summary}</p>
-                              <Button
-                                className="btnContribute"
-                                variant="warning"
-                              >
-                                <i className="btnText">
-                                I want to contribute to <br></br>
-                                <b>{org.data.name}!</b>
-                                </i>
-                              </Button>
+                          {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
+                          <div className="carousel-contents">
+                            <img
+                              className="carouselImage"
+                              src={`${org.data.img}`}
+                            />
+                            <div className="caroursel-text">
+                              <div className="carousel-contents-bottom">
+                                <div>
+                                  <h2 className="title">{org.data.name}</h2>
+                                  <p className="orgSummary">
+                                    {org.data.summary}
+                                  </p>
+                                </div>
+                                <Button
+                                  className="btnContribute"
+                                  variant="warning"
+                                >
+                                  I WANT TO SUPPORT&#160;
+                                  {org.data.name.toUpperCase()}!
+                                </Button>
+                              </div>
                             </div>
-                          </Link>
-                        </Carousel.Item>
-                      ))}
-                    </Carousel>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
+                          </div>
+                        </Link>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+                </div>
+              </Col>
+            </Row>
           </div>
-
+        </div>
       </div>
     </>
   );

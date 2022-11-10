@@ -1,0 +1,13 @@
+.section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.orgImg {
+  width: 100%;
+  height: 500px;
+}
+
+h6 {
+  font-size: 33px;
+}

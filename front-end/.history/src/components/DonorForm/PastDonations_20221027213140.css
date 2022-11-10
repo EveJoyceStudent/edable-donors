@@ -1,0 +1,36 @@
+.donationContainer {
+  width: 1025px;
+  /* border-radius: 20px; */
+  /* box-shadow: 4px 4px 21px -4px #3F3F3F; */
+  background-image: linear-gradient(58.89deg, #5e17a9 49.04%, #114fee 80.56%);
+}
+.donationTitle {
+  text-align: left;
+  font-weight: bold;
+  padding-bottom: 10px;
+  color: white;
+}
+.donationInfo {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.conPadding {
+  padding: 40px;
+}
+
+@media screen and (max-width: 1100px) {
+  .donationContainer {
+    width: calc(95vw - 30px);
+    /* box-shadow: 2px 2px 21px -2px #c5c5c5; */
+  }
+}
+@media screen and (max-width: 300px) {
+  .donationTitle {
+    font-size: 15px;
+  }
+  .conPadding {
+    padding: 25px;
+    padding-top: 30px;
+  }
+}

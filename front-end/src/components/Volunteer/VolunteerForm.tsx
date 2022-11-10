@@ -158,14 +158,15 @@ function VolunteerForm(props: any) {
   }
 
   return (
-    <div className="VolunteerInfoContainer">
+    <div className="donorInfoContainer">
       <div>
-        <p>I would like to volunteer!</p>
+        <p className="formTitle">
+          Share your details with us and we will be in touch soon.{" "}
+        </p>
         {!proceedFlag && (
           <form>
             <div>
-              {errors.volunteerName && <span>*</span>}
-              <label>Name</label>
+              <label>Name*</label>
               {errors.volunteerName && (
                 <span style={{ margin: "20px", fontSize: "x-small" }}>
                   Name cannot be blank
@@ -173,7 +174,6 @@ function VolunteerForm(props: any) {
               )}
               <input
                 type="text"
-                placeholder="Name"
                 {...register("volunteerName", {
                   required: true,
                   pattern: /^[a-zA-Z0-9]/,
@@ -182,55 +182,56 @@ function VolunteerForm(props: any) {
             </div>
 
             <div className="isOrg">
-              <label>Registering on behalf of an organisation?</label>
-              <input
-                type="checkbox"
-                id="isOrg"
-                value="yes"
-                {...register("isOrg")}
-              />
-              {isOrgChecked && (
-                <div className="volunteerOrgInfo">
-                  <div>
-                    {errors.volunteerOrgName && <span>*</span>}
-                    <label>Name of Organisation</label>
-                    {errors.volunteerOrgName && (
-                      <span style={{ margin: "20px", fontSize: "x-small" }}>
-                        Organisation name cannot be blank
-                      </span>
-                    )}
-                    <input
-                      type="text"
-                      placeholder="Name of Organisation"
-                      {...register("volunteerOrgName", {
-                        pattern: /^[a-zA-Z0-9]/,
-                        required: true,
-                      })}
-                    />
-                  </div>
+              <div className="checkbox">
+                <input
+                  type="checkbox"
+                  id="isOrg"
+                  value="yes"
+                  {...register("isOrg")}
+                />
+                <label>Registering on behalf of an organisation?</label>
+              </div>
 
-                  <div>
-                    <OverlayTrigger
-                      placement="top"
-                      overlay={volunteerAmountTooltip}
-                    >
-                      <label>
-                        Number of Volunteers (optional)<sup>(ℹ️)</sup>
-                      </label>
-                    </OverlayTrigger>
-                    <input
-                      type="number"
-                      placeholder="Enter an amount"
-                      {...register("volunteerAmount", {
-                        pattern: /[1-9]/,
-                      })}
-                    />
-                  </div>
+              <div className="volunteerOrgInfo">
+                <div>
+                  <label>Name of organisation*</label>
+                  {errors.volunteerOrgName && (
+                    <span style={{ margin: "20px", fontSize: "x-small" }}>
+                      Organisation name cannot be blank
+                    </span>
+                  )}
+                  <input
+                    disabled={!isOrgChecked}
+                    type="text"
+                    {...register("volunteerOrgName", {
+                      pattern: /^[a-zA-Z0-9]/,
+                      required: true,
+                    })}
+                  />
                 </div>
-              )}
+
+                <div>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={volunteerAmountTooltip}
+                  >
+                    <label>
+                      Number of volunteers (optional)<sup>(ℹ️)</sup>
+                    </label>
+                  </OverlayTrigger>
+                  <input
+                    disabled={!isOrgChecked}
+                    type="number"
+                    {...register("volunteerAmount", {
+                      pattern: /[1-9]/,
+                    })}
+                  />
+                </div>
+              </div>
+
               <div>
-                {errors.volunteerDOB && <span>*</span>}
-                <label>Date of Birth</label>
+                <label>Date of birth*</label>
+
                 {errors.volunteerDOB && (
                   <span style={{ margin: "20px", fontSize: "x-small" }}>
                     Date of Birth cannot be blank
@@ -246,15 +247,13 @@ function VolunteerForm(props: any) {
             </div>
 
             <div>
-              {errors.volunteerPhone && <span>*</span>}
-              <label>Phone</label>
+              <label>Phone*</label>
               {errors.volunteerPhone && (
                 <span style={{ margin: "20px", fontSize: "x-small" }}>
                   Please enter a valid phone number
                 </span>
               )}
               <input
-                placeholder="04XX XXX XXX"
                 {...register("volunteerPhone", {
                   required: true,
                   maxLength: 10,
@@ -266,15 +265,13 @@ function VolunteerForm(props: any) {
             </div>
 
             <div>
-              {errors.volunteerEmail && <span>*</span>}
-              <label>Email</label>
+              <label>Email*</label>
               {errors.volunteerEmail && (
                 <span style={{ margin: "20px", fontSize: "x-small" }}>
                   Please enter a valid email
                 </span>
               )}
               <input
-                placeholder="Email address"
                 {...register("volunteerEmail", {
                   required: true,
                   pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -283,8 +280,7 @@ function VolunteerForm(props: any) {
             </div>
 
             <div>
-              {errors.volunteerPostcode && <span>*</span>}
-              <label>Postcode</label>
+              <label>Postcode*</label>
               {errors.volunteerPostcode && (
                 <span style={{ margin: "20px", fontSize: "x-small" }}>
                   Please enter a valid Postcode
@@ -292,7 +288,6 @@ function VolunteerForm(props: any) {
               )}
               <input
                 type="number"
-                placeholder="0000"
                 {...register("volunteerPostcode", {
                   required: true,
                   maxLength: 4,
@@ -303,8 +298,7 @@ function VolunteerForm(props: any) {
             </div>
 
             <div className="volunteerHours">
-              {errors.volunteerHours && <span>*</span>}
-              <label>Hours Available</label>
+              <label>Hours available*</label>
               {errors.volunteerHours && (
                 <span style={{ margin: "20px", fontSize: "x-small" }}>
                   Please enter an amount
@@ -312,7 +306,6 @@ function VolunteerForm(props: any) {
               )}
               <input
                 type="number"
-                placeholder="0"
                 {...register("volunteerHours", {
                   required: true,
                   pattern: /[1-9]/,
@@ -320,8 +313,9 @@ function VolunteerForm(props: any) {
               />
             </div>
             <div>
-              {errors.howContribute && <span>*</span>}
-              <label>How would you like to contribute?</label>
+              <label>
+                How would you like to contribute? <span>*</span>
+              </label>
               {errors.howContribute && (
                 <span style={{ margin: "20px", fontSize: "x-small" }}>
                   Contribution cannot be blank
@@ -329,7 +323,6 @@ function VolunteerForm(props: any) {
               )}
               <input
                 type="text"
-                placeholder="What would you like to do?"
                 {...register("howContribute", {
                   required: true,
                 })}
@@ -339,90 +332,81 @@ function VolunteerForm(props: any) {
             <div>
               <OverlayTrigger placement="top" overlay={daysTooltip}>
                 <label>
-                  Days Available (optional)<sup>(ℹ️)</sup>
+                  Days available (optional)<sup>(ℹ️)</sup>
                 </label>
               </OverlayTrigger>
               <div className="availablity">
-                <Container style={{ textAlign: "center" }}>
-                  <Row>
-                    <Col>
-                      <label>Monday</label>
-                      <input
-                        type="checkbox"
-                        id="Monday"
-                        {...register("Monday")}
-                      ></input>
-                    </Col>
-                    <Col>
-                      <label>Tuesday</label>
-                      <input
-                        type="checkbox"
-                        id="Tuesday"
-                        {...register("Tuesday")}
-                      ></input>
-                    </Col>
-                    <Col>
-                      <label>Wednesday</label>
-                      <input
-                        type="checkbox"
-                        id="Wednesday"
-                        {...register("Wednesday")}
-                      ></input>
-                    </Col>
-                    <Col>
-                      <label>Thursday</label>
-                      <input
-                        type="checkbox"
-                        id="Thursday"
-                        {...register("Thursday")}
-                      ></input>
-                    </Col>
-                    <Col>
-                      <label>Friday</label>
-                      <input
-                        type="checkbox"
-                        id="Friday"
-                        {...register("Friday")}
-                      ></input>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <label>Saturday</label>
-                      <input
-                        type="checkbox"
-                        id="Saturday"
-                        {...register("Saturday")}
-                      ></input>
-                    </Col>
-                    <Col>
-                      <label>Sunday</label>
-                      <input
-                        type="checkbox"
-                        id="Sunday"
-                        {...register("Sunday")}
-                      ></input>
-                    </Col>
-                  </Row>
-                </Container>
+                <div>
+                  <div className="checkbox">
+                    <input
+                      type="checkbox"
+                      id="Monday"
+                      {...register("Monday")}
+                    ></input>{" "}
+                    <label>Monday</label>
+                  </div>
+
+                  <div className="checkbox">
+                    <input
+                      type="checkbox"
+                      id="Tuesday"
+                      {...register("Tuesday")}
+                    ></input>
+                    <label>Tuesday</label>
+                  </div>
+                  <div className="checkbox">
+                    <input
+                      type="checkbox"
+                      id="Wednesday"
+                      {...register("Wednesday")}
+                    ></input>
+                    <label>Wednesday</label>
+                  </div>
+                  <div className="checkbox">
+                    <input
+                      type="checkbox"
+                      id="Thursday"
+                      {...register("Thursday")}
+                    ></input>
+                    <label>Thursday</label>
+                  </div>
+                </div>
+                <div>
+                  <div className="checkbox">
+                    <input
+                      type="checkbox"
+                      id="Friday"
+                      {...register("Friday")}
+                    ></input>
+                    <label>Friday</label>
+                  </div>
+                  <div className="checkbox">
+                    <input
+                      type="checkbox"
+                      id="Saturday"
+                      {...register("Saturday")}
+                    ></input>
+                    <label>Saturday</label>
+                  </div>
+                  <div className="checkbox">
+                    <input
+                      type="checkbox"
+                      id="Sunday"
+                      {...register("Sunday")}
+                    ></input>
+                    <label>Sunday</label>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div>
               <label>Skills (optional)</label>
-              <input
-                type="text"
-                placeholder="List your skills"
-                {...register("Skills")}
-              ></input>
+              <input type="text" {...register("Skills")}></input>
             </div>
             <div>
               <label>Comment (optional)</label>
-              <input
-                type="text"
-                placeholder="Add a comment to your donation"
-                {...register("volunteerComment")}
-              />
+              <input type="text" {...register("volunteerComment")} />
               <label>How did you hear about us? (optional)</label>
               <select
                 {...register("volunteerHowHeard")}
@@ -451,7 +435,6 @@ function VolunteerForm(props: any) {
                     {...register("volunteerHowHeardOther")}
                     className="input"
                     type="text"
-                    placeholder="Other"
                   />
                 </div>
               </div>
