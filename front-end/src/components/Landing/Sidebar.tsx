@@ -4,6 +4,7 @@ import { db } from "../../config/firebase";
 import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { FaBars } from "react-icons/fa";
 
 type SidemenuProps = {
   pageWrapId: string;
@@ -23,7 +24,7 @@ function Sidebar(props: any) {
   return (
     <>
       <Navbar expand={false}>
-        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} />
+        <Navbar.Toggle children={<FaBars style={{color:"#C4C4C4"}} />} aria-controls={`offcanvasNavbar-expand`} />
         <Navbar.Offcanvas
           id={`offcanvasNavbar-expand`}
           aria-labelledby={`offcanvasNavbarLabel-expand`}
@@ -35,7 +36,7 @@ function Sidebar(props: any) {
                 fontSize: "20px",
               }}
             >
-              Social-enterprises supported by EdAble
+              Micro-businesses supported by EdAble
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>

@@ -87,12 +87,8 @@ function VolunteerForm(props: any) {
 
   async function volunteerDonate() {
     try {
-      // console.log(getValues().volunteerDOB)
-      const docRef = doc(
-        collection(db, `Organisations/${props.orgId}/VolunteerDonations`)
-      );
-
-      await setDoc(docRef, {
+      axios.post(`${process.env.REACT_APP_API_URL}donations/volunteer`, {
+        orgID: props.orgId,
         volunteerName: getValues().volunteerName,
         volunteerPhone: getValues().volunteerPhone,
         volunteerEmail: getValues().volunteerEmail,
@@ -235,6 +231,7 @@ function VolunteerForm(props: any) {
 
               <div>
                 <label>Date of birth*</label>
+
                 {errors.volunteerDOB && (
                   <span style={{ margin: "20px", fontSize: "x-small" }}>
                     Date of Birth cannot be blank
