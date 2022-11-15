@@ -46,7 +46,6 @@ function ItemPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  console.log(org);
   return (
     <div className={styles.section}>
       <img src={org.img} alt={`${org.name}'s logo`} />
@@ -86,7 +85,9 @@ function ItemPage() {
             <div className={styles.website}>
               Want to learn more about {org.name}
               <div>
-                <a href={org.website}>VIEW WEBSITE</a>
+                <a target="_blank" href={org.website}>
+                  VIEW WEBSITE
+                </a>
               </div>
             </div>
           )}

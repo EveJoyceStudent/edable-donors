@@ -43,7 +43,9 @@ function DonateTime() {
             <div className={styles.website}>
               Want to learn more about {org.name}
               <div>
-                <a href={org.website}>VIEW WEBSITE</a>
+                <a target="_blank" href={org.website}>
+                  VIEW WEBSITE
+                </a>
               </div>
             </div>
           )}
