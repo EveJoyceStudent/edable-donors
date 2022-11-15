@@ -3,12 +3,9 @@ import "./Landing.css";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
-import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
-import { ReactComponent as InclusionHero } from "./InclusionHero.svg";
+import { Button, Carousel, Row, Col } from "react-bootstrap";
 
-import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
-import Organisation from "../Organisation/Organisation";
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -33,15 +30,6 @@ function Landing() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const [dropDownOrg, setDropDownOrg] = useState(false);
-  function focusedIn() {
-    setDropDownOrg(true);
-  }
-
-  function focusedOut() {
-    setTimeout(() => setDropDownOrg(false), 150);
-  }
 
   const [search, setSearch] = useState<string>("");
 
@@ -121,42 +109,11 @@ function Landing() {
             </Row>
           </div>
         </div>
-
+        <br></br>
         <div>
           <h2 className="pageTitle">
-            Donate to <span>selected</span> items below
-            <br />
+            or Donate to <span>selected</span> items below
           </h2>
-          <div className="selectOrgCon">
-            <h2 className="selectOrg">or Donate directly:</h2>
-            <div
-              className="orgSearchBar"
-              onFocus={focusedIn}
-              onBlur={focusedOut}
-            >
-              <input
-                className="input"
-                type="text"
-                placeholder="Search organizations"
-                onFocus={focusedIn}
-                onChange={handleChange}
-              />
-              <div
-                className="orgNameCon"
-                style={{
-                  display: dropDownOrg ? "block" : "none",
-                }}
-              >
-                {filteredOrganisations.map((item: any) => (
-                  <Link key={item.data.id} to={`organisation/${item.data.id}`}>
-                    <div className="orgName">
-                      <a>{item.data.name}</a>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
 
         <ItemsCollection orgList={orgList} />

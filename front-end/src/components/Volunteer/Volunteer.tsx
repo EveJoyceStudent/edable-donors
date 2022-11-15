@@ -5,7 +5,6 @@ import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
 import { ReactComponent as InclusionHero } from "../Landing/InclusionHero.svg";
-import Sidebar from "../Landing/Sidebar";
 
 function Volunteer() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -36,9 +35,9 @@ function Volunteer() {
     <>
       <div className="landing">
         {/* Burger menu */}
-        <div className="navBarContainer">
-          <Sidebar orgList={orgList} />
-        </div>
+        {/* <div className="navBarContainer">
+          <Sidebar />
+        </div> */}
 
         <div className="App" id="outer-container">
           {/* Carousel */}

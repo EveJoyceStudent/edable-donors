@@ -4,7 +4,6 @@ import { db } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import DonorForm from "../DonorForm/DonorForm";
 import styles from "./Organisation.module.css";
-import { Button, Card, Container, Row, Col } from "react-bootstrap";
 import PastDonations from "../DonorForm/PastDonations";
 
 function Organisation() {
@@ -25,7 +24,6 @@ function Organisation() {
     window.scrollTo(0, 0);
   }, []);
 
-  console.log(org);
   return (
     <div>
       <div className={styles.section}>

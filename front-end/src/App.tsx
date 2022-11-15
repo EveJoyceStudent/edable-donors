@@ -21,7 +21,7 @@ function App() {
     <PayPalScriptProvider
       options={{
         "client-id":
-        process.env.REACT_APP_PAYPAL_CLIENT_ID!,
+        process.env.REACT_APP_PAYPAL_CLIENT_ID||"ATT3Tn46NrmHggGqVC4mzWOZWlnbp2ID9DA0yQnhsgqPFIVPPlLhfSI_-atbZc3aN7n_k7wUVTyQJMnI",
         currency: "AUD",
       }}
     >

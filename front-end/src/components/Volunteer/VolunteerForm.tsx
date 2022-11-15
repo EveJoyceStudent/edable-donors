@@ -23,7 +23,7 @@ type VolunteerFormType = {
   volunteerEmail: string;
   volunteerOrgName: string;
   volunteerDOB: Date;
-  volunteerAmount: number;
+  volunteerAmount: any;
   volunteerHours: number;
   volunteerPostcode: number;
   volunteerComment: string;
@@ -52,9 +52,10 @@ function VolunteerForm(props: any) {
   } = useForm<VolunteerFormType>({
     mode: "onChange",
   });
-
+  const [amount, setAmount] = useState("");
+  const [orgName, setOrgName] = useState("");
   const isOrgChecked = watch("isOrg");
-
+  const [proceedSummary, setProceedSummary] = useState("");
   const [showOption, setShowOption] = useState(false);
 
   const [formAttemptedIncomplete, setFormAttemptedIncomplete] = useState(false);
@@ -77,6 +78,22 @@ function VolunteerForm(props: any) {
     if (!isValid) {
       setFormAttemptedIncomplete(true);
     } else {
+      if (getValues().isOrg == false) {
+        setProceedSummary("You are offering to volunteer");
+        setAmount("");
+        setOrgName("");
+      } else {
+        setProceedSummary(
+          `Your organisation is volunteering${
+            getValues().volunteerAmount
+              ? " " + getValues().volunteerAmount + " people"
+              : ""
+          }`
+        );
+        setAmount(getValues().volunteerAmount);
+        setOrgName(getValues().volunteerOrgName);
+      }
+
       getValues();
       setProceedFlag(true);
     }
@@ -87,18 +104,18 @@ function VolunteerForm(props: any) {
 
   async function volunteerDonate() {
     try {
-      axios.post(`${process.env.REACT_APP_API_URL}donations/volunteer`, {
-        orgID: props.orgId,
+      // console.log(getValues().volunteerDOB)
+      const docRef = doc(
+        collection(db, `Organisations/${props.orgId}/VolunteerDonations`)
+      );
+
+      await setDoc(docRef, {
         volunteerName: getValues().volunteerName,
         volunteerPhone: getValues().volunteerPhone,
         volunteerEmail: getValues().volunteerEmail,
-        volunteerOrgName: getValues().volunteerOrgName
-          ? getValues().volunteerOrgName
-          : "",
+        volunteerOrgName: orgName,
         volunteerDOB: getValues().volunteerDOB,
-        volunteerAmount: getValues().volunteerAmount
-          ? getValues().volunteerAmount
-          : "",
+        volunteerAmount: amount,
         volunteerHours: getValues().volunteerHours,
         volunteerPostcode: getValues().volunteerPostcode,
         volunteerComment: getValues().volunteerComment,
@@ -123,8 +140,8 @@ function VolunteerForm(props: any) {
           orgName: props.orgName,
           name: getValues().volunteerName,
           organisationFlag: getValues().isOrg,
-          organisationName: getValues().volunteerOrgName,
-          numVolunteers: getValues().volunteerAmount,
+          organisationName: orgName,
+          numVolunteers: amount,
           individualFlag: !getValues().isOrg,
           dob: getValues().volunteerDOB,
           phone: getValues().volunteerPhone,
@@ -192,46 +209,46 @@ function VolunteerForm(props: any) {
                 <label>Registering on behalf of an organisation?</label>
               </div>
 
-              <div className="volunteerOrgInfo">
-                <div>
-                  <label>Name of organisation*</label>
-                  {errors.volunteerOrgName && (
-                    <span style={{ margin: "20px", fontSize: "x-small" }}>
-                      Organisation name cannot be blank
-                    </span>
-                  )}
-                  <input
-                    disabled={!isOrgChecked}
-                    type="text"
-                    {...register("volunteerOrgName", {
-                      pattern: /^[a-zA-Z0-9]/,
-                      required: true,
-                    })}
-                  />
-                </div>
+              {isOrgChecked && (
+                <div className="volunteerOrgInfo">
+                  <div>
+                    <label>Name of organisation*</label>
+                    {errors.volunteerOrgName && (
+                      <span style={{ margin: "20px", fontSize: "x-small" }}>
+                        Organisation name cannot be blank
+                      </span>
+                    )}
 
-                <div>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={volunteerAmountTooltip}
-                  >
-                    <label>
-                      Number of volunteers (optional)<sup>(ℹ️)</sup>
-                    </label>
-                  </OverlayTrigger>
-                  <input
-                    disabled={!isOrgChecked}
-                    type="number"
-                    {...register("volunteerAmount", {
-                      pattern: /[1-9]/,
-                    })}
-                  />
+                    <input
+                      type="text"
+                      {...register("volunteerOrgName", {
+                        pattern: /^[a-zA-Z0-9]/,
+                        required: true,
+                      })}
+                    />
+                  </div>
+
+                  <div>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={volunteerAmountTooltip}
+                    >
+                      <label>
+                        Number of volunteers (optional)<sup>(ℹ️)</sup>
+                      </label>
+                    </OverlayTrigger>
+                    <input
+                      type="number"
+                      {...register("volunteerAmount", {
+                        pattern: /[1-9]/,
+                      })}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div>
                 <label>Date of birth*</label>
-
                 {errors.volunteerDOB && (
                   <span style={{ margin: "20px", fontSize: "x-small" }}>
                     Date of Birth cannot be blank
@@ -472,14 +489,7 @@ function VolunteerForm(props: any) {
               <div>Hi {getValues().volunteerName},</div>
 
               <div>
-                {getValues().volunteerOrgName
-                  ? `Your organisation is volunteering${
-                      getValues().volunteerAmount
-                        ? " " + getValues().volunteerAmount + " people"
-                        : ""
-                    }`
-                  : `You are offering to volunteer`}{" "}
-                {}
+                {proceedSummary} {}
               </div>
               {getValues().volunteerComment && (
                 <div>{`With comment "${getValues().volunteerComment}"`}</div>
