@@ -41,7 +41,6 @@ type VolunteerFormType = {
 };
 
 function VolunteerForm(props: any) {
-  
   let navigate = useNavigate();
 
   const {
@@ -54,7 +53,7 @@ function VolunteerForm(props: any) {
     mode: "onChange",
   });
 
-  const isOrgChecked=watch("isOrg");
+  const isOrgChecked = watch("isOrg");
 
   const [showOption, setShowOption] = useState(false);
 
@@ -67,11 +66,12 @@ function VolunteerForm(props: any) {
       this blank
     </Tooltip>
   );
-    const volunteerAmountTooltip = (props:any) => (
+  const volunteerAmountTooltip = (props: any) => (
     <Tooltip {...props}>
-      Enter the amount of volunteers in your organisation! but if you can't decide now then you can leave this blank
+      Enter the amount of volunteers in your organisation! but if you can't
+      decide now then you can leave this blank
     </Tooltip>
-    );
+  );
 
   const proceed = () => {
     if (!isValid) {
@@ -85,78 +85,77 @@ function VolunteerForm(props: any) {
     setProceedFlag(false);
   };
 
-async function volunteerDonate() {
-
-    try{
-    // console.log(getValues().volunteerDOB)
-    const docRef = doc(collection(db, `Organisations/${props.orgId}/VolunteerDonations`));
-
-    await setDoc(docRef, ({
-      volunteerName: getValues().volunteerName,
-      volunteerPhone: getValues().volunteerPhone,
-      volunteerEmail: getValues().volunteerEmail,
-      volunteerOrgName: getValues().volunteerOrgName
-      ?getValues().volunteerOrgName:"",
-      volunteerDOB: getValues().volunteerDOB,
-      volunteerAmount: getValues().volunteerAmount
-      ?getValues().volunteerAmount:"",
-      volunteerHours: getValues().volunteerHours,
-      volunteerPostcode: getValues().volunteerPostcode,
-      volunteerComment: getValues().volunteerComment,
-      volunteerHowHeard: getValues().volunteerHowHeard,
-      volunteerHowHeardOther: getValues().volunteerHowHeardOther
-        ?getValues().volunteerHowHeardOther
-        :"",
-      howContribute: getValues().howContribute,
-      Skills: getValues().Skills,
-      Monday: getValues().Monday,
-      Tuesday: getValues().Tuesday,
-      Wednesday: getValues().Wednesday,
-      Thursday: getValues().Thursday,
-      Friday: getValues().Friday,
-      Saturday: getValues().Saturday,
-      Sunday: getValues().Sunday,
-    }));
-
-    const generalURL = `${process.env.REACT_APP_API_URL}mail/volunteer-info`;
-    axios
-      .post(generalURL, {
-        orgName: props.orgName,
-        name: getValues().volunteerName,
-        organisationFlag: getValues().isOrg,
-        organisationName: getValues().volunteerOrgName,
-        numVolunteers: getValues().volunteerAmount,
-        individualFlag: !getValues().isOrg,
-        dob: getValues().volunteerDOB,
-        phone: getValues().volunteerPhone,
-        email: getValues().volunteerEmail,
-        postcode: getValues().volunteerPostcode,
-        hours: getValues().volunteerHours,
-        monday: getValues().Monday,
-        tuesday: getValues().Tuesday,
-        wednesday: getValues().Wednesday,
-        thursday: getValues().Thursday,
-        friday: getValues().Friday,
-        saturday: getValues().Saturday,
-        sunday: getValues().Sunday,
-
+  async function volunteerDonate() {
+    try {
+      axios.post(`${process.env.REACT_APP_API_URL}donations/volunteer`, {
+        orgID: props.orgId,
+        volunteerName: getValues().volunteerName,
+        volunteerPhone: getValues().volunteerPhone,
+        volunteerEmail: getValues().volunteerEmail,
+        volunteerOrgName: getValues().volunteerOrgName
+          ? getValues().volunteerOrgName
+          : "",
+        volunteerDOB: getValues().volunteerDOB,
+        volunteerAmount: getValues().volunteerAmount
+          ? getValues().volunteerAmount
+          : "",
+        volunteerHours: getValues().volunteerHours,
+        volunteerPostcode: getValues().volunteerPostcode,
+        volunteerComment: getValues().volunteerComment,
+        volunteerHowHeard: getValues().volunteerHowHeard,
+        volunteerHowHeardOther: getValues().volunteerHowHeardOther
+          ? getValues().volunteerHowHeardOther
+          : "",
         howContribute: getValues().howContribute,
-        skills: getValues().Skills,
-        comment: getValues().volunteerComment,
-        howHeard: getValues().volunteerHowHeard,
-        howHeardOther: getValues().volunteerHowHeardOther,
-      })
-      .then((response) => {
-        navigate('../../success');
-      })
-      .catch((error) => {
-        console.log(error);
+        Skills: getValues().Skills,
+        Monday: getValues().Monday,
+        Tuesday: getValues().Tuesday,
+        Wednesday: getValues().Wednesday,
+        Thursday: getValues().Thursday,
+        Friday: getValues().Friday,
+        Saturday: getValues().Saturday,
+        Sunday: getValues().Sunday,
       });
+
+      const generalURL = `${process.env.REACT_APP_API_URL}mail/volunteer-info`;
+      axios
+        .post(generalURL, {
+          orgName: props.orgName,
+          name: getValues().volunteerName,
+          organisationFlag: getValues().isOrg,
+          organisationName: getValues().volunteerOrgName,
+          numVolunteers: getValues().volunteerAmount,
+          individualFlag: !getValues().isOrg,
+          dob: getValues().volunteerDOB,
+          phone: getValues().volunteerPhone,
+          email: getValues().volunteerEmail,
+          postcode: getValues().volunteerPostcode,
+          hours: getValues().volunteerHours,
+          monday: getValues().Monday,
+          tuesday: getValues().Tuesday,
+          wednesday: getValues().Wednesday,
+          thursday: getValues().Thursday,
+          friday: getValues().Friday,
+          saturday: getValues().Saturday,
+          sunday: getValues().Sunday,
+
+          howContribute: getValues().howContribute,
+          skills: getValues().Skills,
+          comment: getValues().volunteerComment,
+          howHeard: getValues().volunteerHowHeard,
+          howHeardOther: getValues().volunteerHowHeardOther,
+        })
+        .then((response) => {
+          navigate("../../success");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (e) {
       console.log("error", e);
       navigate(`../../volunteererror/${props.orgId}`);
     }
-  };
+  }
 
   return (
     <div className="VolunteerInfoContainer">
@@ -190,52 +189,59 @@ async function volunteerDonate() {
                 value="yes"
                 {...register("isOrg")}
               />
-                  {isOrgChecked && 
-              <div className="volunteerOrgInfo">
-                <div>
-                  {errors.volunteerOrgName && <span>*</span>}
-                  <label>Name of Organisation</label>
-                  {errors.volunteerOrgName && (
-                    <span style={{ margin: "20px", fontSize: "x-small" }}>
-                Organisation name cannot be blank
-              </span> 
-                  )}
-                  <input
-                    type="text"
-                    placeholder="Name of Organisation"
-                    {...register("volunteerOrgName", {
-                      pattern: /^[a-zA-Z0-9]/,
-                      required:true,
-                    })}
-                  />
-                </div>
-
-                <div>
-                <OverlayTrigger placement="top" overlay={volunteerAmountTooltip}>
-                  <label>Number of Volunteers (optional)<sup>(ℹ️)</sup></label>  
-                  </OverlayTrigger>
-                  <input
-                    type="number"
-                    placeholder="Enter an amount"
-                    {...register("volunteerAmount", {
-                      pattern: /[1-9]/,
-                    })}
+              {isOrgChecked && (
+                <div className="volunteerOrgInfo">
+                  <div>
+                    {errors.volunteerOrgName && <span>*</span>}
+                    <label>Name of Organisation</label>
+                    {errors.volunteerOrgName && (
+                      <span style={{ margin: "20px", fontSize: "x-small" }}>
+                        Organisation name cannot be blank
+                      </span>
+                    )}
+                    <input
+                      type="text"
+                      placeholder="Name of Organisation"
+                      {...register("volunteerOrgName", {
+                        pattern: /^[a-zA-Z0-9]/,
+                        required: true,
+                      })}
                     />
+                  </div>
+
+                  <div>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={volunteerAmountTooltip}
+                    >
+                      <label>
+                        Number of Volunteers (optional)<sup>(ℹ️)</sup>
+                      </label>
+                    </OverlayTrigger>
+                    <input
+                      type="number"
+                      placeholder="Enter an amount"
+                      {...register("volunteerAmount", {
+                        pattern: /[1-9]/,
+                      })}
+                    />
+                  </div>
                 </div>
-              </div>
-              }
+              )}
               <div>
-              {errors.volunteerDOB && <span>*</span>}
+                {errors.volunteerDOB && <span>*</span>}
                 <label>Date of Birth</label>
                 {errors.volunteerDOB && (
-                <span style={{ margin: "20px", fontSize: "x-small" }}>
-                  Date of Birth cannot be blank
-                </span>
-              )}
-                <input type="date" 
-                {...register("volunteerDOB", {
-                  required: true,
-                })} />
+                  <span style={{ margin: "20px", fontSize: "x-small" }}>
+                    Date of Birth cannot be blank
+                  </span>
+                )}
+                <input
+                  type="date"
+                  {...register("volunteerDOB", {
+                    required: true,
+                  })}
+                />
               </div>
             </div>
 
@@ -479,7 +485,7 @@ async function volunteerDonate() {
 
         {proceedFlag && (
           <>
-            <div style={{marginBottom: "10px"}}>
+            <div style={{ marginBottom: "10px" }}>
               <div>Hi {getValues().volunteerName},</div>
 
               <div>
@@ -509,9 +515,13 @@ async function volunteerDonate() {
               }}
             >
               <Button variant="outline-secondary" onClick={returnToForm}>
-               Something looks wrong, edit my contribution
+                Something looks wrong, edit my contribution
               </Button>
-              <Button className="proceedPayBtn" variant="warning" onClick={volunteerDonate}>
+              <Button
+                className="proceedPayBtn"
+                variant="warning"
+                onClick={volunteerDonate}
+              >
                 Looks good, send in my application!
               </Button>
             </div>
