@@ -1,6 +1,6 @@
 # EdAble Donor System
 
-This application is dream-team's implementation of EdAble's Donor system.
+This application is Dream-team's implementation of EdAble's Donor system.
 
 ## Software Architecture
  1. Frontend: Client Side 
@@ -16,24 +16,24 @@ This application is dream-team's implementation of EdAble's Donor system.
 
 ## How to Deploy Frontend
 
-Step 1: Go to front-end/ folder.
+Step 1: Navigate to the 'front-end' folder.
 
-Step 2: Make sure you have nodeJS installed
+Step 2: Make sure you have nodeJS installed (you may do this at: https://nodejs.org/en/ )
 
-Step 3: Run Npm Install
+Step 3: Run 'npm install'
 
-Step 4: Run Npm Build
+Step 4: Run 'npm build'
 
-A dist folder will be created, feel free to delpoy that onto a service.
+A 'dist' folder will be created, feel free to delpoy that onto your desired service
 
 
 ## How to Deploy Backend
-Step 1: Go to back-end/
+Step 1: Navigate to the 'back-end' folder
 
-Step 2: Make sure you have nodeJS installed
+Step 2: Make sure you have nodeJS installed (you may do this at: https://nodejs.org/en/ )
 
-Step 3: Run Npm Install
+Step 3: Run 'npm install'
 
-Step 4: Look up the process on how to deploy nodejs api on your preferred service.
+Step 4: Look up the process on how to deploy a nodeJS api on your preferred service.
 
 Example : Azure has drop in and extension so you would use the extension or zip api and drop.
