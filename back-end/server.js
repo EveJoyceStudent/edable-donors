@@ -9,7 +9,7 @@ dotenv.config();
 
 // imports
 const mail = require("./routes/mail");
-
+const donations = require("./routes/donations");
 // Middlewares
 
 const isDev = process.env.NODE_ENV === "development";
@@ -32,6 +32,7 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use("/mail", mail);
+app.use("/donations", donations);
 
 app.get("/", (req, res) => {
   res.send("Hello EdAble!");

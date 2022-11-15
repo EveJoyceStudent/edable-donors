@@ -10,7 +10,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // General donation receipt //
-
 router.post("/general", (req, res) => {
   const data = req.body;
   const date = new Date();
@@ -59,7 +58,7 @@ router.post("/general", (req, res) => {
   });
 
   const mail_options = {
-    from: `Bot Mailer <${process.env.user}>`,
+    from: `EdAble Donations <${process.env.user}>`,
     to: data.donorEmail,
     subject: "Donation Receipt",
     html: htmlMail,
@@ -128,7 +127,7 @@ router.post("/item", (req, res) => {
   });
 
   const mail_options = {
-    from: `Bot Mailer <${process.env.user}>`,
+    from: `EdAble Donations <${process.env.user}>`,
     to: data.donorEmail,
     subject: "Donation Receipt",
     html: htmlMail,
@@ -226,8 +225,8 @@ router.post("/volunteer-info", (req, res) => {
   const htmlMailReciept = templateReciept(replacements);
 
   const mail_options = {
-    from: `Bot Mailer <${process.env.user}>`,
-    to: "singhagampreet100@gmail.com",
+    from: `EdAble Donations <${process.env.user}>`,
+    to: `${process.env.user}`,
     subject: "New Volunteer",
     html: htmlMail,
     attachments: [
@@ -240,7 +239,7 @@ router.post("/volunteer-info", (req, res) => {
   };
 
   const mail_options_Receipt = {
-    from: `EdAble <${process.env.user}>`,
+    from: `EdAble Donations<${process.env.user}>`,
     to: data.email,
     subject: "Volunteer expression of interest",
     html: htmlMailReciept,

@@ -73,7 +73,7 @@ function ItemPage() {
                   )}%`}
                 />
                 <Card.Text>{item.description}</Card.Text>
-                {org.website && <Card.Text> Check out the <a href={org.website}>{`${org.name}`} website</a></Card.Text>}
+                {org.website && <Card.Text> Check out the <a href={org.website} target="_blank">{`${org.name}`} website</a></Card.Text>}
               </Card.Body>
               <Link to="/">
                 <Button className="goBackBtn" variant="warning">Go back</Button>
