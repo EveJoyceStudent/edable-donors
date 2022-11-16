@@ -22,45 +22,43 @@ function DonateTime() {
   }, [params.orgId]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     //   these lines set up the format of the page
-    <div style={{backgroundColor: "black", paddingTop: 30}}>
-      <Container fluid>
-        <Row style={{marginTop: "15px"}}>
-          <Col className={styles.orgsContainer}>
-            <Card className={styles.orgInfo}>
-              <h6 style={{ textAlign: "left", margin: "7px", color: "#FF7000"}}>
-                <i>YOU'RE DONATING TOWARDS Edable SUPPORTING</i>
-              </h6>
-              <Card.Title style={{fontSize: "2rem"}}>{org.name}</Card.Title>
-              <Card.Img className={styles.orgImg} variant="top" src={org.img} alt={`${org.name}`+"'s logo"} />
-              <Card.Body>
-                <Card.Text className={styles.orgDescription}>{org.description}</Card.Text>
-                  {org.website &&
-                <Card.Text className={styles.orgDescription}>
-                  {" "}
-                  Check out the <a href={org.website} target="_blank">{`${org.name}`} website</a>
-                </Card.Text>}
-              </Card.Body>
-              <Link to="/volunteer">
-                <Button variant="warning">Go back</Button>
-              </Link>
-            </Card>
-          </Col>
 
-          <Col className={styles.formContainer}>
+    <div className={styles.section}>
+      <img className={styles.orgImg} src={org.img} alt={`${org.name}'s logo`} />
+      <div className={styles.mainContent}>
+        <div>
+          <h2 className={`${styles.orgName} ${styles.volunteerOrgName}`}>
+            Thank you for choosing to support <br />
+            <span>{org.name}</span>
+          </h2>
+          <div className={`${styles.line}`}></div>
+          <p className={styles.des}>{org.description}</p>
+
+          {org.website && (
+            <div className={styles.website}>
+              Want to learn more about {org.name}
+              <div>
+                <a target="_blank" href={org.website}>
+                  VIEW WEBSITE
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+        <div>
+          <div className={styles.formCon}>
             <VolunteerForm orgId={orgID} orgName={org.name} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-          </Col>
-        </Row>
-      </Container>
-
+          </div>
+        </div>
+      </div>
+      <Link to="/volunteer">
+        <div className={`btn goBackBtn ${styles.backButton}`}>GO BACK</div>
+      </Link>
     </div>
   );
 }

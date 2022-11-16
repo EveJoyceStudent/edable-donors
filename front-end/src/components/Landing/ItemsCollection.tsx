@@ -61,22 +61,21 @@ function ItemsCollection(props: any) {
   const filteredItems = mergeList.filter((item: any) =>
     item.data.name.toLowerCase().includes(search.toLowerCase())
   );
+
   return (
     <>
       <div className={styles.containerDiv}>
-        <p style={{ paddingTop: "15px", fontSize: "20px" }}>
-          Or check out our other campaigns!
-        </p>
         <div
-          className="searchBar"
+          className={styles.searchBar}
           style={{
+            borderRadius: "3px",
             display: "flex",
             alignItems: "right",
             justifyContent: "right",
           }}
         >
           <input
-           style={{ fontSize: "18px" }}
+            style={{ fontSize: "16px" }}
             className={styles.input}
             type="text"
             onChange={handleChange}
@@ -86,40 +85,27 @@ function ItemsCollection(props: any) {
 
         <div className={styles.cardParentDiv}>
           {filteredItems.map((item: any) => (
-            <Card
-              border="warning"
-              key={item.id.toString()}
-              className={styles.cards}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                }}
-                to={`item/${item.parentDoc}/${item.id}`}
-              >
-                <Card.Body>
-                  <Card.Title>
-                    {item.orgName}
-                  </Card.Title>
-                  <div style={{ textAlign: "center" }}>
-                    <Card.Img
-                      className={styles.itemImg}
-                      variant="top"
-                      src={item.data.img}
-                      alt={"Image of " + `${item.data.name}`}
-                      />
-                      <Card.Title>
-                        <h1 style={{ fontSize: "20px", fontWeight:"500" }}>{item.data.name}</h1>
-                        <br />
-                      </Card.Title>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    <label className="dollarAmt" style={{ fontSize: "20px", width:"100%", textAlign:"center" }}>
-                      ${item.data.totalDonationsValue || 0} of $
-                      {item.data.initialPrice}
-                    </label>
-                  </div>
+            <div key={item.id.toString()} className={styles.cards}>
+              <div className={styles.cardImage}>
+                <img src={item.data.img} alt={`Image of  ${item.data.name}`} />
+              </div>
+
+              <div className={styles.cardBody}>
+                <div>
+                  <h3 className={styles.cardTitle}>
+                    {item.orgName}:
+                    <br />
+                    <span>{item.data.name}</span>
+                  </h3>
+
+                  <p className={styles.cardDes}>{item.data.summary}</p>
+                </div>
+
+                <div className={styles.bottomHalfCard}>
+                  <p>
+                    ${item.data.totalDonationsValue || 0} of $
+                    {item.data.initialPrice}
+                  </p>
                   <ProgressBar
                     striped
                     now={
@@ -134,10 +120,18 @@ function ItemsCollection(props: any) {
                         100
                     )}%`}
                   />
-                  <Card.Text style={{ fontSize:"17px"}}>{item.data.summary}</Card.Text>
-                </Card.Body>
-              </Link>
-            </Card>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                    to={`item/${item.parentDoc}/${item.id}`}
+                  >
+                    <div className={styles.btn}>DONATE NOW!</div>
+                  </Link>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

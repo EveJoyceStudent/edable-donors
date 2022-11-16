@@ -29,6 +29,11 @@ code {
     url("./fonts/Lora/Lora-VariableFont_wght.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "black_stonealternative";
+  src: local("blackStone"),
+    url("./fonts/BlackStone/blackstone-alternative-webfont.woff") format("woff");
+}
 
 h1 {
   font-family: "Roboto";
@@ -39,7 +44,6 @@ h1 {
   /* identical to box height, or 123% */
   color: #000000;
 }
-
 
 h2 {
   font-family: "Lora";
