@@ -30,8 +30,8 @@ code {
 }
 
 @font-face {
-  font-family: "black_stonealternative";
-  src: local("blackStone"),
+  font-family: "BlackStone";
+  src: local("BlackStone"),
     url("./fonts/BlackStone/blackstone-alternative-webfont.woff") format("woff");
 }
 
