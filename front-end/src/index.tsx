@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './fonts/Roboto/Roboto-Medium.ttf';
 import './fonts/Lora/Lora-VariableFont_wght.ttf';
+import './fonts/BlackStone/blackstone-alternative-webfont.woff';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
