@@ -32,7 +32,9 @@ function DonorForm(props: any) {
     </Tooltip>
   );
   const amountTooltip = (props: any) => (
-    <Tooltip {...props}>All donations made are in AUD and must be a whole number amount</Tooltip>
+    <Tooltip {...props}>
+      All donations made are in AUD and must be a whole number amount
+    </Tooltip>
   );
 
   const {
@@ -63,7 +65,7 @@ function DonorForm(props: any) {
   return (
     <div className="donorInfoContainer">
       <div>
-        <p style= {{ color: "#5E17A9" }}>Your tax deductible contribution</p>
+        <p>Your tax deductible contribution</p>
         {!proceedFlag && (
           <>
             <div className="presetButtons">
@@ -104,7 +106,9 @@ function DonorForm(props: any) {
                     <button
                       type="button"
                       onClick={() => {
-                        setValue("paidAMT", props.itemAmount, { shouldValidate: true });
+                        setValue("paidAMT", props.itemAmount, {
+                          shouldValidate: true,
+                        });
                       }}
                     >
                       Full Amount
@@ -114,14 +118,14 @@ function DonorForm(props: any) {
               </div>
             </div>
             <br />
-            OR
+            <p className="or">Or</p>
             <form>
               <div>
                 <div className="Amount">
-                  {errors.paidAMT && <span>*</span>}
                   <OverlayTrigger placement="top" overlay={amountTooltip}>
                     <label>
-                      Enter an amount<sup>(ℹ️)</sup>
+                      Enter an Amount*
+                      <sup>(ℹ️)</sup>
                     </label>
                   </OverlayTrigger>
                   {errors.paidAMT && (
@@ -132,29 +136,30 @@ function DonorForm(props: any) {
 
                   <input
                     type="number"
-                    placeholder="Enter an amount"
                     {...register("paidAMT", {
                       min: 1,
                       required: true,
-                      pattern:/^[-\d]\d*$/
+                      pattern: /^[-\d]\d*$/,
                     })}
                   />
                 </div>
 
                 {!isItemDonation && (
                   <div>
-                    <label htmlFor="monthly">
-                      Let's make this a monthly payment!
-                    </label>
-                    <input type="checkbox" {...register("monthly")} />
+                    <div className="checkbox monthlyPayment">
+                      {" "}
+                      <input type="checkbox" {...register("monthly")} />
+                      <label htmlFor="monthly">
+                        Make this a monthly payment
+                      </label>
+                    </div>
                   </div>
                 )}
 
                 <br />
 
                 <div>
-                  {errors.name && <span>*</span>}
-                  <label>Name</label>
+                  <label>Name*</label>
                   {errors.name && (
                     <span style={{ margin: "20px", fontSize: "x-small" }}>
                       Name cannot be blank
@@ -162,7 +167,6 @@ function DonorForm(props: any) {
                   )}
                   <input
                     type="text"
-                    placeholder="Name"
                     {...register("name", {
                       required: true,
                       pattern: /^[a-zA-Z0-9]/,
@@ -170,15 +174,13 @@ function DonorForm(props: any) {
                   />
                 </div>
                 <div>
-                  {errors.phone && <span>*</span>}
-                  <label>Phone</label>
+                  <label>Phone*</label>
                   {errors.phone && (
                     <span style={{ margin: "20px", fontSize: "x-small" }}>
                       Please enter a valid phone number
                     </span>
                   )}
                   <input
-                    placeholder="04XX XXX XXX"
                     {...register("phone", {
                       required: true,
                       maxLength: 10,
@@ -190,8 +192,7 @@ function DonorForm(props: any) {
                 </div>
 
                 <div>
-                  {errors.email && <span>*</span>}
-                  <label>Email</label>
+                  <label>Email*</label>
                   {errors.email && (
                     <span style={{ margin: "20px", fontSize: "x-small" }}>
                       Please enter a valid email
@@ -199,7 +200,6 @@ function DonorForm(props: any) {
                   )}
                   <input
                     type="email"
-                    placeholder="Email address"
                     {...register("email", {
                       required: true,
                       pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -207,31 +207,27 @@ function DonorForm(props: any) {
                   />
                 </div>
 
-                <div className="IsAnon">
+                <div className="checkbox isAron">
+                  <input type="checkbox" value="yes" {...register("IsAnon")} />
                   <OverlayTrigger placement="top" overlay={anonTooltip}>
                     <label htmlFor="IsAnon">
                       Donate anonymously?<sup>(ℹ️)</sup>
                     </label>
                   </OverlayTrigger>
-                  <input type="checkbox" value="yes" {...register("IsAnon")} />
                 </div>
 
-                <div style={{ paddingBottom: "10px" }}>
-                  <label htmlFor="mailingList">Join our mailing list?</label>
+                <div className="checkbox mailingList">
                   <input
                     type="checkbox"
                     value="yes"
                     {...register("mailingList")}
                   />
+                  <label htmlFor="mailingList">Join our mailing list?</label>
                 </div>
 
                 <div>
                   <label>Comment (optional)</label>
-                  <input
-                    type="text"
-                    placeholder="Add a comment to your donation"
-                    {...register("comment")}
-                  />
+                  <input type="text" {...register("comment")} />
                 </div>
                 <div>
                   <label>How did you hear about us? (optional)</label>
@@ -264,7 +260,6 @@ function DonorForm(props: any) {
                         {...register("howHeardOther")}
                         className="input"
                         type="text"
-                        placeholder="Other"
                       />
                     </div>
                   </div>
@@ -284,7 +279,11 @@ function DonorForm(props: any) {
                   {!isValid && formAttemptedIncomplete && (
                     <div>Please complete the form.</div>
                   )}
-                  <Button className="proceedPayBtn" variant="warning" onClick={proceed}>
+                  <Button
+                    className="proceedPayBtn"
+                    variant="warning"
+                    onClick={proceed}
+                  >
                     Proceed to Payment
                   </Button>
                 </div>

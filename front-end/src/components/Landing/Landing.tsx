@@ -3,12 +3,9 @@ import "./Landing.css";
 import { Link } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
-import { Button, Container, Carousel, Row, Col } from "react-bootstrap";
-import { ReactComponent as InclusionHero } from "./InclusionHero.svg";
+import { Button, Carousel, Row, Col } from "react-bootstrap";
 
-import Sidebar from "./Sidebar";
 import ItemsCollection from "./ItemsCollection";
-import Organisation from "../Organisation/Organisation";
 
 function Landing() {
   const [orgList, setOrgList] = useState<any>([]);
@@ -34,47 +31,31 @@ function Landing() {
     window.scrollTo(0, 0);
   }, []);
 
+  const [search, setSearch] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const filteredOrganisations = orgList.filter((Organisations: any) =>
+    Organisations.data.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     //   these lines set up the format of the page
     <>
       <div className="landing">
         {/* Burger menu */}
-        <div className="navBarContainer">
-          <Sidebar orgList={orgList} />
-        </div>
 
-        <div className="header">
-          <Container fluid>
-            <Row>
-              <Col></Col>
-              <Col xs={0} md="auto">
-                <InclusionHero className="star" />
-              </Col>
-              {/* <Col>
-                <h3 style={{ color: "white", textAlign: "right"}}>
-                  <i>
-                    Increasing employment opportunities for people with Autism
-                    Spectrum Disorder and other disabilities
-                  </i>
-                </h3>
-              </Col> */}
-            </Row>
-          </Container>
-          <br />
-          <p style={{ color: "orange", paddingBottom:"10px" }}>
-            By making a tax deductable donation to EdAble, you will contribute
-            to...
-          </p>
-        </div>
         <div className="App" id="outer-container">
           {/* Carousel */}
-          <Container>
+          <div className="slideshowCon">
             <Row>
               <Col>
                 <div className="carouselContainer">
                   <Carousel
                     touch={true}
-                    interval={3000}
+                    interval={4000}
                     indicators={true}
                     variant="light"
                   >
@@ -82,7 +63,7 @@ function Landing() {
                       <Carousel.Item
                         key={org.id.toString()}
                         style={{
-                          textAlign: "center",
+                          textAlign: "left",
                         }}
                       >
                         <Link
@@ -94,22 +75,30 @@ function Landing() {
                         >
                           {/* this div contains the carousel item's contents and makes the whole carousel item a link (based on link tag above) */}
                           <div className="carousel-contents">
-                            <h2 style={{ textAlign: "center" }}>
-                              {org.data.name}
-                            </h2>
                             <img
-                              className="imgCarousel"
-                              src={org.data.img}
-                              alt={`${org.data.name}` + "'s logo"}
+                              className="carouselImage"
+                              src={`${org.data.img}`}
                             />
-                            <p className="orgSummary">{org.data.summary}</p>
 
-                            <Button className="btnContribute" variant="warning">
-                              <i className="btnText">
-                                I want to contribute to <br></br>
-                                <b>{org.data.name}!</b>
-                              </i>
-                            </Button>
+                            <div className="caroursel-text">
+                              <div className="carousel-contents-bottom">
+                                <div>
+                                  {" "}
+                                  <h2 className="title">{org.data.name}</h2>
+                                  <p className="orgSummary">
+                                    {org.data.summary}
+                                  </p>
+                                </div>
+
+                                <Button
+                                  className="btnContribute"
+                                  variant="warning"
+                                >
+                                  DONATE TO&#160;
+                                  {org.data.name.toUpperCase()}!
+                                </Button>
+                              </div>
+                            </div>
                           </div>
                         </Link>
                       </Carousel.Item>
@@ -118,7 +107,13 @@ function Landing() {
                 </div>
               </Col>
             </Row>
-          </Container>
+          </div>
+        </div>
+        <br></br>
+        <div>
+          <h2 className="pageTitle">
+            or Donate to <span>selected</span> items below
+          </h2>
         </div>
 
         <ItemsCollection orgList={orgList} />
