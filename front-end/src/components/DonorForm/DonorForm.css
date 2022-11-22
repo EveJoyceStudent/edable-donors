@@ -1,35 +1,75 @@
-.donorInfoContainer, .VolunteerInfoContainer {
-  border-radius: 10px;
-  border: 1px solid rgb(215, 215, 215);
-  padding: 30px;
-  min-width: 500px;
-  max-width: 60%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
+.donorInfoContainer {
+  background-color: rgb(238, 238, 238);
+  padding: 20px 40px;
+  border-radius: 3px;
+}
+
+.formTitle {
+  color: #5e17a9;
 }
 
 .presetButtons {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-bottom: -20px;
 }
 
-label {
-  font-size: small;
-  color: rgb(46, 46, 46);
+label,
+.or {
+  padding: 5px 0;
+  font-weight: lighter;
 }
 
-input, select {
-  display: block;
-  box-sizing: border-box;
+label span {
+  color: rgb(176, 53, 53);
+  margin-left: 2px;
+}
+
+input:disabled {
+  background-color: rgb(197, 197, 197);
+}
+
+.checkbox {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.checkbox input {
+  width: auto;
+  margin-right: 5px;
+}
+
+.monthlyPayment {
+  margin-top: 15px;
+  margin-bottom: -25px;
+}
+
+.availablity {
+  display: flex;
+  gap: 60px;
+  padding-bottom: 10px;
+}
+
+.isAron {
+  margin-top: 15px;
+}
+.mailingList {
+  margin-bottom: 15px;
+}
+input,
+select {
+  height: 50px;
   width: 100%;
-  border-radius: 3px;
-  border: 1px solid #e4e4e4;
-  padding: 10px 10px;
-  margin-bottom: 1px;
-  font-size: 12px;
-  background-color: #e4e4e4;
+  border: 0.1px solid;
+  border-color: grey;
+  border-radius: 5px;
+}
+
+select {
+  padding: 15px 10px;
+  border: none;
 }
 
 span {
@@ -39,8 +79,14 @@ span {
 
 .proceedPayBtn {
   color: white;
-  background-color: #FF7000;
-  border-color: #FF7000;
+  background-color: #ff7000;
+  border-color: #ff7000;
+  margin-right: auto;
+}
+
+.proceedPayBtn:hover {
+  background-color: #f16800;
+  color: white;
 }
 
 button {
@@ -49,13 +95,13 @@ button {
   padding: 5px 10px;
   font-size: 14px;
   margin: 5px;
-  color:white;
-  background-color: #FF7000;
-  border-color: #FF7000;
+  color: white;
+  background-color: #ff7000;
+  border-color: #ff7000;
 }
 
-button[type='submit'],
-input[type='submit'] {
+button[type="submit"],
+input[type="submit"] {
   background: #ec598f;
   color: white;
   text-transform: uppercase;
@@ -65,35 +111,4 @@ input[type='submit'] {
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 10px;
-}
-
-button[type='submit']:hover,
-input[type='submit']:hover {
-  background: #bf1650;
-}
-
-@media screen and (max-width: 630px) {
-  .donorInfoContainer, .VolunteerInfoContainer{
-    width: calc(100vw - 30px);
-    min-width:0px;
-    max-width: 100%;
-  }
-}
-@media screen and (max-width: 310px) {
-  .donorInfoContainer, .VolunteerInfoContainer{
-    padding:10px;
-    padding-top: 30px;
-  }
-}
-/* .volunteerOrgInfo{
-  display: none;
-} */
-.DOB{
-  display: block;
-}
-/* #isOrg:checked + .volunteerOrgInfo {
-  display: block;
-} */
-#isOrg:checked ~ .DOB {
-  display: none;
 }

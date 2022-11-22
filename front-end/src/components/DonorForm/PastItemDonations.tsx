@@ -16,43 +16,38 @@ function PastDonations() {
   const [pastDonations, setPastDonations] = useState<any>([]);
 
   useEffect(() => {
-      const orgID = params.orgID || "";
-      const itemID = params.itemID || "";
+    const orgID = params.orgID || "";
+    const itemID = params.itemID || "";
     const q = query(
       collection(db, `Organisations/${orgID}/Items/${itemID}/ItemsDonations`),
       where("IsRefunded", "==", false),
       orderBy("donationDate", "desc"),
       limit(10)
     );
-    onSnapshot(q, (querySnapshot) => {
-      setPastDonations(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
+    onSnapshot(
+      q,
+      (querySnapshot) => {
+        setPastDonations(
+          querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
         );
-      }, (e)=>console.log("error", e));
+      },
+      (e) => console.log("error", e)
+    );
   }, []);
 
   return (
     <div className="donationContainer">
       <div className="conPadding">
-        <h3 className="donationTitle">Past Donations</h3>
         {pastDonations.map((pastDonation: any) => (
           <p key={pastDonation.id} className="donationInfo">
-            {pastDonation.data.donorPublicName}&nbsp;
-            <i style={{ fontWeight: "normal", fontStyle: "normal" }}>donated</i>
-            &nbsp; ${pastDonation.data.amount}
-            <i style={{ fontWeight: "normal", fontStyle: "normal" }}>
-              {" "}
-              &nbsp;towards this item
-            </i>
+            {`${pastDonation.data.donorPublicName} donated $${pastDonation.data.amount} towards this item`}
           </p>
         ))}
-        {pastDonations.length == 0 && (
-          <p className="donationInfo">
-            <i style={{ fontWeight: "normal" }}>Be the first to donate!</i>
-          </p>
+        {pastDonations.length === 0 && (
+          <p className="donationInfo">Be the first to donate!</p>
         )}
       </div>
     </div>

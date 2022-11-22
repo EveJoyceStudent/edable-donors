@@ -24,7 +24,10 @@ function Sidebar(props: any) {
   return (
     <>
       <Navbar expand={false}>
-        <Navbar.Toggle children={<FaBars style={{color:"#C4C4C4"}} />} aria-controls={`offcanvasNavbar-expand`} />
+        <Navbar.Toggle
+          children={<FaBars style={{ color: "#C4C4C4" }} />}
+          aria-controls={`offcanvasNavbar-expand`}
+        />
         <Navbar.Offcanvas
           id={`offcanvasNavbar-expand`}
           aria-labelledby={`offcanvasNavbarLabel-expand`}

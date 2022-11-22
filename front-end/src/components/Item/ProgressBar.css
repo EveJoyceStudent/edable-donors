@@ -1,5 +1,5 @@
 .progress {
-    --bs-progress-bar-bg: #5E17A9;
-    font-size:20px;
-    height: 30px;
+  --bs-progress-bar-bg: #5e17a9;
+  font-size: 20px;
+  height: 30px;
 }

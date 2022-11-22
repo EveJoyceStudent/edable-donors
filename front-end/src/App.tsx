@@ -20,8 +20,7 @@ function App() {
   return (
     <PayPalScriptProvider
       options={{
-        "client-id":
-        process.env.REACT_APP_PAYPAL_CLIENT_ID!,
+        "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID!,
         currency: "AUD",
       }}
     >
@@ -37,7 +36,10 @@ function App() {
             <Route path="organisation/:orgId" element={<PastDonations />} />
             <Route path="item/:orgID/:itemID" element={<ItemPage />} />
             <Route path="item/:orgID/:itemID" element={<PastItemDonations />} />
-            <Route path="volunteer/organisation/:orgId" element={<DonateTime />} />
+            <Route
+              path="volunteer/organisation/:orgId"
+              element={<DonateTime />}
+            />
             <Route path="volunteer/success" element={<Success />} />
 
             {/* Using path="*"" means "match anything", so this route
