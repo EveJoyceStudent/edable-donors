@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "edable-donor",
     "rewrites":[{
       "source": "**",
       "function": "allFunctions"
